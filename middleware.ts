@@ -1,11 +1,12 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-let locales = ['en', 'zh']
-let defaultLocale = 'zh'
+const locales = ['en', 'zh']
+const defaultLocale = 'zh'
 
 // 获取请求的语言
 function getLocale(request: NextRequest) {
+  // 从 cookie 或 accept-language 头获取语言
   const acceptLanguage = request.headers.get('accept-language')
   if (acceptLanguage) {
     const preferredLocale = acceptLanguage
@@ -23,21 +24,21 @@ function getLocale(request: NextRequest) {
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
   
+  // 如果是根路径，重定向到默认语言
+  if (pathname === '/') {
+    return NextResponse.redirect(new URL(`/${defaultLocale}`, request.url))
+  }
+  
   // 如果路径已经包含语言代码，不做处理
-  if (locales.some(locale => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`)) {
+  if (locales.some(locale => pathname.startsWith(`/${locale}`))) {
     return NextResponse.next()
   }
-
+  
   // 获取用户首选语言
   const locale = getLocale(request)
   
   // 重定向到带有语言代码的路径
-  return NextResponse.redirect(
-    new URL(
-      `/${locale}${pathname === '/' ? '' : pathname}`,
-      request.url
-    )
-  )
+  return NextResponse.redirect(new URL(`/${locale}${pathname}`, request.url))
 }
 
 export const config = {
