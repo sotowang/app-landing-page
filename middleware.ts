@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 const locales = ['en', 'zh']
-const defaultLocale = 'zh'
+const defaultLocale = 'en'
 
 // 获取请求的语言
 function getLocale(request: NextRequest) {
