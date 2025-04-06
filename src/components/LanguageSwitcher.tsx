@@ -1,30 +1,20 @@
 'use client';
 
-import React, { useTransition } from 'react';
-import { useLocale, useTranslations } from 'next-intl';
-import { usePathname, useRouter } from 'next-intl/client';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 
 export default function LanguageSwitcher() {
-  const locale = useLocale();
-  const router = useRouter();
   const pathname = usePathname();
-  const t = useTranslations('common');
-  const [isPending, startTransition] = useTransition();
-  
-  const switchLocale = () => {
-    const nextLocale = locale === 'en' ? 'zh' : 'en';
-    startTransition(() => {
-      router.replace(pathname, { locale: nextLocale });
-    });
-  };
-  
+  const isEnglish = pathname.startsWith('/en');
+  const targetLocale = isEnglish ? 'zh' : 'en';
+  const targetPath = isEnglish ? pathname.replace(/^\/en/, '') : pathname.replace(/^\/zh/, '');
+
   return (
-    <button
+    <Link 
+      href={`/${targetLocale}${targetPath || ''}`} 
       className="text-sm hover:text-blue-600 transition"
-      onClick={switchLocale}
-      disabled={isPending}
     >
-      {t('languageSwitcher')}
-    </button>
+      {isEnglish ? '中文' : 'English'}
+    </Link>
   );
 } 
