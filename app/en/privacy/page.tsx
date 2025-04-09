@@ -8,7 +8,7 @@ export default function PrivacyPage() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
             <Link href="/en" className="text-xl font-bold">
-              App Showcase
+              Smart Home Suite
             </Link>
             
             <nav className="hidden md:flex space-x-6">
@@ -20,7 +20,7 @@ export default function PrivacyPage() {
             </nav>
             
             <div className="flex items-center space-x-4">
-              <Link href="/privacy" className="text-sm hover:text-blue-600 transition">中文</Link>
+              <Link href="/zh/privacy" className="text-sm hover:text-blue-600 transition">中文</Link>
               <Link 
                 href="#download" 
                 className="hidden md:inline-block bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
@@ -64,6 +64,21 @@ export default function PrivacyPage() {
               <li>verify compliance with the terms and conditions governing the use of our website.</li>
             </ul>
             
+            <h2 className="text-2xl font-bold mb-4">Smart Home Device Data Processing</h2>
+            <p className="mb-4">When using our Smart Home Suite, our applications collect data about your home environment and device usage, including but not limited to:</p>
+            <ul className="list-disc pl-8 mb-4">
+              <li>device status and usage patterns;</li>
+              <li>environmental data such as temperature, lighting, and energy usage;</li>
+              <li>camera images and recordings (if you use security monitoring features);</li>
+              <li>time and frequency of device usage;</li>
+              <li>automation rules and preference settings.</li>
+            </ul>
+            <p className="mb-4">This data is used to provide services, optimize performance, and improve our products and services. We implement strict security measures to protect this sensitive information.</p>
+            
+            <h2 className="text-2xl font-bold mb-4">Payment Processing</h2>
+            <p className="mb-4">We use Paddle as our payment processing service provider. When you make a subscription or purchase through our website, your payment information is provided directly to Paddle, and we do not store your complete payment card details.</p>
+            <p className="mb-4">Paddle's privacy policy can be found on their website: <a href="https://www.paddle.com/legal/privacy" className="text-blue-600 hover:underline">https://www.paddle.com/legal/privacy</a>.</p>
+            
             <h2 className="text-2xl font-bold mb-4">Disclosing Personal Information</h2>
             <p className="mb-4">We may disclose your personal information to any of our employees, officers, agents, suppliers or subcontractors insofar as reasonably necessary for the purposes set out in this privacy policy.</p>
             <p className="mb-4">We may disclose your personal information:</p>
@@ -101,8 +116,9 @@ export default function PrivacyPage() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
-              <h3 className="text-xl font-bold mb-4">App Showcase</h3>
-              <p className="text-gray-400">© 2023 App Showcase. All rights reserved.</p>
+              <h3 className="text-xl font-bold mb-4">Smart Home Suite</h3>
+              <p className="text-gray-400">© 2023 Smart Home Technologies. All rights reserved.</p>
+              <p className="text-gray-400 mt-2">Secure payments by <a href="https://paddle.com" className="underline">Paddle</a></p>
             </div>
             
             <div>
@@ -131,7 +147,7 @@ export default function PrivacyPage() {
               <ul className="space-y-2">
                 <li>
                   <Link href="/en/terms" className="text-gray-400 hover:text-white transition">
-                    Terms & Conditions
+                    Terms of Service
                   </Link>
                 </li>
                 <li>
@@ -143,15 +159,15 @@ export default function PrivacyPage() {
             </div>
             
             <div>
-              <h3 className="text-lg font-semibold mb-4">Download</h3>
-              <div className="flex flex-col space-y-2">
-                <Link href="#" className="text-gray-400 hover:text-white transition">
-                  App Store
-                </Link>
-                <Link href="#" className="text-gray-400 hover:text-white transition">
-                  Google Play
-                </Link>
-              </div>
+              <h3 className="text-lg font-semibold mb-4">Contact</h3>
+              <ul className="space-y-2">
+                <li className="text-gray-400">
+                  Email: support@smarthomesuite.com
+                </li>
+                <li className="text-gray-400">
+                  Phone: +1 (555) 123-4567
+                </li>
+              </ul>
             </div>
           </div>
         </div>

@@ -7,16 +7,16 @@ export default function PrivacyPage() {
       <header className="bg-white shadow-md">
         <div className="container mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
-            <Link href="/" className="text-xl font-bold">
-              App Showcase
+            <Link href="/zh" className="text-xl font-bold">
+              智能家居展示
             </Link>
             
             <nav className="hidden md:flex space-x-6">
-              <Link href="/" className="hover:text-blue-600">首页</Link>
-              <Link href="/#features" className="hover:text-blue-600">功能特点</Link>
-              <Link href="/#pricing" className="hover:text-blue-600">价格方案</Link>
-              <Link href="/terms" className="hover:text-blue-600">条款和条件</Link>
-              <Link href="/privacy" className="hover:text-blue-600 text-blue-600 font-semibold">隐私政策</Link>
+              <Link href="/zh" className="hover:text-blue-600">首页</Link>
+              <Link href="/zh#features" className="hover:text-blue-600">功能特点</Link>
+              <Link href="/zh#pricing" className="hover:text-blue-600">价格方案</Link>
+              <Link href="/zh/terms" className="hover:text-blue-600">服务条款</Link>
+              <Link href="/zh/privacy" className="hover:text-blue-600 text-blue-600 font-semibold">隐私政策</Link>
             </nav>
             
             <div className="flex items-center space-x-4">
@@ -64,6 +64,21 @@ export default function PrivacyPage() {
               <li>验证对我们网站安全区域的访问的合规性。</li>
             </ul>
             
+            <h2 className="text-2xl font-bold mb-4">家庭智能设备的数据处理</h2>
+            <p className="mb-4">在使用我们的智能家居套件时，我们的应用程序会收集有关您的家庭环境和设备使用情况的数据，包括但不限于：</p>
+            <ul className="list-disc pl-8 mb-4">
+              <li>设备状态和使用模式；</li>
+              <li>温度、照明和能源使用等环境数据；</li>
+              <li>摄像头图像和录像（如果您使用安全监控功能）；</li>
+              <li>设备使用时间和频率；</li>
+              <li>自动化规则和偏好设置。</li>
+            </ul>
+            <p className="mb-4">这些数据用于提供服务、优化性能并改进我们的产品和服务。我们实施严格的安全措施来保护这些敏感信息。</p>
+            
+            <h2 className="text-2xl font-bold mb-4">支付处理</h2>
+            <p className="mb-4">我们使用 Paddle 作为我们的支付处理服务提供商。当您通过我们的网站进行订阅或购买时，您的支付信息将直接提供给 Paddle，我们不会存储您的完整支付卡详细信息。</p>
+            <p className="mb-4">Paddle 的隐私政策可在其网站上找到：<a href="https://www.paddle.com/legal/privacy" className="text-blue-600 hover:underline">https://www.paddle.com/legal/privacy</a>。</p>
+            
             <h2 className="text-2xl font-bold mb-4">披露个人信息</h2>
             <p className="mb-4">我们可能会在以下情况下向我们任何员工、高管、承包商、代理人、供应商或分包商披露您的个人信息，只要这对于实现本政策中规定的目的是合理必要的。</p>
             <p className="mb-4">我们还可能在以下情况下披露您的个人信息：</p>
@@ -101,25 +116,26 @@ export default function PrivacyPage() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
-              <h3 className="text-xl font-bold mb-4">App Showcase</h3>
-              <p className="text-gray-400">© 2023 App Showcase. All rights reserved.</p>
+              <h3 className="text-xl font-bold mb-4">智能家居套件</h3>
+              <p className="text-gray-400">© 2023 智能家居科技. 保留所有权利.</p>
+              <p className="text-gray-400 mt-2">安全支付由 <a href="https://paddle.com" className="underline">Paddle</a> 提供</p>
             </div>
             
             <div>
               <h3 className="text-lg font-semibold mb-4">链接</h3>
               <ul className="space-y-2">
                 <li>
-                  <Link href="/" className="text-gray-400 hover:text-white transition">
+                  <Link href="/zh" className="text-gray-400 hover:text-white transition">
                     首页
                   </Link>
                 </li>
                 <li>
-                  <Link href="/#features" className="text-gray-400 hover:text-white transition">
+                  <Link href="/zh#features" className="text-gray-400 hover:text-white transition">
                     功能特点
                   </Link>
                 </li>
                 <li>
-                  <Link href="/#pricing" className="text-gray-400 hover:text-white transition">
+                  <Link href="/zh#pricing" className="text-gray-400 hover:text-white transition">
                     价格方案
                   </Link>
                 </li>
@@ -130,12 +146,12 @@ export default function PrivacyPage() {
               <h3 className="text-lg font-semibold mb-4">法律</h3>
               <ul className="space-y-2">
                 <li>
-                  <Link href="/terms" className="text-gray-400 hover:text-white transition">
-                    条款和条件
+                  <Link href="/zh/terms" className="text-gray-400 hover:text-white transition">
+                    服务条款
                   </Link>
                 </li>
                 <li>
-                  <Link href="/privacy" className="text-gray-400 hover:text-white transition">
+                  <Link href="/zh/privacy" className="text-gray-400 hover:text-white transition">
                     隐私政策
                   </Link>
                 </li>
@@ -143,15 +159,15 @@ export default function PrivacyPage() {
             </div>
             
             <div>
-              <h3 className="text-lg font-semibold mb-4">下载</h3>
-              <div className="flex flex-col space-y-2">
-                <Link href="#" className="text-gray-400 hover:text-white transition">
-                  App Store
-                </Link>
-                <Link href="#" className="text-gray-400 hover:text-white transition">
-                  Google Play
-                </Link>
-              </div>
+              <h3 className="text-lg font-semibold mb-4">联系我们</h3>
+              <ul className="space-y-2">
+                <li className="text-gray-400">
+                  电子邮件: support@smarthomesuite.com
+                </li>
+                <li className="text-gray-400">
+                  电话: +1 (555) 123-4567
+                </li>
+              </ul>
             </div>
           </div>
         </div>
