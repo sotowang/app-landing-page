@@ -8,7 +8,7 @@ export default function TermsPage() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
             <Link href="/en" className="text-xl font-bold">
-              Smart Home Suite
+              SuperSpeech
             </Link>
             
             <nav className="hidden md:flex space-x-6">
@@ -42,7 +42,7 @@ export default function TermsPage() {
             <p className="mb-4">We offer a 14-day money-back guarantee for all plans. If you are not satisfied with our service, you can request a full refund within 14 days of purchase, no questions asked.</p>
             
             <h2 className="text-2xl font-bold mb-4">1. Introduction</h2>
-            <p className="mb-4">These Website Standard Terms and Conditions written on this webpage shall manage your use of our website, accessible at smarthomesuite.com.</p>
+            <p className="mb-4">These Website Standard Terms and Conditions written on this webpage shall manage your use of our website, accessible at superspeech.com.</p>
             <p className="mb-4">These Terms will be applied fully and affect your use of this Website. By using this Website, you agreed to accept all terms and conditions written here. You must not use this Website if you disagree with any of these Website Standard Terms and Conditions.</p>
             
             <h2 className="text-2xl font-bold mb-4">2. Intellectual Property Rights</h2>
@@ -84,8 +84,8 @@ export default function TermsPage() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
-              <h3 className="text-xl font-bold mb-4">Smart Home Suite</h3>
-              <p className="text-gray-400">© 2023 Smart Home Technologies. All rights reserved.</p>
+              <h3 className="text-xl font-bold mb-4">SuperSpeech</h3>
+              <p className="text-gray-400">© 2023 SuperSpeech Technologies. All rights reserved.</p>
               <p className="text-gray-400 mt-2">Secure payments by <a href="https://paddle.com" className="underline">Paddle</a></p>
             </div>
             
@@ -130,7 +130,7 @@ export default function TermsPage() {
               <h3 className="text-lg font-semibold mb-4">Contact</h3>
               <ul className="space-y-2">
                 <li className="text-gray-400">
-                  Email: support@smarthomesuite.com
+                  Email: support@superspeech.com
                 </li>
                 <li className="text-gray-400">
                   Phone: +1 (555) 123-4567

@@ -393,8 +393,8 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
-              <h3 className="text-xl font-bold mb-4">智能家居套件</h3>
-              <p className="text-gray-400">© 2023 智能家居科技. 保留所有权利.</p>
+              <h3 className="text-xl font-bold mb-4">SuperSpeech</h3>
+              <p className="text-gray-400">© 2023 SuperSpeech科技. 保留所有权利.</p>
               <p className="text-gray-400 mt-2">安全支付由 <a href="https://paddle.com" className="underline">Paddle</a> 提供</p>
             </div>
             
@@ -439,7 +439,7 @@ export default function Home() {
               <h3 className="text-lg font-semibold mb-4">联系我们</h3>
               <ul className="space-y-2">
                 <li className="text-gray-400">
-                  电子邮件: support@smarthomesuite.com
+                  电子邮件: support@superspeech.com
                 </li>
                 <li className="text-gray-400">
                   电话: +1 (555) 123-4567

@@ -8,7 +8,7 @@ export default function PrivacyPage() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
             <Link href="/en" className="text-xl font-bold">
-              Smart Home Suite
+              SuperSpeech
             </Link>
             
             <nav className="hidden md:flex space-x-6">
@@ -64,14 +64,14 @@ export default function PrivacyPage() {
               <li>verify compliance with the terms and conditions governing the use of our website.</li>
             </ul>
             
-            <h2 className="text-2xl font-bold mb-4">Smart Home Device Data Processing</h2>
-            <p className="mb-4">When using our Smart Home Suite, our applications collect data about your home environment and device usage, including but not limited to:</p>
+            <h2 className="text-2xl font-bold mb-4">Voice Data Processing</h2>
+            <p className="mb-4">When using our SuperSpeech, our applications collect data about your voice recordings and transcription usage, including but not limited to:</p>
             <ul className="list-disc pl-8 mb-4">
-              <li>device status and usage patterns;</li>
-              <li>environmental data such as temperature, lighting, and energy usage;</li>
-              <li>camera images and recordings (if you use security monitoring features);</li>
-              <li>time and frequency of device usage;</li>
-              <li>automation rules and preference settings.</li>
+              <li>audio recordings submitted for transcription;</li>
+              <li>transcription results and editing history;</li>
+              <li>language settings and preferences;</li>
+              <li>time and frequency of service usage;</li>
+              <li>custom vocabulary and terminology settings.</li>
             </ul>
             <p className="mb-4">This data is used to provide services, optimize performance, and improve our products and services. We implement strict security measures to protect this sensitive information.</p>
             
@@ -116,8 +116,8 @@ export default function PrivacyPage() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
-              <h3 className="text-xl font-bold mb-4">Smart Home Suite</h3>
-              <p className="text-gray-400">© 2023 Smart Home Technologies. All rights reserved.</p>
+              <h3 className="text-xl font-bold mb-4">SuperSpeech</h3>
+              <p className="text-gray-400">© 2023 SuperSpeech Technologies. All rights reserved.</p>
               <p className="text-gray-400 mt-2">Secure payments by <a href="https://paddle.com" className="underline">Paddle</a></p>
             </div>
             
@@ -162,7 +162,7 @@ export default function PrivacyPage() {
               <h3 className="text-lg font-semibold mb-4">Contact</h3>
               <ul className="space-y-2">
                 <li className="text-gray-400">
-                  Email: support@smarthomesuite.com
+                  Email: support@superspeech.com
                 </li>
                 <li className="text-gray-400">
                   Phone: +1 (555) 123-4567

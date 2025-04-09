@@ -382,8 +382,8 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
-              <h3 className="text-xl font-bold mb-4">Smart Home Suite</h3>
-              <p className="text-gray-400">© 2023 Smart Home Technologies. All rights reserved.</p>
+              <h3 className="text-xl font-bold mb-4">SuperSpeech</h3>
+              <p className="text-gray-400">© 2023 SuperSpeech Technologies. All rights reserved.</p>
               <p className="text-gray-400 mt-2">Secure payments processed by <a href="https://paddle.com" className="underline">Paddle</a></p>
             </div>
             
@@ -428,7 +428,7 @@ export default function Home() {
               <h3 className="text-lg font-semibold mb-4">Contact</h3>
               <ul className="space-y-2">
                 <li className="text-gray-400">
-                  Email: support@smarthomesuite.com
+                  Email: support@superspeech.com
                 </li>
                 <li className="text-gray-400">
                   Phone: +1 (555) 123-4567

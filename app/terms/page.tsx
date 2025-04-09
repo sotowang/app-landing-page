@@ -8,7 +8,7 @@ export default function TermsPage() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
             <Link href="/zh" className="text-xl font-bold">
-              智能家居展示
+              SuperSpeech
             </Link>
             
             <nav className="hidden md:flex space-x-6">
@@ -42,7 +42,7 @@ export default function TermsPage() {
             <p className="mb-4">我们为所有方案提供14天无理由退款保证。如果您对我们的服务不满意，可以在购买后14天内申请全额退款，无需任何解释。</p>
             
             <h2 className="text-2xl font-bold mb-4">1. 简介</h2>
-            <p className="mb-4">本网页上的网站标准条款和条件将管理您对我们网站的使用，可通过smarthomesuite.com访问。</p>
+            <p className="mb-4">本网页上的网站标准条款和条件将管理您对我们网站的使用，可通过superspeech.com访问。</p>
             <p className="mb-4">这些条款将完全适用并影响您对本网站的使用。使用本网站即表示您同意接受此处的所有条款和条件。如果您不同意任何这些网站标准条款和条件，则不得使用本网站。</p>
             
             <h2 className="text-2xl font-bold mb-4">2. 知识产权</h2>
@@ -84,8 +84,8 @@ export default function TermsPage() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
-              <h3 className="text-xl font-bold mb-4">智能家居套件</h3>
-              <p className="text-gray-400">© 2023 智能家居科技. 保留所有权利.</p>
+              <h3 className="text-xl font-bold mb-4">SuperSpeech</h3>
+              <p className="text-gray-400">© 2023 SuperSpeech科技. 保留所有权利.</p>
               <p className="text-gray-400 mt-2">安全支付由 <a href="https://paddle.com" className="underline">Paddle</a> 提供</p>
             </div>
             
@@ -130,7 +130,7 @@ export default function TermsPage() {
               <h3 className="text-lg font-semibold mb-4">联系我们</h3>
               <ul className="space-y-2">
                 <li className="text-gray-400">
-                  电子邮件: support@smarthomesuite.com
+                  电子邮件: support@superspeech.com
                 </li>
                 <li className="text-gray-400">
                   电话: +1 (555) 123-4567

@@ -8,7 +8,7 @@ export default function PrivacyPage() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
             <Link href="/zh" className="text-xl font-bold">
-              智能家居展示
+              SuperSpeech
             </Link>
             
             <nav className="hidden md:flex space-x-6">
@@ -64,14 +64,14 @@ export default function PrivacyPage() {
               <li>验证对我们网站安全区域的访问的合规性。</li>
             </ul>
             
-            <h2 className="text-2xl font-bold mb-4">家庭智能设备的数据处理</h2>
-            <p className="mb-4">在使用我们的智能家居套件时，我们的应用程序会收集有关您的家庭环境和设备使用情况的数据，包括但不限于：</p>
+            <h2 className="text-2xl font-bold mb-4">语音数据处理</h2>
+            <p className="mb-4">在使用我们的SuperSpeech服务时，我们的应用程序会收集有关您的语音录制和文本转录使用情况的数据，包括但不限于：</p>
             <ul className="list-disc pl-8 mb-4">
-              <li>设备状态和使用模式；</li>
-              <li>温度、照明和能源使用等环境数据；</li>
-              <li>摄像头图像和录像（如果您使用安全监控功能）；</li>
-              <li>设备使用时间和频率；</li>
-              <li>自动化规则和偏好设置。</li>
+              <li>提交用于转录的音频录音；</li>
+              <li>转录结果和编辑历史；</li>
+              <li>语言设置和偏好；</li>
+              <li>服务使用时间和频率；</li>
+              <li>自定义词汇和术语设置。</li>
             </ul>
             <p className="mb-4">这些数据用于提供服务、优化性能并改进我们的产品和服务。我们实施严格的安全措施来保护这些敏感信息。</p>
             
@@ -116,8 +116,8 @@ export default function PrivacyPage() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
-              <h3 className="text-xl font-bold mb-4">智能家居套件</h3>
-              <p className="text-gray-400">© 2023 智能家居科技. 保留所有权利.</p>
+              <h3 className="text-xl font-bold mb-4">SuperSpeech</h3>
+              <p className="text-gray-400">© 2023 SuperSpeech科技. 保留所有权利.</p>
               <p className="text-gray-400 mt-2">安全支付由 <a href="https://paddle.com" className="underline">Paddle</a> 提供</p>
             </div>
             
@@ -162,7 +162,7 @@ export default function PrivacyPage() {
               <h3 className="text-lg font-semibold mb-4">联系我们</h3>
               <ul className="space-y-2">
                 <li className="text-gray-400">
-                  电子邮件: support@smarthomesuite.com
+                  电子邮件: support@superspeech.com
                 </li>
                 <li className="text-gray-400">
                   电话: +1 (555) 123-4567
