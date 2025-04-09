@@ -8,7 +8,7 @@ export default function Home() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
             <Link href="/en" className="text-xl font-bold">
-              Voice To Text
+              Super Speech
             </Link>
             
             <nav className="hidden md:flex space-x-6">
