@@ -8,7 +8,7 @@ export default function Home() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
             <Link href="/en" className="text-xl font-bold">
-              App Showcase
+              Voice To Text
             </Link>
             
             <nav className="hidden md:flex space-x-6">
@@ -35,8 +35,8 @@ export default function Home() {
       {/* Hero Section */}
       <section className="py-16 px-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white">
         <div className="container mx-auto text-center">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">Smart Home Automation Suite</h1>
-          <p className="text-xl mb-8 max-w-3xl mx-auto">A comprehensive solution for intelligent home management, featuring multiple integrated applications for security, energy efficiency, and convenience</p>
+          <h1 className="text-4xl md:text-6xl font-bold mb-6">Transform Your Voice Into Text</h1>
+          <p className="text-xl mb-8 max-w-3xl mx-auto">Write at the speed of speech with our AI-powered voice recognition technology that works across any application</p>
           <Link 
             href="#download" 
             className="bg-white text-blue-600 px-8 py-3 rounded-md font-semibold hover:bg-gray-100 transition"
@@ -50,15 +50,15 @@ export default function Home() {
       <section className="py-16 px-4 bg-white">
         <div className="container mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Our Smart Home Solution</h2>
+            <h2 className="text-3xl font-bold mb-4">Voice Recognition Made Simple</h2>
             <p className="text-gray-600 max-w-3xl mx-auto">
-              Transform your living space with our integrated suite of applications designed to make your home smarter, safer, and more efficient.
+              Our advanced voice-to-text solution helps you work faster, communicate better, and create content with ease.
             </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div className="bg-gray-50 p-8 rounded-lg">
-              <h3 className="text-2xl font-semibold mb-4">What's Included In Your Subscription</h3>
+              <h3 className="text-2xl font-semibold mb-4">Use Cases</h3>
               <ul className="space-y-4">
                 <li className="flex">
                   <div className="flex-shrink-0 mr-3 mt-1">
@@ -67,8 +67,8 @@ export default function Home() {
                     </svg>
                   </div>
                   <div>
-                    <span className="font-medium">Home Security App</span>
-                    <p className="text-gray-600">Advanced surveillance and monitoring system with real-time alerts and remote access.</p>
+                    <span className="font-medium">Craft Professional Emails</span>
+                    <p className="text-gray-600">Dictate polished emails with proper formatting. Our tool automatically structures your spoken words into professional communication.</p>
                   </div>
                 </li>
                 <li className="flex">
@@ -78,8 +78,8 @@ export default function Home() {
                     </svg>
                   </div>
                   <div>
-                    <span className="font-medium">Energy Management App</span>
-                    <p className="text-gray-600">Monitor and optimize your home's energy consumption with smart analytics and automated controls.</p>
+                    <span className="font-medium">Message Colleagues Instantly</span>
+                    <p className="text-gray-600">Speak your thoughts for chat conversations. Perfect for thoughtful responses without typing lengthy messages.</p>
                   </div>
                 </li>
                 <li className="flex">
@@ -89,8 +89,8 @@ export default function Home() {
                     </svg>
                   </div>
                   <div>
-                    <span className="font-medium">Smart Lighting Control</span>
-                    <p className="text-gray-600">Automate and customize your home lighting for comfort, convenience, and energy savings.</p>
+                    <span className="font-medium">Capture Meeting Notes</span>
+                    <p className="text-gray-600">Record ideas as they happen without breaking your focus. Turn spoken thoughts into organized notes during meetings.</p>
                   </div>
                 </li>
                 <li className="flex">
@@ -100,47 +100,47 @@ export default function Home() {
                     </svg>
                   </div>
                   <div>
-                    <span className="font-medium">Climate Control System</span>
-                    <p className="text-gray-600">Intelligent temperature management that adapts to your preferences and schedule.</p>
+                    <span className="font-medium">Create Content Quickly</span>
+                    <p className="text-gray-600">Draft social posts, articles, or blogs by speaking naturally. Overcome writer's block by converting spoken ideas into formatted content.</p>
                   </div>
                 </li>
               </ul>
             </div>
             
             <div className="bg-gray-50 p-8 rounded-lg">
-              <h3 className="text-2xl font-semibold mb-4">Integration & Compatibility</h3>
+              <h3 className="text-2xl font-semibold mb-4">Key Benefits</h3>
               <p className="text-gray-600 mb-6">
-                Our system seamlessly integrates with popular smart home devices and platforms, including:
+                Our voice-to-text solution offers numerous advantages over traditional typing:
               </p>
               <ul className="space-y-2 mb-8">
                 <li className="flex items-center">
                   <svg className="h-5 w-5 text-blue-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  Amazon Alexa & Google Home compatible
+                  3-5x faster than typing
                 </li>
                 <li className="flex items-center">
                   <svg className="h-5 w-5 text-blue-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  Works with Philips Hue, Ring, Nest, and more
+                  Works with any application
                 </li>
                 <li className="flex items-center">
                   <svg className="h-5 w-5 text-blue-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  IFTTT support for custom automations
+                  Smart formatting based on context
                 </li>
                 <li className="flex items-center">
                   <svg className="h-5 w-5 text-blue-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  Open API for developer extensions
+                  Supports multiple languages
                 </li>
               </ul>
               
               <div className="bg-blue-50 p-4 rounded-lg border border-blue-100">
-                <p className="text-blue-800 font-medium">Try our demo at: <a href="https://demo.smarthomedemo.com" className="underline">demo.smarthomedemo.com</a></p>
+                <p className="text-blue-800 font-medium">Try our demo: <a href="https://demo.voicetotext.com" className="underline">demo.voicetotext.com</a></p>
               </div>
             </div>
           </div>
@@ -152,7 +152,7 @@ export default function Home() {
         <div className="container mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold mb-4">Key Features</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">Advanced capabilities that set our solution apart</p>
+            <p className="text-gray-600 max-w-2xl mx-auto">Designed for professionals who value efficiency and accuracy</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -162,8 +162,8 @@ export default function Home() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold mb-2">Unified Control</h3>
-              <p className="text-gray-600">Manage all your smart home devices from a single dashboard</p>
+              <h3 className="text-xl font-semibold mb-2">Multiple Transcription Modes</h3>
+              <p className="text-gray-600">Simple format, Email mode, Note mode, and Message mode for different contexts</p>
             </div>
             
             <div className="bg-white p-8 rounded-lg shadow-sm text-center">
@@ -172,8 +172,8 @@ export default function Home() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold mb-2">AI-Powered Automation</h3>
-              <p className="text-gray-600">Smart routines that adapt to your habits and preferences</p>
+              <h3 className="text-xl font-semibold mb-2">Custom Vocabulary</h3>
+              <p className="text-gray-600">Add specialized terms, names, and jargon for better accuracy</p>
             </div>
             
             <div className="bg-white p-8 rounded-lg shadow-sm text-center">
@@ -182,163 +182,162 @@ export default function Home() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold mb-2">Bank-Level Security</h3>
-              <p className="text-gray-600">End-to-end encryption and advanced authentication</p>
+              <h3 className="text-xl font-semibold mb-2">Private & Secure</h3>
+              <p className="text-gray-600">Use your own API key for complete data privacy and control</p>
             </div>
           </div>
         </div>
       </section>
       
       {/* Pricing Section */}
-      <section id="pricing" className="py-16 px-4 bg-white">
+      <section id="pricing" className="py-16 px-4 bg-gray-50">
         <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4">Subscription Plans</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">Choose the Perfect Plan for Your Smart Home Needs</p>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">Choose Your Plan</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              We offer flexible pricing options to fit your needs and budget
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {/* Free Plan */}
+            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+              <div className="p-8">
+                <h3 className="text-2xl font-bold mb-2">Free</h3>
+                <div className="text-gray-600 mb-6">For trying it out</div>
+                <div className="text-4xl font-bold mb-6">$0<span className="text-base font-normal text-gray-600">/month</span></div>
+                
+                <ul className="space-y-3 mb-8">
+                  <li className="flex items-start">
+                    <svg className="h-5 w-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    <span>10 minutes of transcription per month</span>
+                  </li>
+                  <li className="flex items-start">
+                    <svg className="h-5 w-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    <span>Standard quality</span>
+                  </li>
+                  <li className="flex items-start">
+                    <svg className="h-5 w-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    <span>2 languages supported</span>
+                  </li>
+                  <li className="flex items-start text-gray-400">
+                    <svg className="h-5 w-5 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                    <span>No file exports</span>
+                  </li>
+                </ul>
+              </div>
+              <div className="px-8 pb-8">
+                <a
+                  href="https://checkout.paddle.com/product/free-tier"
+                  className="block w-full bg-gray-100 hover:bg-gray-200 text-center py-3 rounded-md font-medium transition"
+                >
+                  Start Free
+                </a>
+              </div>
+            </div>
             
-            <div className="flex justify-center mt-8">
-              <div className="flex bg-gray-200 p-1 rounded-md">
-                <button className="px-4 py-2 rounded-md bg-white shadow-sm font-medium">
-                  Monthly
-                </button>
-                <button className="px-4 py-2 rounded-md font-medium text-gray-600">
-                  Annually (Save 20%)
-                </button>
+            {/* Standard Plan */}
+            <div className="bg-white rounded-lg shadow-lg overflow-hidden border-2 border-blue-500 transform scale-105">
+              <div className="bg-blue-500 text-white text-center py-2 text-sm font-semibold">
+                MOST POPULAR
+              </div>
+              <div className="p-8">
+                <h3 className="text-2xl font-bold mb-2">Standard</h3>
+                <div className="text-gray-600 mb-6">For individual users</div>
+                <div className="text-4xl font-bold mb-6">$9<span className="text-base font-normal text-gray-600">/month</span></div>
+                
+                <ul className="space-y-3 mb-8">
+                  <li className="flex items-start">
+                    <svg className="h-5 w-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    <span>5 hours of transcription per month</span>
+                  </li>
+                  <li className="flex items-start">
+                    <svg className="h-5 w-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    <span>High-quality transcription</span>
+                  </li>
+                  <li className="flex items-start">
+                    <svg className="h-5 w-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    <span>10 languages supported</span>
+                  </li>
+                  <li className="flex items-start">
+                    <svg className="h-5 w-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    <span>Multiple export formats</span>
+                  </li>
+                </ul>
+              </div>
+              <div className="px-8 pb-8">
+                <a
+                  href="https://checkout.paddle.com/product/12345"
+                  className="block w-full bg-blue-600 hover:bg-blue-700 text-white text-center py-3 rounded-md font-medium transition"
+                >
+                  Buy Now
+                </a>
+              </div>
+            </div>
+            
+            {/* Pro Plan */}
+            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+              <div className="p-8">
+                <h3 className="text-2xl font-bold mb-2">Professional</h3>
+                <div className="text-gray-600 mb-6">For professional teams</div>
+                <div className="text-4xl font-bold mb-6">$29<span className="text-base font-normal text-gray-600">/month</span></div>
+                
+                <ul className="space-y-3 mb-8">
+                  <li className="flex items-start">
+                    <svg className="h-5 w-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    <span>Unlimited transcription time</span>
+                  </li>
+                  <li className="flex items-start">
+                    <svg className="h-5 w-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    <span>Premium quality transcription</span>
+                  </li>
+                  <li className="flex items-start">
+                    <svg className="h-5 w-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    <span>30+ languages supported</span>
+                  </li>
+                  <li className="flex items-start">
+                    <svg className="h-5 w-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    <span>Dedicated API access</span>
+                  </li>
+                </ul>
+              </div>
+              <div className="px-8 pb-8">
+                <a
+                  href="https://checkout.paddle.com/product/67890"
+                  className="block w-full bg-blue-600 hover:bg-blue-700 text-white text-center py-3 rounded-md font-medium transition"
+                >
+                  Buy Now
+                </a>
               </div>
             </div>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Basic Plan */}
-            <div className="bg-white p-8 rounded-lg shadow-md border border-gray-200">
-              <h3 className="text-xl font-semibold mb-2">Basic</h3>
-              <div className="text-3xl font-bold mb-4">$9.99<span className="text-sm text-gray-500">/month</span></div>
-              <p className="text-gray-600 mb-6">Perfect for small apartments and beginners</p>
-              
-              <ul className="space-y-3 mb-8">
-                <li className="flex items-center">
-                  <svg className="h-5 w-5 text-green-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  Home Security App (Basic)
-                </li>
-                <li className="flex items-center">
-                  <svg className="h-5 w-5 text-green-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  Energy Management (Limited)
-                </li>
-                <li className="flex items-center">
-                  <svg className="h-5 w-5 text-green-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  Email Support
-                </li>
-                <li className="flex items-center">
-                  <svg className="h-5 w-5 text-green-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  Up to 5 devices
-                </li>
-              </ul>
-              
-              <button className="w-full bg-gray-100 text-gray-800 py-2 rounded-md font-semibold hover:bg-gray-200 transition">
-                Subscribe Now
-              </button>
-            </div>
-            
-            {/* Pro Plan */}
-            <div className="bg-white p-8 rounded-lg shadow-md border-2 border-blue-500 relative">
-              <div className="absolute top-0 right-0 bg-blue-500 text-white px-4 py-1 text-sm font-semibold rounded-bl-lg">
-                Most Popular
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Pro</h3>
-              <div className="text-3xl font-bold mb-4">$19.99<span className="text-sm text-gray-500">/month</span></div>
-              <p className="text-gray-600 mb-6">Ideal for medium-sized homes</p>
-              
-              <ul className="space-y-3 mb-8">
-                <li className="flex items-center">
-                  <svg className="h-5 w-5 text-green-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  All Basic Apps (Full Features)
-                </li>
-                <li className="flex items-center">
-                  <svg className="h-5 w-5 text-green-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  Smart Lighting Control
-                </li>
-                <li className="flex items-center">
-                  <svg className="h-5 w-5 text-green-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  Priority Support
-                </li>
-                <li className="flex items-center">
-                  <svg className="h-5 w-5 text-green-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  Up to 15 devices
-                </li>
-                <li className="flex items-center">
-                  <svg className="h-5 w-5 text-green-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  Advanced Automation
-                </li>
-              </ul>
-              
-              <button className="w-full bg-blue-600 text-white py-2 rounded-md font-semibold hover:bg-blue-700 transition">
-                Subscribe Now
-              </button>
-            </div>
-            
-            {/* Enterprise Plan */}
-            <div className="bg-white p-8 rounded-lg shadow-md border border-gray-200">
-              <h3 className="text-xl font-semibold mb-2">Enterprise</h3>
-              <div className="text-3xl font-bold mb-4">$49.99<span className="text-sm text-gray-500">/month</span></div>
-              <p className="text-gray-600 mb-6">For large homes and businesses</p>
-              
-              <ul className="space-y-3 mb-8">
-                <li className="flex items-center">
-                  <svg className="h-5 w-5 text-green-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  All Pro Features
-                </li>
-                <li className="flex items-center">
-                  <svg className="h-5 w-5 text-green-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  Climate Control System
-                </li>
-                <li className="flex items-center">
-                  <svg className="h-5 w-5 text-green-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  24/7 Premium Support
-                </li>
-                <li className="flex items-center">
-                  <svg className="h-5 w-5 text-green-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  Unlimited devices
-                </li>
-                <li className="flex items-center">
-                  <svg className="h-5 w-5 text-green-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  Custom Solutions*
-                </li>
-              </ul>
-              
-              <button className="w-full bg-gray-100 text-gray-800 py-2 rounded-md font-semibold hover:bg-gray-200 transition">
-                Contact Sales
-              </button>
-              
-              <p className="text-sm text-gray-500 mt-4">*Custom Solutions include: Dedicated account manager, customized integration with existing systems, personalized automation workflows, tailored security protocols, and bespoke hardware configurations to meet specific business or large property needs.</p>
-            </div>
+          <div className="text-center mt-10 text-gray-600">
+            <p>All plans come with a 7-day money-back guarantee. For any questions, please <a href="#contact" className="text-blue-600 hover:underline">contact us</a>.</p>
           </div>
         </div>
       </section>
