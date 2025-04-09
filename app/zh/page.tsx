@@ -199,7 +199,7 @@ export default function Home() {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-6xl mx-auto">
             {/* Free Plan */}
             <div className="bg-white rounded-lg shadow-lg overflow-hidden">
               <div className="p-8">
@@ -334,6 +334,50 @@ export default function Home() {
                 </a>
               </div>
             </div>
+            
+            {/* Enterprise Plan */}
+            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+              <div className="p-8">
+                <h3 className="text-2xl font-bold mb-2">企业版</h3>
+                <div className="text-gray-600 mb-6">定制解决方案</div>
+                <div className="text-4xl font-bold mb-6">定制<span className="text-base font-normal text-gray-600"> 价格</span></div>
+                
+                <ul className="space-y-3 mb-8">
+                  <li className="flex items-start">
+                    <svg className="h-5 w-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    <span>专属API访问与更高调用限制</span>
+                  </li>
+                  <li className="flex items-start">
+                    <svg className="h-5 w-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    <span>定制化语音识别模型训练</span>
+                  </li>
+                  <li className="flex items-start">
+                    <svg className="h-5 w-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    <span>企业专属词汇库管理</span>
+                  </li>
+                  <li className="flex items-start">
+                    <svg className="h-5 w-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    <span>多用户管理与团队协作</span>
+                  </li>
+                </ul>
+              </div>
+              <div className="px-8 pb-8">
+                <a
+                  href="mailto:support@superspeech.com?subject=企业版计划咨询"
+                  className="block w-full bg-gray-800 hover:bg-gray-900 text-white text-center py-3 rounded-md font-medium transition"
+                >
+                  联系我们
+                </a>
+              </div>
+            </div>
           </div>
           
           <div className="text-center mt-10 text-gray-600">
@@ -346,9 +390,9 @@ export default function Home() {
       <section id="download" className="py-16 px-4 bg-white">
         <div className="container mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">立即下载体验</h2>
+            <h2 className="text-3xl font-bold mb-4">下载SuperSpeech应用</h2>
             <p className="text-gray-600 max-w-3xl mx-auto">
-              我们的语音转文本应用适用于所有主流操作系统，开始享受更高效的工作方式
+              将您的语音转为文本，适用于所有主流操作系统，提高工作效率
             </p>
           </div>
           

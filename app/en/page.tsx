@@ -199,7 +199,7 @@ export default function Home() {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-6xl mx-auto">
             {/* Free Plan */}
             <div className="bg-white rounded-lg shadow-lg overflow-hidden">
               <div className="p-8">
@@ -334,6 +334,50 @@ export default function Home() {
                 </a>
               </div>
             </div>
+            
+            {/* Enterprise Plan */}
+            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+              <div className="p-8">
+                <h3 className="text-2xl font-bold mb-2">Enterprise</h3>
+                <div className="text-gray-600 mb-6">Custom solutions</div>
+                <div className="text-4xl font-bold mb-6">Custom<span className="text-base font-normal text-gray-600"> pricing</span></div>
+                
+                <ul className="space-y-3 mb-8">
+                  <li className="flex items-start">
+                    <svg className="h-5 w-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    <span>Dedicated API access & higher limits</span>
+                  </li>
+                  <li className="flex items-start">
+                    <svg className="h-5 w-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    <span>Custom speech recognition model training</span>
+                  </li>
+                  <li className="flex items-start">
+                    <svg className="h-5 w-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    <span>Enterprise vocabulary management</span>
+                  </li>
+                  <li className="flex items-start">
+                    <svg className="h-5 w-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    <span>Multi-user & team collaboration</span>
+                  </li>
+                </ul>
+              </div>
+              <div className="px-8 pb-8">
+                <a
+                  href="mailto:support@superspeech.com?subject=Enterprise%20Plan%20Inquiry"
+                  className="block w-full bg-gray-800 hover:bg-gray-900 text-white text-center py-3 rounded-md font-medium transition"
+                >
+                  Contact Us
+                </a>
+              </div>
+            </div>
           </div>
           
           <div className="text-center mt-10 text-gray-600">
@@ -345,8 +389,8 @@ export default function Home() {
       {/* Download Section */}
       <section id="download" className="py-16 px-4 bg-blue-600 text-white">
         <div className="container mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-4">Download Our Smart Home Apps</h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto">Available on iOS and Android devices</p>
+          <h2 className="text-3xl font-bold mb-4">Download SuperSpeech App</h2>
+          <p className="text-xl mb-8 max-w-2xl mx-auto">Transform your voice to text on any device</p>
           
           <div className="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
             <Link 
