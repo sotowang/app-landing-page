@@ -40,6 +40,7 @@ export default function PaddlePayment({
         
         // 添加事件监听
         const handleEvent = (event: any) => {
+          console.log("Paddle事件:", event);
           if (event.name === "checkout.completed") {
             onSuccess && onSuccess();
           } else if (event.name === "checkout.error") {
@@ -47,19 +48,16 @@ export default function PaddlePayment({
           }
         };
         
-        // 重写eventCallback以添加我们自己的处理
-        // 注意：这是一个简单实现方式，实际中可能需要更复杂的事件处理系统
-        const originalCallback = window.Paddle.Initialize as any;
-        window.Paddle.Initialize = function(options: any) {
-          const originalEventCallback = options.eventCallback;
-          options.eventCallback = (data: any) => {
-            handleEvent(data);
-            if (originalEventCallback) {
-              originalEventCallback(data);
-            }
-          };
-          return originalCallback.call(this, options);
-        };
+        // 添加全局事件监听
+        if (typeof window !== 'undefined') {
+          window.addEventListener('paddle:checkout.completed', function(e: any) {
+            onSuccess && onSuccess();
+          });
+          
+          window.addEventListener('paddle:checkout.error', function(e: any) {
+            onError && onError(e.detail);
+          });
+        }
 
         // 如果是Paddle官方按钮，初始化按钮
         if (buttonStyle === 'paddle' && productId) {

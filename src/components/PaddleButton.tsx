@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import paddleService from "../services/paddle";
 import paddleConfig from "../config/paddle";
 
@@ -28,24 +28,27 @@ export default function PaddleButton({
   onSuccess,
   onError
 }: PaddleButtonProps) {
+  const [isReady, setIsReady] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   
   useEffect(() => {
     // 初始化Paddle
     paddleService.ensureInitialized()
       .then(() => {
-        // 事件监听
-        const handleSuccess = (data: any) => {
-          if (data.name === "checkout.completed") {
+        setIsReady(true);
+        
+        // 添加事件监听
+        if (typeof window !== 'undefined') {
+          window.addEventListener('paddle:checkout.completed', function(e: any) {
+            console.log('Paddle结账完成:', e);
             onSuccess && onSuccess();
-          }
-        };
-        
-        // 添加事件监听器
-        document.addEventListener("paddle:checkout.completed", handleSuccess);
-        
-        return () => {
-          document.removeEventListener("paddle:checkout.completed", handleSuccess);
-        };
+          });
+          
+          window.addEventListener('paddle:checkout.error', function(e: any) {
+            console.error('Paddle结账错误:', e);
+            onError && onError(e.detail);
+          });
+        }
       })
       .catch(err => {
         console.error("Paddle初始化失败:", err);
@@ -74,9 +77,16 @@ export default function PaddleButton({
   };
 
   // 处理点击购买
-  const handleClick = () => {
+  const handleClick = async () => {
+    if (!isReady) {
+      console.log("Paddle未准备好");
+      return;
+    }
+    
+    setLoading(true);
+    
     try {
-      paddleService.openCheckout({
+      await paddleService.openCheckout({
         items: [
           {
             priceId: productId,
@@ -84,14 +94,17 @@ export default function PaddleButton({
           }
         ],
         settings: {
-          displayMode: "overlay",
+          displayMode: "overlay", // 使用弹出窗口
           theme: "light",
           locale: "zh"
         }
       });
+      console.log("成功打开Paddle结账");
     } catch (error) {
       console.error("打开结账失败:", error);
       onError && onError(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -119,10 +132,11 @@ export default function PaddleButton({
   return (
     <button
       onClick={handleClick}
+      disabled={!isReady || loading}
       className={getButtonClasses()}
     >
       {showIcon && renderPaddleIcon()}
-      {text}
+      {loading ? "处理中..." : !isReady ? "正在加载..." : text}
     </button>
   );
 } 
