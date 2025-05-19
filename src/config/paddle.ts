@@ -20,9 +20,9 @@ export const PADDLE_SANDBOX_CONFIG: PaddleConfig = {
   sandbox: true,
   vendorId: 31639, // Sandbox环境的vendorId
   priceIds: {
-    standard: 'pri_01h0000000000sandbox', // 这里使用测试价格ID
-    pro: 'pri_01h0000000000sandbox2',
-    enterprise: 'pri_01h0000000000sandbox3'
+    standard: 'pri_01jvk7ngatwd4r8cwrqt82rmxb', // 这里使用测试价格ID
+    pro: 'pri_01jvk7ngatwd4r8cwrqt82rmxb',
+    enterprise: 'pri_01jvk7ngatwd4r8cwrqt82rmxb'
   }
 };
 

@@ -71,8 +71,10 @@ class PaddleService {
     try {
       // 设置环境（沙盒或生产）
       if (this.config.sandbox) {
+        console.log('设置Paddle环境为沙盒');
         window.Paddle.Environment.set('sandbox');
       }
+      console.log('当前token', this.config.token)
 
       // 初始化Paddle
       window.Paddle.Initialize({
