@@ -12,6 +12,7 @@ export default function PaymentPage() {
   const [selectedPlan, setSelectedPlan] = useState<"standard" | "pro" | "enterprise">("standard");
   const [buttonStyle, setButtonStyle] = useState<"paddlePayment" | "paddleButton">("paddleButton");
   const [buttonVariant, setButtonVariant] = useState<"default" | "primary" | "success" | "info">("primary");
+  const [showIcon, setShowIcon] = useState<boolean>(true);
 
   const handlePaymentSuccess = () => {
     setPaymentStatus("支付成功！交易已完成。");
@@ -25,18 +26,29 @@ export default function PaymentPage() {
   const getPriceId = () => {
     return paddleConfig.priceIds[selectedPlan];
   };
+  
+  // 获取所选计划的Paddle结账URL
+  const getPaddleCheckoutUrl = () => {
+    const productIds = {
+      standard: "12345",
+      pro: "67890",
+      enterprise: "custom123"
+    };
+    
+    return `https://checkout.paddle.com/product/${productIds[selectedPlan]}`;
+  };
 
   // 获取所选计划的价格
   const getPlanPrice = () => {
     switch(selectedPlan) {
       case "standard":
-        return "¥39/月";
+        return "$9/月";
       case "pro":
-        return "¥99/月";
+        return "$29/月";
       case "enterprise":
         return "自定义价格";
       default:
-        return "¥39/月";
+        return "$9/月";
     }
   };
 
@@ -242,19 +254,44 @@ export default function PaymentPage() {
             />
           ) : (
             <div className="flex flex-col items-center">
-              <PaddleButton
-                productId={getPriceId()}
-                text="开始订阅"
-                variant={buttonVariant}
-                size="large"
-                className="w-full sm:w-64"
-                showIcon={true}
-                onSuccess={handlePaymentSuccess}
-                onError={handlePaymentError}
-              />
+              <a
+                href={getPaddleCheckoutUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`
+                  flex items-center justify-center font-medium rounded-md transition-all
+                  ${buttonVariant === "default" ? "bg-gray-200 hover:bg-gray-300 text-gray-800" : 
+                    buttonVariant === "primary" ? "bg-blue-600 hover:bg-blue-700 text-white" :
+                    buttonVariant === "success" ? "bg-green-600 hover:bg-green-700 text-white" :
+                    "bg-cyan-600 hover:bg-cyan-700 text-white"}
+                  py-3 px-6 text-base w-full sm:w-64
+                `}
+              >
+                {showIcon && (
+                  <svg 
+                    className="w-5 h-5 mr-2" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path 
+                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" 
+                      fill="currentColor"
+                    />
+                    <path 
+                      d="M9.5 16.5l7-4.5-7-4.5v9z" 
+                      fill="currentColor"
+                    />
+                  </svg>
+                )}
+                开始订阅
+              </a>
               <div className="text-xs text-gray-500 mt-2">
                 安全支付由 <span className="text-blue-600">Paddle</span> 提供
               </div>
+              <p className="text-sm mt-4 text-center text-blue-700 font-medium">
+                这是一个直接链接到Paddle结账的按钮，点击后将跳转到Paddle官方结账页面。
+              </p>
             </div>
           )}
         </div>
