@@ -4,35 +4,12 @@ import paddleConfig from "../config/paddle";
 
 /**
  * Paddle支付服务
- * 使用官方推荐的方法调用Paddle API
+ * 使用v2版本的Paddle.js脚本
  */
 
 interface PaddleServiceConfig {
   token: string;
   sandbox?: boolean;
-  vendorId: number;
-}
-
-interface PaddleCheckoutOptions {
-  items: Array<{
-    priceId: string;
-    quantity: number;
-  }>;
-  settings?: {
-    displayMode?: "overlay" | "inline";
-    theme?: "light" | "dark";
-    locale?: string;
-    frameTarget?: string;
-    frameInitialHeight?: string;
-    frameStyle?: string;
-    variant?: "one-page" | "multi-page";
-    [key: string]: any;
-  };
-  customer?: {
-    email?: string;
-    [key: string]: any;
-  };
-  [key: string]: any;
 }
 
 class PaddleService {
@@ -54,13 +31,13 @@ class PaddleService {
    */
   private loadScript(): void {
     // 检查脚本是否已经加载
-    if (document.querySelector('script[src="https://cdn.paddle.com/paddle/paddle.js"]')) {
+    if (document.querySelector('script[src="https://cdn.paddle.com/paddle/v2/paddle.js"]')) {
       this.onScriptLoaded();
       return;
     }
 
     const script = document.createElement('script');
-    script.src = 'https://cdn.paddle.com/paddle/paddle.js';
+    script.src = 'https://cdn.paddle.com/paddle/v2/paddle.js';
     script.async = true;
     script.onload = () => this.onScriptLoaded();
     script.onerror = (err) => {
@@ -97,13 +74,9 @@ class PaddleService {
         window.Paddle.Environment.set('sandbox');
       }
 
-      // 使用Paddle.Initialize初始化（替换Paddle.Setup）
+      // 初始化Paddle
       window.Paddle.Initialize({
-        token: this.config.token,
-        vendorId: this.config.vendorId,
-        eventCallback: (data: any) => {
-          console.log('Paddle事件:', data);
-        }
+        token: this.config.token
       });
 
       this.isInitialized = true;
@@ -132,7 +105,7 @@ class PaddleService {
   /**
    * 打开结账界面
    */
-  async openCheckout(options: PaddleCheckoutOptions): Promise<void> {
+  async openCheckout(options: any): Promise<void> {
     await this.ensureInitialized();
     
     if (typeof window !== 'undefined' && window.Paddle) {
@@ -178,8 +151,7 @@ class PaddleService {
 // 导出Paddle服务实例
 export const paddleService = new PaddleService({
   token: paddleConfig.clientToken,
-  sandbox: paddleConfig.sandbox,
-  vendorId: paddleConfig.vendorId
+  sandbox: paddleConfig.sandbox
 });
 
 export default paddleService; 

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import paddleConfig from "../config/paddle";
 
 /**
- * 简单的Paddle按钮组件 - 直接加载Paddle.js并执行Setup
+ * 简单的Paddle按钮组件 - 使用新版本的Paddle.js (v2)
  */
 export default function SimplePaddleButton({ 
   productId,
@@ -17,22 +17,16 @@ export default function SimplePaddleButton({
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    // 加载Paddle.js
+    // 加载Paddle.js v2版本脚本
     const paddleScript = document.createElement("script");
-    paddleScript.src = "https://cdn.paddle.com/paddle/paddle.js";
+    paddleScript.src = "https://cdn.paddle.com/paddle/v2/paddle.js";
     paddleScript.async = true;
     paddleScript.onload = () => {
       if (typeof window !== 'undefined' && window.Paddle) {
         try {
-          // 设置环境
-          if (paddleConfig.sandbox) {
-            window.Paddle.Environment.set('sandbox');
-          }
-          
-          // 初始化Paddle（使用Initialize代替Setup）
+          // 初始化Paddle
           window.Paddle.Initialize({ 
-            token: paddleConfig.clientToken,
-            vendorId: paddleConfig.vendorId
+            token: paddleConfig.clientToken
           });
           
           setIsReady(true);
@@ -46,7 +40,9 @@ export default function SimplePaddleButton({
     document.body.appendChild(paddleScript);
     
     return () => {
-      document.body.removeChild(paddleScript);
+      if (document.body.contains(paddleScript)) {
+        document.body.removeChild(paddleScript);
+      }
     };
   }, []);
 
