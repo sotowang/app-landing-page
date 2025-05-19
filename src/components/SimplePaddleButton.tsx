@@ -24,6 +24,13 @@ export default function SimplePaddleButton({
     paddleScript.onload = () => {
       if (typeof window !== 'undefined' && window.Paddle) {
         try {
+          // 设置环境（沙盒或生产）
+          if (paddleConfig.sandbox) {
+            console.log('设置Paddle环境为沙盒');
+            window.Paddle.Environment.set('sandbox');
+          }
+          console.log('当前token:', paddleConfig.clientToken);
+          
           // 初始化Paddle
           window.Paddle.Initialize({ 
             token: paddleConfig.clientToken
