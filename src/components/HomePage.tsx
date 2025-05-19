@@ -121,24 +121,24 @@ export default function HomePage({ translations, langPath }: HomePageProps) {
   const t = translations;
   
   return (
-    <main>
-      <header className="bg-white shadow-md">
+    <main className="dark:bg-gray-900 dark:text-white">
+      <header className="bg-white shadow-md dark:bg-gray-800">
         <div className="container mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
-            <Link href={langPath} className="text-xl font-bold">
+            <Link href={langPath} className="text-xl font-bold dark:text-white">
               SuperSpeech
             </Link>
             
             <nav className="hidden md:flex space-x-6">
-              <Link href={langPath} className="hover:text-blue-600">{t.nav.home}</Link>
-              <Link href={`${langPath}#features`} className="hover:text-blue-600">{t.nav.features}</Link>
-              <Link href={`${langPath}#pricing`} className="hover:text-blue-600">{t.nav.pricing}</Link>
-              <Link href={`${langPath}/terms`} className="hover:text-blue-600">{t.nav.terms}</Link>
-              <Link href={`${langPath}/privacy`} className="hover:text-blue-600">{t.nav.privacy}</Link>
+              <Link href={langPath} className="hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400">{t.nav.home}</Link>
+              <Link href={`${langPath}#features`} className="hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400">{t.nav.features}</Link>
+              <Link href={`${langPath}#pricing`} className="hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400">{t.nav.pricing}</Link>
+              <Link href={`${langPath}/terms`} className="hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400">{t.nav.terms}</Link>
+              <Link href={`${langPath}/privacy`} className="hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400">{t.nav.privacy}</Link>
             </nav>
             
             <div className="flex items-center space-x-4">
-              <Link href={t.switchLangUrl} className="text-sm hover:text-blue-600 transition">{t.switchLang}</Link>
+              <Link href={t.switchLangUrl} className="text-sm hover:text-blue-600 transition dark:text-gray-200 dark:hover:text-blue-400">{t.switchLang}</Link>
               <Link 
                 href="#download" 
                 className="hidden md:inline-block bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
@@ -157,7 +157,7 @@ export default function HomePage({ translations, langPath }: HomePageProps) {
           <p className="text-xl mb-8 max-w-3xl mx-auto">{t.hero.subtitle}</p>
           <Link 
             href="#download" 
-            className="bg-white text-blue-600 px-8 py-3 rounded-md font-semibold hover:bg-gray-100 transition"
+            className="bg-white text-blue-600 px-8 py-3 rounded-md font-semibold hover:bg-gray-100 transition dark:bg-gray-200 dark:hover:bg-gray-300"
           >
             {t.hero.cta}
           </Link>
@@ -165,18 +165,18 @@ export default function HomePage({ translations, langPath }: HomePageProps) {
       </section>
       
       {/* Product Description Section */}
-      <section className="py-16 px-4 bg-white">
+      <section className="py-16 px-4 bg-white dark:bg-gray-900">
         <div className="container mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">{t.productDesc.title}</h2>
-            <p className="text-gray-600 max-w-3xl mx-auto">
+            <h2 className="text-3xl font-bold mb-4 dark:text-white">{t.productDesc.title}</h2>
+            <p className="text-gray-600 max-w-3xl mx-auto dark:text-gray-300">
               {t.productDesc.subtitle}
             </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div className="bg-gray-50 p-8 rounded-lg">
-              <h3 className="text-2xl font-semibold mb-4">{t.productDesc.useCases.title}</h3>
+            <div className="bg-gray-50 p-8 rounded-lg dark:bg-gray-800">
+              <h3 className="text-2xl font-semibold mb-4 dark:text-white">{t.productDesc.useCases.title}</h3>
               <ul className="space-y-4">
                 {t.productDesc.useCases.items.map((item, index) => (
                   <li key={index} className="flex">
@@ -186,22 +186,22 @@ export default function HomePage({ translations, langPath }: HomePageProps) {
                       </svg>
                     </div>
                     <div>
-                      <span className="font-medium">{item.title}</span>
-                      <p className="text-gray-600">{item.desc}</p>
+                      <span className="font-medium dark:text-white">{item.title}</span>
+                      <p className="text-gray-600 dark:text-gray-300">{item.desc}</p>
                     </div>
                   </li>
                 ))}
               </ul>
             </div>
             
-            <div className="bg-gray-50 p-8 rounded-lg">
-              <h3 className="text-2xl font-semibold mb-4">{t.productDesc.benefits.title}</h3>
-              <p className="text-gray-600 mb-6">
+            <div className="bg-gray-50 p-8 rounded-lg dark:bg-gray-800">
+              <h3 className="text-2xl font-semibold mb-4 dark:text-white">{t.productDesc.benefits.title}</h3>
+              <p className="text-gray-600 mb-6 dark:text-gray-300">
                 {t.productDesc.benefits.subtitle}
               </p>
               <ul className="space-y-2 mb-8">
                 {t.productDesc.benefits.items.map((item, index) => (
-                  <li key={index} className="flex items-center">
+                  <li key={index} className="flex items-center dark:text-gray-200">
                     <svg className="h-5 w-5 text-blue-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
@@ -210,8 +210,8 @@ export default function HomePage({ translations, langPath }: HomePageProps) {
                 ))}
               </ul>
               
-              <div className="bg-blue-50 p-4 rounded-lg border border-blue-100">
-                <p className="text-blue-800 font-medium">
+              <div className="bg-blue-50 p-4 rounded-lg border border-blue-100 dark:bg-blue-900 dark:border-blue-800">
+                <p className="text-blue-800 font-medium dark:text-blue-200">
                   {t.productDesc.benefits.demo} 
                   <a href={`https://${t.productDesc.benefits.demoLink}`} className="underline">
                     {t.productDesc.benefits.demoLink}
@@ -224,23 +224,23 @@ export default function HomePage({ translations, langPath }: HomePageProps) {
       </section>
       
       {/* Features Section */}
-      <section id="features" className="py-16 px-4 bg-gray-50">
+      <section id="features" className="py-16 px-4 bg-gray-50 dark:bg-gray-800">
         <div className="container mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4">{t.features.title}</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">{t.features.subtitle}</p>
+            <h2 className="text-3xl font-bold mb-4 dark:text-white">{t.features.title}</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto dark:text-gray-300">{t.features.subtitle}</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {t.features.items.map((feature, index) => (
-              <div key={index} className="bg-white p-8 rounded-lg shadow-sm text-center">
-                <div className="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
+              <div key={index} className="bg-white p-8 rounded-lg shadow-sm text-center dark:bg-gray-700">
+                <div className="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 dark:bg-blue-900 dark:text-blue-300">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                <p className="text-gray-600">{feature.desc}</p>
+                <h3 className="text-xl font-semibold mb-2 dark:text-white">{feature.title}</h3>
+                <p className="text-gray-600 dark:text-gray-300">{feature.desc}</p>
               </div>
             ))}
           </div>
@@ -248,24 +248,24 @@ export default function HomePage({ translations, langPath }: HomePageProps) {
       </section>
       
       {/* Pricing Section */}
-      <section id="pricing" className="py-16 px-4 bg-gray-50">
+      <section id="pricing" className="py-16 px-4 bg-gray-50 dark:bg-gray-800">
         <div className="container mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">{t.pricing.title}</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <h2 className="text-3xl font-bold mb-4 dark:text-white">{t.pricing.title}</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto dark:text-gray-300">
               {t.pricing.subtitle}
             </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-6xl mx-auto">
             {/* Free Plan */}
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+            <div className="bg-white rounded-lg shadow-lg overflow-hidden dark:bg-gray-700">
               <div className="p-8">
-                <h3 className="text-2xl font-bold mb-2">{t.pricing.plans.free.name}</h3>
-                <div className="text-gray-600 mb-6">{t.pricing.plans.free.desc}</div>
-                <div className="text-4xl font-bold mb-6">
+                <h3 className="text-2xl font-bold mb-2 dark:text-white">{t.pricing.plans.free.name}</h3>
+                <div className="text-gray-600 mb-6 dark:text-gray-300">{t.pricing.plans.free.desc}</div>
+                <div className="text-4xl font-bold mb-6 dark:text-white">
                   {t.pricing.plans.free.price}
-                  <span className="text-base font-normal text-gray-600">{t.pricing.plans.free.period}</span>
+                  <span className="text-base font-normal text-gray-600 dark:text-gray-300">{t.pricing.plans.free.period}</span>
                 </div>
                 
                 <ul className="space-y-3 mb-8">
@@ -274,7 +274,7 @@ export default function HomePage({ translations, langPath }: HomePageProps) {
                       <svg className="h-5 w-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                       </svg>
-                      <span>{feature}</span>
+                      <span className="dark:text-gray-200">{feature}</span>
                     </li>
                   ))}
                   {t.pricing.plans.free.notIncluded.map((feature, index) => (
@@ -282,7 +282,7 @@ export default function HomePage({ translations, langPath }: HomePageProps) {
                       <svg className="h-5 w-5 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
                       </svg>
-                      <span>{feature}</span>
+                      <span className="dark:text-gray-400">{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -290,7 +290,7 @@ export default function HomePage({ translations, langPath }: HomePageProps) {
               <div className="px-8 pb-8">
                 <Link
                   href="/payment"
-                  className="block w-full bg-gray-100 hover:bg-gray-200 text-center py-3 rounded-md font-medium transition"
+                  className="block w-full bg-gray-100 hover:bg-gray-200 text-center py-3 rounded-md font-medium transition dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white"
                 >
                   {t.pricing.plans.free.cta}
                 </Link>
@@ -298,16 +298,16 @@ export default function HomePage({ translations, langPath }: HomePageProps) {
             </div>
             
             {/* Standard Plan */}
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden border-2 border-blue-500 transform scale-105">
-              <div className="bg-blue-500 text-white text-center py-2 text-sm font-semibold">
+            <div className="bg-white rounded-lg shadow-lg overflow-hidden border-2 border-blue-500 transform scale-105 dark:bg-gray-700 dark:border-blue-400">
+              <div className="bg-blue-500 text-white text-center py-2 text-sm font-semibold dark:bg-blue-600">
                 {t.pricing.plans.standard.popular}
               </div>
               <div className="p-8">
-                <h3 className="text-2xl font-bold mb-2">{t.pricing.plans.standard.name}</h3>
-                <div className="text-gray-600 mb-6">{t.pricing.plans.standard.desc}</div>
-                <div className="text-4xl font-bold mb-6">
+                <h3 className="text-2xl font-bold mb-2 dark:text-white">{t.pricing.plans.standard.name}</h3>
+                <div className="text-gray-600 mb-6 dark:text-gray-300">{t.pricing.plans.standard.desc}</div>
+                <div className="text-4xl font-bold mb-6 dark:text-white">
                   {t.pricing.plans.standard.price}
-                  <span className="text-base font-normal text-gray-600">{t.pricing.plans.standard.period}</span>
+                  <span className="text-base font-normal text-gray-600 dark:text-gray-300">{t.pricing.plans.standard.period}</span>
                 </div>
                 
                 <ul className="space-y-3 mb-8">
@@ -316,7 +316,7 @@ export default function HomePage({ translations, langPath }: HomePageProps) {
                       <svg className="h-5 w-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                       </svg>
-                      <span>{feature}</span>
+                      <span className="dark:text-gray-200">{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -330,13 +330,13 @@ export default function HomePage({ translations, langPath }: HomePageProps) {
             </div>
             
             {/* Pro Plan */}
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+            <div className="bg-white rounded-lg shadow-lg overflow-hidden dark:bg-gray-700">
               <div className="p-8">
-                <h3 className="text-2xl font-bold mb-2">{t.pricing.plans.pro.name}</h3>
-                <div className="text-gray-600 mb-6">{t.pricing.plans.pro.desc}</div>
-                <div className="text-4xl font-bold mb-6">
+                <h3 className="text-2xl font-bold mb-2 dark:text-white">{t.pricing.plans.pro.name}</h3>
+                <div className="text-gray-600 mb-6 dark:text-gray-300">{t.pricing.plans.pro.desc}</div>
+                <div className="text-4xl font-bold mb-6 dark:text-white">
                   {t.pricing.plans.pro.price}
-                  <span className="text-base font-normal text-gray-600">{t.pricing.plans.pro.period}</span>
+                  <span className="text-base font-normal text-gray-600 dark:text-gray-300">{t.pricing.plans.pro.period}</span>
                 </div>
                 
                 <ul className="space-y-3 mb-8">
@@ -345,7 +345,7 @@ export default function HomePage({ translations, langPath }: HomePageProps) {
                       <svg className="h-5 w-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                       </svg>
-                      <span>{feature}</span>
+                      <span className="dark:text-gray-200">{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -359,13 +359,13 @@ export default function HomePage({ translations, langPath }: HomePageProps) {
             </div>
             
             {/* Enterprise Plan */}
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+            <div className="bg-white rounded-lg shadow-lg overflow-hidden dark:bg-gray-700">
               <div className="p-8">
-                <h3 className="text-2xl font-bold mb-2">{t.pricing.plans.enterprise.name}</h3>
-                <div className="text-gray-600 mb-6">{t.pricing.plans.enterprise.desc}</div>
-                <div className="text-4xl font-bold mb-6">
+                <h3 className="text-2xl font-bold mb-2 dark:text-white">{t.pricing.plans.enterprise.name}</h3>
+                <div className="text-gray-600 mb-6 dark:text-gray-300">{t.pricing.plans.enterprise.desc}</div>
+                <div className="text-4xl font-bold mb-6 dark:text-white">
                   {t.pricing.plans.enterprise.price}
-                  <span className="text-base font-normal text-gray-600">{t.pricing.plans.enterprise.period}</span>
+                  <span className="text-base font-normal text-gray-600 dark:text-gray-300">{t.pricing.plans.enterprise.period}</span>
                 </div>
                 
                 <ul className="space-y-3 mb-8">
@@ -374,7 +374,7 @@ export default function HomePage({ translations, langPath }: HomePageProps) {
                       <svg className="h-5 w-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                       </svg>
-                      <span>{feature}</span>
+                      <span className="dark:text-gray-200">{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -382,7 +382,7 @@ export default function HomePage({ translations, langPath }: HomePageProps) {
               <div className="px-8 pb-8">
                 <a
                   href={`mailto:${t.pricing.plans.enterprise.ctaEmail}`}
-                  className="block w-full bg-gray-800 hover:bg-gray-900 text-white text-center py-3 rounded-md font-medium transition"
+                  className="block w-full bg-gray-800 hover:bg-gray-900 text-white text-center py-3 rounded-md font-medium transition dark:bg-gray-600 dark:hover:bg-gray-500"
                 >
                   {t.pricing.plans.enterprise.cta}
                 </a>
@@ -390,21 +390,21 @@ export default function HomePage({ translations, langPath }: HomePageProps) {
             </div>
           </div>
           
-          <div className="text-center mt-10 text-gray-600">
+          <div className="text-center mt-10 text-gray-600 dark:text-gray-300">
             <p>
               {t.pricing.guarantee}
-              <a href="#contact" className="text-blue-600 hover:underline"> {t.pricing.contact}</a>。
+              <a href="#contact" className="text-blue-600 hover:underline dark:text-blue-400"> {t.pricing.contact}</a>。
             </p>
           </div>
         </div>
       </section>
       
       {/* Download Section */}
-      <section id="download" className="py-16 px-4 bg-white">
+      <section id="download" className="py-16 px-4 bg-white dark:bg-gray-900">
         <div className="container mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">{t.download.title}</h2>
-            <p className="text-gray-600 max-w-3xl mx-auto">
+            <h2 className="text-3xl font-bold mb-4 dark:text-white">{t.download.title}</h2>
+            <p className="text-gray-600 max-w-3xl mx-auto dark:text-gray-300">
               {t.download.subtitle}
             </p>
           </div>
@@ -425,7 +425,7 @@ export default function HomePage({ translations, langPath }: HomePageProps) {
               text={t.download.linux}
             />
           </div>
-          <div className="text-center mt-8 text-gray-500 text-sm">
+          <div className="text-center mt-8 text-gray-500 dark:text-gray-400 text-sm">
             {t.download.payment}
           </div>
         </div>
