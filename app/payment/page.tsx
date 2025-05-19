@@ -2,6 +2,7 @@
 
 import PaddlePayment from "@/src/components/PaddlePayment";
 import PaddleButton from "@/src/components/PaddleButton";
+import SimplePaddleButton from "@/src/components/SimplePaddleButton";
 import { useState } from "react";
 import paddleConfig from "@/src/config/paddle";
 
@@ -10,7 +11,7 @@ export default function PaymentPage() {
   const [displayMode, setDisplayMode] = useState<"overlay" | "inline">("overlay");
   const [customerEmail, setCustomerEmail] = useState<string>("");
   const [selectedPlan, setSelectedPlan] = useState<"standard" | "pro" | "enterprise">("standard");
-  const [buttonStyle, setButtonStyle] = useState<"paddlePayment" | "paddleButton">("paddleButton");
+  const [buttonStyle, setButtonStyle] = useState<"paddlePayment" | "paddleButton" | "simpleButton">("simpleButton");
   const [buttonVariant, setButtonVariant] = useState<"default" | "primary" | "success" | "info">("primary");
   const [showIcon, setShowIcon] = useState<boolean>(true);
 
@@ -132,6 +133,18 @@ export default function PaymentPage() {
               />
               <label htmlFor="paddleButtonBtn" className="ml-2 text-sm text-gray-700">Paddle按钮</label>
             </div>
+            <div className="flex items-center">
+              <input
+                type="radio"
+                id="simpleButtonBtn"
+                value="simpleButton"
+                name="buttonStyle"
+                checked={buttonStyle === "simpleButton"}
+                onChange={() => setButtonStyle("simpleButton")}
+                className="h-4 w-4 text-blue-600 border-gray-300"
+              />
+              <label htmlFor="simpleButtonBtn" className="ml-2 text-sm text-gray-700">SimplePaddleButton</label>
+            </div>
           </div>
         </div>
 
@@ -252,7 +265,7 @@ export default function PaymentPage() {
               onError={handlePaymentError}
               buttonText="开始订阅"
             />
-          ) : (
+          ) : buttonStyle === "paddleButton" ? (
             <div className="flex flex-col items-center">
               <PaddleButton
                 productId={getPriceId()}
@@ -271,6 +284,11 @@ export default function PaymentPage() {
                 点击按钮将在页面内打开Paddle结账窗口，无需离开本站
               </p>
             </div>
+          ) : (
+            <SimplePaddleButton
+              productId={getPriceId()}
+              text="开始订阅"
+            />
           )}
         </div>
         

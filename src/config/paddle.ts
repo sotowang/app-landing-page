@@ -18,9 +18,9 @@ export const PADDLE_SANDBOX_CONFIG: PaddleConfig = {
   clientToken: 'test_4e523c871a7228eca4b1c697774', // Sandbox环境token
   sandbox: true,
   priceIds: {
-    standard: 'pro_01jvk7h218k7bede3q7m6q0crf', // 这里使用测试价格ID
-    pro: 'pro_01jvksene06a15359191v3tykr',
-    enterprise: 'pri_01h0000000000sandbox3'
+    standard: 'pri_01jvk7ngatwd4r8cwrqt82rmxb', // 这里使用测试价格ID
+    pro: 'pri_01jvk7ngatwd4r8cwrqt82rmxb',
+    enterprise: 'pri_01jvk7ngatwd4r8cwrqt82rmxb'
   }
 };
 

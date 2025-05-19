@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import PaddleButton from '../../src/components/PaddleButton';
+import SimplePaddleButton from '../../src/components/SimplePaddleButton';
 import paddleConfig from '../../src/config/paddle';
 
 export default function Home() {
@@ -284,12 +285,9 @@ export default function Home() {
                 </ul>
               </div>
               <div className="px-8 pb-8">
-                <PaddleButton
+                <SimplePaddleButton
                   productId={paddleConfig.priceIds.standard}
                   text="立即购买"
-                  variant="primary"
-                  size="large"
-                  className="w-full"
                 />
               </div>
             </div>
@@ -329,12 +327,9 @@ export default function Home() {
                 </ul>
               </div>
               <div className="px-8 pb-8">
-                <PaddleButton
+                <SimplePaddleButton
                   productId={paddleConfig.priceIds.pro}
                   text="立即购买"
-                  variant="success"
-                  size="large"
-                  className="w-full"
                 />
               </div>
             </div>
@@ -401,31 +396,19 @@ export default function Home() {
           </div>
           
           <div className="flex flex-col md:flex-row justify-center items-center space-y-6 md:space-y-0 md:space-x-8">
-            <PaddleButton
+            <SimplePaddleButton
               productId={paddleConfig.priceIds.standard}
               text="下载 Windows 版本"
-              variant="primary"
-              size="large"
-              className="w-full md:w-auto"
-              showIcon={true}
             />
             
-            <PaddleButton
+            <SimplePaddleButton
               productId={paddleConfig.priceIds.standard}
               text="下载 macOS 版本"
-              variant="primary"
-              size="large"
-              className="w-full md:w-auto"
-              showIcon={true}
             />
             
-            <PaddleButton
+            <SimplePaddleButton
               productId={paddleConfig.priceIds.standard}
               text="下载 Linux 版本"
-              variant="primary"
-              size="large"
-              className="w-full md:w-auto"
-              showIcon={true}
             />
           </div>
           <div className="text-center mt-8 text-gray-500 text-sm">

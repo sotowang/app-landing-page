@@ -4,6 +4,7 @@ import paddleConfig from "../config/paddle";
 
 /**
  * Paddle支付服务
+ * 使用官方推荐的方法调用Paddle API
  */
 
 interface PaddleConfig {
@@ -38,6 +39,7 @@ class PaddleService {
   private isLoaded = false;
   private config: PaddleConfig;
   private loadCallbacks: Array<() => void> = [];
+  private scriptElement: HTMLScriptElement | null = null;
 
   constructor(config: PaddleConfig) {
     this.config = config;
@@ -50,6 +52,7 @@ class PaddleService {
    * 加载Paddle脚本
    */
   private loadScript(): void {
+    // 检查脚本是否已经加载
     if (document.querySelector('script[src="https://cdn.paddle.com/paddle/paddle.js"]')) {
       this.onScriptLoaded();
       return;
@@ -59,6 +62,13 @@ class PaddleService {
     script.src = 'https://cdn.paddle.com/paddle/paddle.js';
     script.async = true;
     script.onload = () => this.onScriptLoaded();
+    script.onerror = (err) => {
+      console.error("加载Paddle脚本失败:", err);
+      this.loadCallbacks.forEach(callback => callback());
+      this.loadCallbacks = [];
+    };
+    
+    this.scriptElement = script;
     document.head.appendChild(script);
   }
 
@@ -76,16 +86,18 @@ class PaddleService {
    * 初始化Paddle
    */
   private initializePaddle(): void {
-    if (!this.isLoaded || this.isInitialized || typeof window === 'undefined') {
+    if (!this.isLoaded || this.isInitialized || typeof window === 'undefined' || !window.Paddle) {
       return;
     }
 
     try {
+      // 设置环境（沙盒或生产）
       if (this.config.sandbox) {
         window.Paddle.Environment.set('sandbox');
       }
 
-      window.Paddle.Initialize({
+      // 使用Paddle.Setup初始化
+      window.Paddle.Setup({
         token: this.config.token,
         eventCallback: (data: any) => {
           console.log('Paddle事件:', data);
@@ -93,6 +105,7 @@ class PaddleService {
       });
 
       this.isInitialized = true;
+      console.log('Paddle初始化成功');
     } catch (error) {
       console.error('初始化Paddle失败:', error);
     }
@@ -121,9 +134,16 @@ class PaddleService {
     await this.ensureInitialized();
     
     if (typeof window !== 'undefined' && window.Paddle) {
-      window.Paddle.Checkout.open(options);
+      try {
+        window.Paddle.Checkout.open(options);
+        console.log('成功打开Paddle结账窗口');
+      } catch (error) {
+        console.error('打开Paddle结账窗口失败:', error);
+        throw error;
+      }
     } else {
       console.error('Paddle未初始化');
+      throw new Error('Paddle未初始化');
     }
   }
 
@@ -133,9 +153,23 @@ class PaddleService {
   async closeCheckout(): Promise<void> {
     await this.ensureInitialized();
     
-    if (typeof window !== 'undefined' && window.Paddle) {
+    if (typeof window !== 'undefined' && window.Paddle && window.Paddle.Checkout) {
       window.Paddle.Checkout.close();
     }
+  }
+
+  /**
+   * 清理资源
+   */
+  cleanup(): void {
+    if (this.scriptElement && document.head.contains(this.scriptElement)) {
+      document.head.removeChild(this.scriptElement);
+    }
+    
+    this.isLoaded = false;
+    this.isInitialized = false;
+    this.loadCallbacks = [];
+    this.scriptElement = null;
   }
 }
 

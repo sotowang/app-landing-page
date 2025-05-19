@@ -1,6 +1,28 @@
 declare interface Window {
   Paddle: {
-    Initialize(options: {
+    Setup(options: {
+      token: string;
+      pwCustomer?: {
+        id?: string;
+        [key: string]: any;
+      };
+      checkout?: {
+        settings?: {
+          displayMode?: "overlay" | "inline";
+          theme?: "light" | "dark";
+          locale?: string;
+          frameTarget?: string;
+          frameInitialHeight?: string;
+          frameStyle?: string;
+          variant?: "one-page" | "multi-page";
+          [key: string]: any;
+        };
+      };
+      eventCallback?: (eventData: any) => void;
+      [key: string]: any;
+    }): void;
+    // Initialize仍然保留为向后兼容
+    Initialize?(options: {
       token: string;
       pwCustomer?: {
         id?: string;
