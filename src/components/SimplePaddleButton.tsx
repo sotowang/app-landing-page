@@ -25,11 +25,14 @@ export default function SimplePaddleButton({
       if (typeof window !== 'undefined' && window.Paddle) {
         try {
           // 设置环境
-          window.Paddle.Environment.set('sandbox');
+          if (paddleConfig.sandbox) {
+            window.Paddle.Environment.set('sandbox');
+          }
           
           // 初始化Paddle
           window.Paddle.Setup({ 
-            token: paddleConfig.clientToken 
+            token: paddleConfig.clientToken,
+            vendorId: paddleConfig.vendorId
           });
           
           setIsReady(true);

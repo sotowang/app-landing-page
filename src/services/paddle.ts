@@ -7,9 +7,10 @@ import paddleConfig from "../config/paddle";
  * 使用官方推荐的方法调用Paddle API
  */
 
-interface PaddleConfig {
+interface PaddleServiceConfig {
   token: string;
   sandbox?: boolean;
+  vendorId: number;
 }
 
 interface PaddleCheckoutOptions {
@@ -37,11 +38,11 @@ interface PaddleCheckoutOptions {
 class PaddleService {
   private isInitialized = false;
   private isLoaded = false;
-  private config: PaddleConfig;
+  private config: PaddleServiceConfig;
   private loadCallbacks: Array<() => void> = [];
   private scriptElement: HTMLScriptElement | null = null;
 
-  constructor(config: PaddleConfig) {
+  constructor(config: PaddleServiceConfig) {
     this.config = config;
     if (typeof window !== 'undefined') {
       this.loadScript();
@@ -99,6 +100,7 @@ class PaddleService {
       // 使用Paddle.Setup初始化
       window.Paddle.Setup({
         token: this.config.token,
+        vendorId: this.config.vendorId,
         eventCallback: (data: any) => {
           console.log('Paddle事件:', data);
         }
@@ -176,7 +178,8 @@ class PaddleService {
 // 导出Paddle服务实例
 export const paddleService = new PaddleService({
   token: paddleConfig.clientToken,
-  sandbox: paddleConfig.sandbox
+  sandbox: paddleConfig.sandbox,
+  vendorId: paddleConfig.vendorId
 });
 
 export default paddleService; 

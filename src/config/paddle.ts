@@ -11,22 +11,25 @@ interface PaddlePriceIds {
 interface PaddleConfig {
   clientToken: string;
   sandbox: boolean;
+  vendorId: number;
   priceIds: PaddlePriceIds;
 }
 
 export const PADDLE_SANDBOX_CONFIG: PaddleConfig = {
   clientToken: 'test_4e523c871a7228eca4b1c697774', // Sandbox环境token
   sandbox: true,
+  vendorId: 31639, // Sandbox环境的vendorId
   priceIds: {
-    standard: 'pri_01jvk7ngatwd4r8cwrqt82rmxb', // 这里使用测试价格ID
-    pro: 'pri_01jvk7ngatwd4r8cwrqt82rmxb',
-    enterprise: 'pri_01jvk7ngatwd4r8cwrqt82rmxb'
+    standard: 'pri_01h0000000000sandbox', // 这里使用测试价格ID
+    pro: 'pri_01h0000000000sandbox2',
+    enterprise: 'pri_01h0000000000sandbox3'
   }
 };
 
 export const PADDLE_PRODUCTION_CONFIG: PaddleConfig = {
   clientToken: '', // 这里需要填入生产环境token
   sandbox: false,
+  vendorId: 223419, // 生产环境的vendorId
   priceIds: {
     standard: '', // 生产环境的价格ID
     pro: '',
