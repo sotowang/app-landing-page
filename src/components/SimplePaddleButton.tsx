@@ -29,8 +29,8 @@ export default function SimplePaddleButton({
             window.Paddle.Environment.set('sandbox');
           }
           
-          // 初始化Paddle
-          window.Paddle.Setup({ 
+          // 初始化Paddle（使用Initialize代替Setup）
+          window.Paddle.Initialize({ 
             token: paddleConfig.clientToken,
             vendorId: paddleConfig.vendorId
           });

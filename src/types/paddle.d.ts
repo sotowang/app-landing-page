@@ -1,7 +1,9 @@
 declare interface Window {
   Paddle: {
-    Setup(options: {
+    // Setup已经被弃用，改为可选
+    Setup?(options: {
       token: string;
+      vendorId?: number;
       pwCustomer?: {
         id?: string;
         [key: string]: any;
@@ -21,9 +23,10 @@ declare interface Window {
       eventCallback?: (eventData: any) => void;
       [key: string]: any;
     }): void;
-    // Initialize仍然保留为向后兼容
-    Initialize?(options: {
+    // Initialize设为必需方法
+    Initialize(options: {
       token: string;
+      vendorId?: number;
       pwCustomer?: {
         id?: string;
         [key: string]: any;

@@ -97,8 +97,8 @@ class PaddleService {
         window.Paddle.Environment.set('sandbox');
       }
 
-      // 使用Paddle.Setup初始化
-      window.Paddle.Setup({
+      // 使用Paddle.Initialize初始化（替换Paddle.Setup）
+      window.Paddle.Initialize({
         token: this.config.token,
         vendorId: this.config.vendorId,
         eventCallback: (data: any) => {
