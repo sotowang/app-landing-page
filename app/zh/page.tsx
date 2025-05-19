@@ -1,5 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
+import PaddleButton from '../../src/components/PaddleButton';
+import paddleConfig from '../../src/config/paddle';
 
 export default function Home() {
   return (
@@ -205,7 +207,7 @@ export default function Home() {
               <div className="p-8">
                 <h3 className="text-2xl font-bold mb-2">免费版</h3>
                 <div className="text-gray-600 mb-6">适合尝试使用</div>
-                <div className="text-4xl font-bold mb-6">¥0<span className="text-base font-normal text-gray-600">/月</span></div>
+                <div className="text-4xl font-bold mb-6">$0<span className="text-base font-normal text-gray-600">/月</span></div>
                 
                 <ul className="space-y-3 mb-8">
                   <li className="flex items-start">
@@ -235,12 +237,12 @@ export default function Home() {
                 </ul>
               </div>
               <div className="px-8 pb-8">
-                <a
-                  href="https://checkout.paddle.com/product/free-tier"
+                <Link
+                  href="/payment"
                   className="block w-full bg-gray-100 hover:bg-gray-200 text-center py-3 rounded-md font-medium transition"
                 >
                   免费开始
-                </a>
+                </Link>
               </div>
             </div>
             
@@ -252,7 +254,7 @@ export default function Home() {
               <div className="p-8">
                 <h3 className="text-2xl font-bold mb-2">标准版</h3>
                 <div className="text-gray-600 mb-6">适合个人用户</div>
-                <div className="text-4xl font-bold mb-6">¥39<span className="text-base font-normal text-gray-600">/月</span></div>
+                <div className="text-4xl font-bold mb-6">$9<span className="text-base font-normal text-gray-600">/月</span></div>
                 
                 <ul className="space-y-3 mb-8">
                   <li className="flex items-start">
@@ -282,12 +284,13 @@ export default function Home() {
                 </ul>
               </div>
               <div className="px-8 pb-8">
-                <Link
-                  href="/payment"
-                  className="block w-full bg-blue-600 hover:bg-blue-700 text-white text-center py-3 rounded-md font-medium transition"
-                >
-                  立即购买
-                </Link>
+                <PaddleButton
+                  productId={paddleConfig.priceIds.standard}
+                  text="立即购买"
+                  variant="primary"
+                  size="large"
+                  className="w-full"
+                />
               </div>
             </div>
             
@@ -296,7 +299,7 @@ export default function Home() {
               <div className="p-8">
                 <h3 className="text-2xl font-bold mb-2">专业版</h3>
                 <div className="text-gray-600 mb-6">适合专业团队</div>
-                <div className="text-4xl font-bold mb-6">¥99<span className="text-base font-normal text-gray-600">/月</span></div>
+                <div className="text-4xl font-bold mb-6">$29<span className="text-base font-normal text-gray-600">/月</span></div>
                 
                 <ul className="space-y-3 mb-8">
                   <li className="flex items-start">
@@ -326,12 +329,13 @@ export default function Home() {
                 </ul>
               </div>
               <div className="px-8 pb-8">
-                <Link
-                  href="/payment"
-                  className="block w-full bg-blue-600 hover:bg-blue-700 text-white text-center py-3 rounded-md font-medium transition"
-                >
-                  立即购买
-                </Link>
+                <PaddleButton
+                  productId={paddleConfig.priceIds.pro}
+                  text="立即购买"
+                  variant="success"
+                  size="large"
+                  className="w-full"
+                />
               </div>
             </div>
             

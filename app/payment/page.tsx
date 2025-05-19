@@ -1,6 +1,7 @@
 "use client";
 
 import PaddlePayment from "@/src/components/PaddlePayment";
+import PaddleButton from "@/src/components/PaddleButton";
 import { useState } from "react";
 import paddleConfig from "@/src/config/paddle";
 
@@ -9,6 +10,8 @@ export default function PaymentPage() {
   const [displayMode, setDisplayMode] = useState<"overlay" | "inline">("overlay");
   const [customerEmail, setCustomerEmail] = useState<string>("");
   const [selectedPlan, setSelectedPlan] = useState<"standard" | "pro" | "enterprise">("standard");
+  const [buttonStyle, setButtonStyle] = useState<"paddlePayment" | "paddleButton">("paddleButton");
+  const [buttonVariant, setButtonVariant] = useState<"default" | "primary" | "success" | "info">("primary");
 
   const handlePaymentSuccess = () => {
     setPaymentStatus("支付成功！交易已完成。");
@@ -90,6 +93,72 @@ export default function PaymentPage() {
         
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700 mb-2">
+            按钮类型
+          </label>
+          <div className="flex space-x-4">
+            <div className="flex items-center">
+              <input
+                type="radio"
+                id="paddlePaymentBtn"
+                value="paddlePayment"
+                name="buttonStyle"
+                checked={buttonStyle === "paddlePayment"}
+                onChange={() => setButtonStyle("paddlePayment")}
+                className="h-4 w-4 text-blue-600 border-gray-300"
+              />
+              <label htmlFor="paddlePaymentBtn" className="ml-2 text-sm text-gray-700">基本按钮</label>
+            </div>
+            <div className="flex items-center">
+              <input
+                type="radio"
+                id="paddleButtonBtn"
+                value="paddleButton"
+                name="buttonStyle"
+                checked={buttonStyle === "paddleButton"}
+                onChange={() => setButtonStyle("paddleButton")}
+                className="h-4 w-4 text-blue-600 border-gray-300"
+              />
+              <label htmlFor="paddleButtonBtn" className="ml-2 text-sm text-gray-700">Paddle按钮</label>
+            </div>
+          </div>
+        </div>
+
+        {buttonStyle === "paddleButton" && (
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              按钮风格
+            </label>
+            <div className="grid grid-cols-4 gap-2">
+              <button 
+                className={`py-2 px-4 rounded-md ${buttonVariant === "default" ? "ring-2 ring-blue-500" : ""} bg-gray-200 hover:bg-gray-300 text-gray-800`}
+                onClick={() => setButtonVariant("default")}
+              >
+                默认
+              </button>
+              <button 
+                className={`py-2 px-4 rounded-md ${buttonVariant === "primary" ? "ring-2 ring-blue-500" : ""} bg-blue-600 hover:bg-blue-700 text-white`}
+                onClick={() => setButtonVariant("primary")}
+              >
+                主要
+              </button>
+              <button 
+                className={`py-2 px-4 rounded-md ${buttonVariant === "success" ? "ring-2 ring-blue-500" : ""} bg-green-600 hover:bg-green-700 text-white`}
+                onClick={() => setButtonVariant("success")}
+              >
+                成功
+              </button>
+              <button 
+                className={`py-2 px-4 rounded-md ${buttonVariant === "info" ? "ring-2 ring-blue-500" : ""} bg-cyan-600 hover:bg-cyan-700 text-white`}
+                onClick={() => setButtonVariant("info")}
+              >
+                信息
+              </button>
+            </div>
+          </div>
+        )}
+        
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700 mb-2">
             选择套餐
           </label>
           <div className="grid grid-cols-3 gap-4">
@@ -162,14 +231,32 @@ export default function PaymentPage() {
         </div>
         
         <div className="mt-8">
-          <PaddlePayment 
-            productId={getPriceId()}
-            customerEmail={customerEmail || undefined}
-            displayMode={displayMode}
-            onSuccess={handlePaymentSuccess}
-            onError={handlePaymentError}
-            buttonText="开始订阅"
-          />
+          {buttonStyle === "paddlePayment" ? (
+            <PaddlePayment 
+              productId={getPriceId()}
+              customerEmail={customerEmail || undefined}
+              displayMode={displayMode}
+              onSuccess={handlePaymentSuccess}
+              onError={handlePaymentError}
+              buttonText="开始订阅"
+            />
+          ) : (
+            <div className="flex flex-col items-center">
+              <PaddleButton
+                productId={getPriceId()}
+                text="开始订阅"
+                variant={buttonVariant}
+                size="large"
+                className="w-full sm:w-64"
+                showIcon={true}
+                onSuccess={handlePaymentSuccess}
+                onError={handlePaymentError}
+              />
+              <div className="text-xs text-gray-500 mt-2">
+                安全支付由 <span className="text-blue-600">Paddle</span> 提供
+              </div>
+            </div>
+          )}
         </div>
         
         {paymentStatus && (
@@ -186,6 +273,7 @@ export default function PaymentPage() {
         <p className="mt-1">• Sandbox环境不会产生实际费用</p>
         <p className="mt-1">• 可以使用任何有效的测试信用卡号码</p>
         <p className="mt-1">• Token: {paddleConfig.clientToken}</p>
+        <p className="mt-1">• 价格ID: {getPriceId()}</p>
       </div>
     </div>
   );
