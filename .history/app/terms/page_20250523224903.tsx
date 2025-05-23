@@ -102,7 +102,7 @@ export default function TermsPage() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/meeting/pricing" className="text-gray-400 hover:text-white transition">
+                  <Link href="/pricing" className="text-gray-400 hover:text-white transition">
                     Pricing
                   </Link>
                 </li>
