@@ -2,8 +2,8 @@ import './globals.css'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'MeetingGPT - AI-powered Meeting Assistant',
-  description: 'MeetingGPT is an innovative desktop application that processes audio content in real-time, providing customized intelligent responses.',
+  title: 'App Showcase - Paddle支付演示',
+  description: '集成Paddle支付的示例应用',
   metadataBase: new URL('https://paddle-app-showcase.vercel.app'),
 }
 
@@ -13,7 +13,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="scroll-smooth dark">
+    <html lang="en" className="scroll-smooth">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta httpEquiv="Content-Security-Policy" content="
