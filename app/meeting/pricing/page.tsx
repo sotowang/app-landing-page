@@ -335,12 +335,21 @@ export default function PricingPage() {
                   </span>
                   <span className="text-base font-medium text-gray-300">/mo</span>
                 </p>
-                <Link
-                  href="/login?plan=basic"
-                  className="mt-8 block w-full bg-blue-600 rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-blue-700"
-                >
-                  Subscribe
-                </Link>
+                {isLoggedIn ? (
+                  <Link
+                    href="/subscribe?plan=basic"
+                    className="mt-8 block w-full bg-blue-600 rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-blue-700"
+                  >
+                    Subscribe
+                  </Link>
+                ) : (
+                  <Link
+                    href="/login?plan=basic"
+                    className="mt-8 block w-full bg-blue-600 rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-blue-700"
+                  >
+                    Subscribe
+                  </Link>
+                )}
               </div>
               <div className="px-6 pt-6 pb-8">
                 <h4 className="text-sm font-medium text-white tracking-wide">What's included:</h4>
@@ -379,12 +388,21 @@ export default function PricingPage() {
                   </span>
                   <span className="text-base font-medium text-gray-300">/mo</span>
                 </p>
-                <Link
-                  href="/login?plan=pro"
-                  className="mt-8 block w-full bg-blue-600 rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-blue-700"
-                >
-                  Subscribe
-                </Link>
+                {isLoggedIn ? (
+                  <Link
+                    href="/subscribe?plan=pro"
+                    className="mt-8 block w-full bg-blue-600 rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-blue-700"
+                  >
+                    Subscribe
+                  </Link>
+                ) : (
+                  <Link
+                    href="/login?plan=pro"
+                    className="mt-8 block w-full bg-blue-600 rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-blue-700"
+                  >
+                    Subscribe
+                  </Link>
+                )}
               </div>
               <div className="px-6 pt-6 pb-8">
                 <h4 className="text-sm font-medium text-white tracking-wide">What's included:</h4>
