@@ -9,83 +9,90 @@ export const zhTranslations = {
     pricing: "价格方案",
     terms: "服务条款",
     privacy: "隐私政策",
-    download: "下载"
+    download: "下载",
+    login: "登录",
+    account: "我的账户",
+    profile: "个人资料",
+    settings: "设置",
+    logout: "退出登录"
   },
-  
+
   // 英文语言切换按钮
   switchLang: "English",
   switchLangUrl: "/en",
-  
+
   // 主页横幅区域
   hero: {
-    title: "将您的声音转化为文字",
-    subtitle: "以说话的速度写作 — 我们的AI驱动语音识别技术可在任何应用程序中无缝工作",
+    title: "MeetingGPT：让 AI 实时响应您的会议音频",
+    subtitle: "实时监听会议或视频音频内容，根据预设提示词进行智能响应，助您提升沟通效率",
     cta: "立即开始"
   },
-  
+
   // 产品描述区域
   productDesc: {
-    title: "简单易用的语音识别",
-    subtitle: "我们先进的语音转文本解决方案帮助您更快工作、更好沟通、更轻松创作内容。",
+    title: "智能会议助手",
+    subtitle: "MeetingGPT 是一款创新的桌面应用，能够实时处理音频内容，为您提供定制化的智能响应。",
     useCases: {
       title: "使用场景",
       items: [
         {
-          title: "撰写专业电子邮件",
-          desc: "口述格式完善的电子邮件。我们的工具自动将您的口述内容结构化为专业通信。"
+          title: "国际会议",
+          desc: "实时翻译会议内容，促进跨语言交流，消除语言障碍。"
         },
         {
-          title: "即时消息交流",
-          desc: "口述您的想法用于聊天对话。无需打字即可发送有深度的回复。"
+          title: "面试准备",
+          desc: "模拟面试问答，提升应对能力，增强自信心。"
         },
         {
-          title: "记录会议笔记",
-          desc: "实时记录想法，保持专注。在会议中将口述思想转化为有条理的笔记。"
+          title: "内容创作",
+          desc: "根据音频内容生成摘要或提炼要点，辅助内容创作和整理。"
         },
         {
-          title: "快速创建内容",
-          desc: "通过自然说话起草社交帖子、文章或博客。通过将口述想法转换为格式化内容来克服写作障碍。"
+          title: "语言学习",
+          desc: "通过实时翻译和转录，辅助语言学习和练习，提高语言技能。"
         }
       ]
     },
     benefits: {
-      title: "主要优势",
-      subtitle: "我们的语音转文本解决方案相比传统打字具有诸多优势：",
+      title: "主要功能",
+      subtitle: "MeetingGPT 提供多种强大功能，满足您的各种需求：",
       items: [
-        "速度比打字快3-5倍",
-        "适用于任何应用程序",
-        "基于上下文的智能格式化",
-        "支持多种语言"
+        "自定义 Prompt 响应",
+        "指定声道监听",
+        "实时音频处理",
+        "多语言支持"
       ],
-      demo: "体验我们的演示：",
-      demoLink: "demo.voicetotext.com"
+      demo: "了解更多示例：",
+      demoLink: "meetinggpt.demo.com"
     }
   },
-  
+
   // 功能区域
   features: {
     title: "核心功能",
-    subtitle: "为注重效率和准确性的专业人士设计",
+    subtitle: "为提升会议效率和跨语言沟通设计",
     items: [
       {
-        title: "多种转录模式",
-        desc: "简洁模式、邮件模式、笔记模式和消息模式适用于不同场景"
+        title: "自定义 Prompt 响应",
+        desc: "根据您的设定，将音频内容翻译成指定语言、生成会议摘要，或模拟特定角色进行对话"
       },
       {
-        title: "自定义词汇",
-        desc: "添加专业术语、名称和行业用语以提高准确性"
+        title: "指定声道监听",
+        desc: "支持选择性监听特定音频声道，例如仅监听会议中其他参与者的声音，避免自身声音干扰"
       },
       {
-        title: "隐私与安全",
-        desc: "使用您自己的API密钥实现完全的数据隐私和控制"
+        title: "数据隐私与安全",
+        desc: "所有音频处理均在本地完成，确保您的数据不会被上传或泄露"
       }
     ]
   },
-  
+
   // 价格区域
   pricing: {
     title: "选择适合您的套餐",
     subtitle: "我们提供灵活的价格选项，以满足您的需求和预算",
+    monthly: "月付",
+    yearly: "年付",
     plans: {
       free: {
         name: "免费版",
@@ -93,14 +100,14 @@ export const zhTranslations = {
         price: "$0",
         period: "/月",
         features: [
-          "每月10分钟转录时间",
-          "标准转录质量",
-          "支持2种语言"
+          "免费30分钟使用",
+          "支持prompt设置",
+          "声道选择"
         ],
         notIncluded: [
           "无文件导出功能"
         ],
-        cta: "免费开始"
+        cta: "免费下载"
       },
       standard: {
         name: "标准版",
@@ -147,28 +154,85 @@ export const zhTranslations = {
     guarantee: "所有套餐均提供7天无条件退款保证。如有任何疑问，请",
     contact: "联系我们"
   },
-  
+
   // 下载区域
   download: {
-    title: "下载SuperSpeech应用",
-    subtitle: "将您的语音转为文本，适用于所有主流操作系统，提高工作效率",
+    title: "下载 MeetingGPT 应用",
+    subtitle: "立即体验智能会议助手，适用于 Windows 和 macOS 系统",
     windows: "下载 Windows 版本",
     macos: "下载 macOS 版本",
     linux: "下载 Linux 版本",
-    payment: "支付由 Paddle 安全处理"
+    payment: "开启智能会议助手的新体验，提升您的沟通效率"
   },
-  
+
   // 页脚
   footer: {
-    copyright: "© 2023 SuperSpeech科技. 保留所有权利.",
+    copyright: "© 2025 MeetingGPT. 保留所有权利.",
     paymentBy: "安全支付由",
     paddle: "Paddle",
     providedBy: "提供",
     links: "链接",
     legal: "法律",
     contact: "联系我们",
-    email: "电子邮件: support@superspeech.com",
+    email: "电子邮件: support@meetinggpt.com",
     phone: "电话: +1 (555) 123-4567"
+  },
+
+  // 认证相关
+  auth: {
+    login: {
+      title: "登录",
+      email: "邮箱",
+      password: "密码",
+      submit: "登录",
+      forgotPassword: "忘记密码？",
+      noAccount: "还没有账号？",
+      register: "立即注册",
+      success: "登录成功",
+      error: "登录失败",
+      emailRequired: "请输入邮箱",
+      emailInvalid: "请输入有效的邮箱",
+      passwordRequired: "请输入密码"
+    },
+    register: {
+      title: "注册",
+      email: "邮箱",
+      password: "密码",
+      confirmPassword: "确认密码",
+      verificationCode: "验证码",
+      getCode: "获取验证码",
+      submit: "注册",
+      hasAccount: "已有账号？",
+      login: "立即登录",
+      success: "注册成功",
+      error: "注册失败",
+      emailRequired: "请输入邮箱",
+      emailInvalid: "请输入有效的邮箱",
+      passwordRequired: "请输入密码",
+      passwordMismatch: "两次输入的密码不一致",
+      codeRequired: "请输入验证码",
+      codeSent: "验证码已发送",
+      codeSendError: "验证码发送失败"
+    },
+    resetPassword: {
+      title: "重置密码",
+      email: "邮箱",
+      newPassword: "新密码",
+      confirmPassword: "确认密码",
+      verificationCode: "验证码",
+      getCode: "获取验证码",
+      submit: "重置密码",
+      backToLogin: "返回登录",
+      success: "密码重置成功",
+      error: "密码重置失败",
+      emailRequired: "请输入邮箱",
+      emailInvalid: "请输入有效的邮箱",
+      passwordRequired: "请输入新密码",
+      passwordMismatch: "两次输入的密码不一致",
+      codeRequired: "请输入验证码",
+      codeSent: "验证码已发送",
+      codeSendError: "验证码发送失败"
+    }
   }
 };
 
@@ -181,83 +245,90 @@ export const enTranslations = {
     pricing: "Pricing",
     terms: "Terms",
     privacy: "Privacy",
-    download: "Download"
+    download: "Download",
+    login: "Login",
+    account: "My Account",
+    profile: "Profile",
+    settings: "Settings",
+    logout: "Logout"
   },
-  
+
   // 中文语言切换按钮
   switchLang: "中文",
   switchLangUrl: "/zh",
-  
+
   // 主页横幅区域
   hero: {
-    title: "Transform Your Voice Into Text",
-    subtitle: "Write at the speed of speech with our AI-powered voice recognition technology that works across any application",
+    title: "MeetingGPT: Real-time AI Responses to Your Meeting Audio",
+    subtitle: "Listen to your meetings or video audio in real-time and get intelligent responses based on your custom prompts",
     cta: "Get Started"
   },
-  
+
   // 产品描述区域
   productDesc: {
-    title: "Voice Recognition Made Simple",
-    subtitle: "Our advanced voice-to-text solution helps you work faster, communicate better, and create content with ease.",
+    title: "Intelligent Meeting Assistant",
+    subtitle: "MeetingGPT is an innovative desktop application that processes audio content in real-time, providing customized intelligent responses.",
     useCases: {
       title: "Use Cases",
       items: [
         {
-          title: "Craft Professional Emails",
-          desc: "Dictate polished emails with proper formatting. Our tool automatically structures your spoken words into professional communication."
+          title: "International Meetings",
+          desc: "Real-time translation of meeting content, facilitating cross-language communication and eliminating language barriers."
         },
         {
-          title: "Message Colleagues Instantly",
-          desc: "Speak your thoughts for chat conversations. Perfect for thoughtful responses without typing lengthy messages."
+          title: "Interview Preparation",
+          desc: "Simulate interview Q&A, improve response capabilities, and boost confidence."
         },
         {
-          title: "Capture Meeting Notes",
-          desc: "Record ideas as they happen without breaking your focus. Turn spoken thoughts into organized notes during meetings."
+          title: "Content Creation",
+          desc: "Generate summaries or extract key points from audio content to assist with content creation and organization."
         },
         {
-          title: "Create Content Quickly",
-          desc: "Draft social posts, articles, or blogs by speaking naturally. Overcome writer's block by converting spoken ideas into formatted content."
+          title: "Language Learning",
+          desc: "Facilitate language learning and practice through real-time translation and transcription, improving language skills."
         }
       ]
     },
     benefits: {
-      title: "Key Benefits",
-      subtitle: "Our voice-to-text solution offers numerous advantages over traditional typing:",
+      title: "Key Features",
+      subtitle: "MeetingGPT offers powerful features to meet your various needs:",
       items: [
-        "3-5x faster than typing",
-        "Works with any application",
-        "Smart formatting based on context",
-        "Supports multiple languages"
+        "Custom Prompt Responses",
+        "Selective Audio Channel Monitoring",
+        "Real-time Audio Processing",
+        "Multi-language Support"
       ],
-      demo: "Try our demo:",
-      demoLink: "demo.voicetotext.com"
+      demo: "Learn more examples:",
+      demoLink: "meetinggpt.demo.com"
     }
   },
-  
+
   // 功能区域
   features: {
-    title: "Key Features",
-    subtitle: "Designed for professionals who value efficiency and accuracy",
+    title: "Core Features",
+    subtitle: "Designed to enhance meeting efficiency and cross-language communication",
     items: [
       {
-        title: "Multiple Transcription Modes",
-        desc: "Simple format, Email mode, Note mode, and Message mode for different contexts"
+        title: "Custom Prompt Responses",
+        desc: "Based on your settings, translate audio content into specified languages, generate meeting summaries, or simulate specific roles for dialogue"
       },
       {
-        title: "Custom Vocabulary",
-        desc: "Add specialized terms, names, and jargon for better accuracy"
+        title: "Selective Audio Channel Monitoring",
+        desc: "Support for selectively monitoring specific audio channels, such as only listening to other participants in meetings, avoiding interference from your own voice"
       },
       {
-        title: "Private & Secure",
-        desc: "Use your own API key for complete data privacy and control"
+        title: "Data Privacy & Security",
+        desc: "All audio processing is completed locally, ensuring your data is not uploaded or leaked"
       }
     ]
   },
-  
+
   // 价格区域
   pricing: {
     title: "Choose Your Plan",
     subtitle: "We offer flexible pricing options to fit your needs and budget",
+    monthly: "Monthly",
+    yearly: "Yearly",
     plans: {
       free: {
         name: "Free",
@@ -265,14 +336,14 @@ export const enTranslations = {
         price: "$0",
         period: "/month",
         features: [
-          "10 minutes of transcription per month",
-          "Standard quality",
-          "2 languages supported"
+          "Free 30 minutes usage",
+          "Custom prompt settings",
+          "Audio channel selection"
         ],
         notIncluded: [
           "No file exports"
         ],
-        cta: "Start Free"
+        cta: "Download Free"
       },
       standard: {
         name: "Standard",
@@ -319,27 +390,84 @@ export const enTranslations = {
     guarantee: "All plans come with a 7-day money-back guarantee. If you have any questions, please",
     contact: "contact us"
   },
-  
+
   // 下载区域
   download: {
-    title: "Download SuperSpeech App",
-    subtitle: "Convert your voice to text across all major operating systems to boost productivity",
+    title: "Download MeetingGPT App",
+    subtitle: "Experience the intelligent meeting assistant now, available for Windows and macOS",
     windows: "Download for Windows",
     macos: "Download for macOS",
     linux: "Download for Linux",
-    payment: "Payments securely processed by Paddle"
+    payment: "Start a new experience with our intelligent meeting assistant and enhance your communication efficiency"
   },
-  
+
   // 页脚
   footer: {
-    copyright: "© 2023 SuperSpeech Technologies. All rights reserved.",
+    copyright: "© 2025 MeetingGPT. All rights reserved.",
     paymentBy: "Secure payments by",
     paddle: "Paddle",
     providedBy: "",
     links: "Links",
     legal: "Legal",
     contact: "Contact Us",
-    email: "Email: support@superspeech.com",
+    email: "Email: support@meetinggpt.com",
     phone: "Phone: +1 (555) 123-4567"
+  },
+
+  // 认证相关
+  auth: {
+    login: {
+      title: "Login",
+      email: "Email",
+      password: "Password",
+      submit: "Login",
+      forgotPassword: "Forgot password?",
+      noAccount: "Don't have an account?",
+      register: "Register now",
+      success: "Login successful",
+      error: "Login failed",
+      emailRequired: "Email is required",
+      emailInvalid: "Please enter a valid email",
+      passwordRequired: "Password is required"
+    },
+    register: {
+      title: "Register",
+      email: "Email",
+      password: "Password",
+      confirmPassword: "Confirm Password",
+      verificationCode: "Verification Code",
+      getCode: "Get Code",
+      submit: "Register",
+      hasAccount: "Already have an account?",
+      login: "Login now",
+      success: "Registration successful",
+      error: "Registration failed",
+      emailRequired: "Email is required",
+      emailInvalid: "Please enter a valid email",
+      passwordRequired: "Password is required",
+      passwordMismatch: "Passwords do not match",
+      codeRequired: "Verification code is required",
+      codeSent: "Verification code sent",
+      codeSendError: "Failed to send verification code"
+    },
+    resetPassword: {
+      title: "Reset Password",
+      email: "Email",
+      newPassword: "New Password",
+      confirmPassword: "Confirm Password",
+      verificationCode: "Verification Code",
+      getCode: "Get Code",
+      submit: "Reset Password",
+      backToLogin: "Back to login",
+      success: "Password reset successful",
+      error: "Password reset failed",
+      emailRequired: "Email is required",
+      emailInvalid: "Please enter a valid email",
+      passwordRequired: "New password is required",
+      passwordMismatch: "Passwords do not match",
+      codeRequired: "Verification code is required",
+      codeSent: "Verification code sent",
+      codeSendError: "Failed to send verification code"
+    }
   }
-}; 
+};

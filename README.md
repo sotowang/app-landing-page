@@ -1,36 +1,103 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Paddle App Showcase
 
-## Getting Started
+这是一个展示Paddle支付集成的Next.js应用程序。
 
-First, run the development server:
+## 环境配置
+
+应用程序使用环境变量来配置不同环境（开发、测试、生产）的设置。
+
+### 环境变量
+
+主要的环境变量包括：
+
+- `NEXT_PUBLIC_APP_ENV`: 应用环境，可选值为 `development`、`test` 或 `production`
+- `NEXT_PUBLIC_API_BASE_URL`: API基础URL
+- `NEXT_PUBLIC_PADDLE_CLIENT_TOKEN`: Paddle客户端Token
+- `NEXT_PUBLIC_PADDLE_SANDBOX`: 是否使用Paddle沙盒环境，`true` 或 `false`
+- `NEXT_PUBLIC_PADDLE_VENDOR_ID`: Paddle供应商ID
+
+### 环境文件
+
+应用程序使用以下环境文件：
+
+- `.env.local`: 本地开发环境配置，不会提交到版本控制
+- `.env.development`: 开发环境配置
+- `.env.test`: 测试环境配置
+- `.env.production`: 生产环境配置
+
+示例 `.env.local` 文件：
+
+```
+# 应用环境: development, test, production
+NEXT_PUBLIC_APP_ENV=development
+
+# API配置
+NEXT_PUBLIC_API_BASE_URL=http://127.0.0.1:8082
+
+# Paddle配置
+NEXT_PUBLIC_PADDLE_CLIENT_TOKEN=test_4e523c871a7228eca4b1c697774
+NEXT_PUBLIC_PADDLE_SANDBOX=true
+NEXT_PUBLIC_PADDLE_VENDOR_ID=31639
+```
+
+## 配置文件
+
+应用程序使用集中的配置文件来管理所有环境相关的设置：
+
+- `src/config/appConfig.ts`: 主配置文件，包含所有环境相关的配置
+- `src/config/paddle.ts`: Paddle配置文件（为向后兼容保留）
+
+## 开发
+
+### 安装依赖
+
+```bash
+npm install
+```
+
+### 运行开发服务器
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 构建生产版本
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 运行生产版本
 
-## Learn More
+```bash
+npm start
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Paddle集成
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+应用程序使用Paddle.js v2版本进行支付集成。主要组件包括：
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `SimplePaddleButton`: 简单的Paddle按钮组件
+- `PricingSection`: 价格展示组件，从API获取产品数据并展示
 
-## Deploy on Vercel
+## API集成
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+应用程序使用Next.js API路由来代理对外部API的请求，解决跨域问题：
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `app/api/paddle/products/route.ts`: 获取Paddle产品数据的API路由
+
+## 环境切换
+
+要在不同环境之间切换，可以修改 `.env.local` 文件中的 `NEXT_PUBLIC_APP_ENV` 变量，或者使用不同的环境文件。
+
+例如，要使用生产环境配置运行应用程序：
+
+```bash
+NODE_ENV=production npm run dev
+```
+
+或者构建生产版本：
+
+```bash
+npm run build
+```

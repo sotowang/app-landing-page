@@ -19,13 +19,13 @@ export default function RootLayout({
         <meta httpEquiv="Content-Security-Policy" content="
           default-src 'self';
           script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.paddle.com;
-          connect-src 'self' https://*.paddle.com;
+          connect-src 'self' https://*.paddle.com http://127.0.0.1:8082 http://localhost:8082;
           frame-src 'self' https://*.paddle.com;
           style-src 'self' 'unsafe-inline' https://cdn.paddle.com;
           img-src 'self' data: https://*.paddle.com https://*.paddlecdn.com;
         " />
       </head>
-      <body className="antialiased">{children}</body>
+      <body className="min-h-screen antialiased bg-white dark:bg-gray-900 text-black dark:text-white">{children}</body>
     </html>
   )
 }

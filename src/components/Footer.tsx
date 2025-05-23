@@ -13,7 +13,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <h3 className="text-xl font-bold mb-4">App Showcase</h3>
-            <p className="text-gray-400">© 2023 App Showcase. All rights reserved.</p>
+            <p className="text-gray-400">© 2025 App Showcase. All rights reserved.</p>
           </div>
           
           <div>
