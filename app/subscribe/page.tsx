@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import authService from '../../src/services/authService';
 import SimplePaddleButton from '../../src/components/SimplePaddleButton';
-import { paddleConfig } from '../../src/config/appConfig';
+import appConfig, { getPaddleProductsApiUrl } from '../../src/config/appConfig';
 
 export default function SubscribePage() {
   const router = useRouter();
@@ -40,7 +40,11 @@ export default function SubscribePage() {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${paddleConfig.apiBaseUrl}/api/v1/paddle/products?include_prices=true`);
+        // 使用辅助函数获取正确的API URL
+        const apiUrl = getPaddleProductsApiUrl();
+        console.log('Fetching products from:', apiUrl);
+
+        const response = await fetch(apiUrl);
 
         if (!response.ok) {
           throw new Error('Failed to fetch products');
