@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import appConfig from '../../../src/config/appConfig';
 import authService from '../../../src/services/authService';
-import SimplePaddleButton from '../../../src/components/SimplePaddleButton';
 
 // 定义产品和价格类型
 interface Price {
@@ -337,22 +336,12 @@ export default function PricingPage() {
                   <span className="text-base font-medium text-gray-300">/mo</span>
                 </p>
                 {isLoggedIn ? (
-                  <div className="mt-8">
-                    {basicMonthly?.prices && basicMonthly.prices.length > 0 ? (
-                      <SimplePaddleButton
-                        productId={basicMonthly.prices[0].id}
-                        text="Subscribe"
-                        email={authService.getUser()?.email || ''}
-                      />
-                    ) : (
-                      <button
-                        className="w-full bg-blue-600 rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-blue-700 opacity-50 cursor-not-allowed"
-                        disabled
-                      >
-                        Subscribe
-                      </button>
-                    )}
-                  </div>
+                  <Link
+                    href="/subscribe?plan=basic"
+                    className="mt-8 block w-full bg-blue-600 rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-blue-700"
+                  >
+                    Subscribe
+                  </Link>
                 ) : (
                   <Link
                     href="/login?plan=basic"
@@ -399,31 +388,12 @@ export default function PricingPage() {
                   </span>
                   <span className="text-base font-medium text-gray-300">/mo</span>
                 </p>
-                {isLoggedIn ? (
-                  <div className="mt-8">
-                    {proMonthly?.prices && proMonthly.prices.length > 0 ? (
-                      <SimplePaddleButton
-                        productId={proMonthly.prices[0].id}
-                        text="Subscribe"
-                        email={authService.getUser()?.email || ''}
-                      />
-                    ) : (
-                      <button
-                        className="w-full bg-blue-600 rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-blue-700 opacity-50 cursor-not-allowed"
-                        disabled
-                      >
-                        Subscribe
-                      </button>
-                    )}
-                  </div>
-                ) : (
-                  <Link
-                    href="/login?plan=pro"
-                    className="mt-8 block w-full bg-blue-600 rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-blue-700"
-                  >
-                    Subscribe
-                  </Link>
-                )}
+                <Link
+                  href="/login?plan=pro"
+                  className="mt-8 block w-full bg-blue-600 rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-blue-700"
+                >
+                  Subscribe
+                </Link>
               </div>
               <div className="px-6 pt-6 pb-8">
                 <h4 className="text-sm font-medium text-white tracking-wide">What's included:</h4>

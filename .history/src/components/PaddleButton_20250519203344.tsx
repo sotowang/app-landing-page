@@ -95,7 +95,8 @@ export default function PaddleButton({
         ],
         settings: {
           displayMode: "overlay", // 使用弹出窗口
-          theme: "light"
+          theme: "light",
+          locale: "zh"
         }
       });
       console.log("成功打开Paddle结账");

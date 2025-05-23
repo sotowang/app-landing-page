@@ -77,7 +77,8 @@ export default function SimplePaddleButton({
         ],
         settings: {
           displayMode: "overlay",
-          theme: "light"
+          theme: "light",
+          locale: "zh"
         }
       };
 

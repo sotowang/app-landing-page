@@ -400,22 +400,12 @@ export default function PricingPage() {
                   <span className="text-base font-medium text-gray-300">/mo</span>
                 </p>
                 {isLoggedIn ? (
-                  <div className="mt-8">
-                    {proMonthly?.prices && proMonthly.prices.length > 0 ? (
-                      <SimplePaddleButton
-                        productId={proMonthly.prices[0].id}
-                        text="Subscribe"
-                        email={authService.getUser()?.email || ''}
-                      />
-                    ) : (
-                      <button
-                        className="w-full bg-blue-600 rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-blue-700 opacity-50 cursor-not-allowed"
-                        disabled
-                      >
-                        Subscribe
-                      </button>
-                    )}
-                  </div>
+                  <Link
+                    href="/subscribe?plan=pro"
+                    className="mt-8 block w-full bg-blue-600 rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-blue-700"
+                  >
+                    Subscribe
+                  </Link>
                 ) : (
                   <Link
                     href="/login?plan=pro"
