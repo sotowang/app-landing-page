@@ -102,13 +102,13 @@ export default function LoginPage() {
 
         // 在页面上显示重定向URL（仅用于调试）
         const debugElement = document.createElement('div');
-        debugElement.className = 'mt-4 p-3 bg-gray-700 rounded text-xs overflow-auto text-gray-200';
+        debugElement.className = 'mt-4 p-3 bg-gray-100 rounded text-xs overflow-auto';
         debugElement.style.maxWidth = '100%';
         debugElement.style.wordBreak = 'break-all';
         debugElement.innerHTML = `<strong>Redirect URL:</strong> ${redirectUrl}`;
 
         // 将调试信息添加到页面
-        const successElement = document.querySelector('.bg-green-900');
+        const successElement = document.querySelector('.bg-green-50');
         if (successElement && successElement.parentNode) {
           successElement.parentNode.insertBefore(debugElement, successElement.nextSibling);
         }
@@ -264,7 +264,7 @@ export default function LoginPage() {
             </div>
 
             <div className="flex items-center justify-between">
-              <Link href="/reset-password" className="text-sm font-medium text-blue-400 hover:text-blue-300">
+              <Link href="/reset-password" className="text-sm font-medium text-blue-600 hover:text-blue-500">
                 {t.forgotPassword}
               </Link>
             </div>

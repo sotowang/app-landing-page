@@ -102,13 +102,13 @@ export default function LoginPage() {
 
         // 在页面上显示重定向URL（仅用于调试）
         const debugElement = document.createElement('div');
-        debugElement.className = 'mt-4 p-3 bg-gray-700 rounded text-xs overflow-auto text-gray-200';
+        debugElement.className = 'mt-4 p-3 bg-gray-100 rounded text-xs overflow-auto';
         debugElement.style.maxWidth = '100%';
         debugElement.style.wordBreak = 'break-all';
         debugElement.innerHTML = `<strong>Redirect URL:</strong> ${redirectUrl}`;
 
         // 将调试信息添加到页面
-        const successElement = document.querySelector('.bg-green-900');
+        const successElement = document.querySelector('.bg-green-50');
         if (successElement && successElement.parentNode) {
           successElement.parentNode.insertBefore(debugElement, successElement.nextSibling);
         }
@@ -199,13 +199,13 @@ export default function LoginPage() {
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-gray-800 py-8 px-4 shadow sm:rounded-lg sm:px-10">
           {error ? (
-            <div className="mb-4 bg-red-900 border border-red-700 text-red-200 px-4 py-3 rounded">
+            <div className="mb-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
               {error}
             </div>
           ) : null}
 
           {success ? (
-            <div className="mb-4 bg-green-900 border border-green-700 text-green-200 px-4 py-3 rounded">
+            <div className="mb-4 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded">
               {success}
             </div>
           ) : null}
@@ -264,7 +264,7 @@ export default function LoginPage() {
             </div>
 
             <div className="flex items-center justify-between">
-              <Link href="/reset-password" className="text-sm font-medium text-blue-400 hover:text-blue-300">
+              <Link href="/reset-password" className="text-sm font-medium text-blue-600 hover:text-blue-500">
                 {t.forgotPassword}
               </Link>
             </div>
@@ -285,10 +285,10 @@ export default function LoginPage() {
           <div className="mt-6">
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-600"></div>
+                <div className="w-full border-t border-gray-300"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-gray-800 text-gray-300">
+                <span className="px-2 bg-white text-gray-500">
                   {t.noAccount}
                 </span>
               </div>
@@ -298,7 +298,7 @@ export default function LoginPage() {
           <div className="mt-6">
             <Link
               href="/register"
-              className="w-full flex justify-center py-2 px-4 border border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-200 bg-gray-700 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="w-full flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >
               {t.register}
             </Link>

@@ -108,7 +108,7 @@ export default function LoginPage() {
         debugElement.innerHTML = `<strong>Redirect URL:</strong> ${redirectUrl}`;
 
         // 将调试信息添加到页面
-        const successElement = document.querySelector('.bg-green-900');
+        const successElement = document.querySelector('.bg-green-50');
         if (successElement && successElement.parentNode) {
           successElement.parentNode.insertBefore(debugElement, successElement.nextSibling);
         }
