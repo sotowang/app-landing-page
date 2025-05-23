@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { enTranslations } from '../../src/translations';
+import authService from '../../src/services/authService';
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -12,6 +13,8 @@ export default function RegisterPage() {
     email: 'Email address',
     password: 'Password',
     confirmPassword: 'Confirm password',
+    verificationCode: 'Verification Code',
+    getCode: 'Get Code',
     submit: 'Register',
     haveAccount: 'Already have an account?',
     login: 'Sign in',
@@ -22,20 +25,28 @@ export default function RegisterPage() {
     passwordRequired: 'Password is required',
     passwordTooShort: 'Password must be at least 8 characters',
     passwordsDoNotMatch: 'Passwords do not match',
-    confirmPasswordRequired: 'Please confirm your password'
+    confirmPasswordRequired: 'Please confirm your password',
+    verificationCodeRequired: 'Verification code is required',
+    codeSent: 'Verification code has been sent to your email',
+    codeSendError: 'Failed to send verification code'
   };
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [verificationCode, setVerificationCode] = useState('');
   const [loading, setLoading] = useState(false);
+  const [codeLoading, setCodeLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [codeSent, setCodeSent] = useState(false);
+  const [codeCountdown, setCodeCountdown] = useState(0);
 
   // 表单验证状态
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
+  const [verificationCodeError, setVerificationCodeError] = useState('');
 
   // 验证邮箱格式
   const validateEmail = (email: string): boolean => {
@@ -56,6 +67,13 @@ export default function RegisterPage() {
   const validateConfirmPassword = (confirmPassword: string): boolean => {
     const isValid = confirmPassword === password;
     setConfirmPasswordError(isValid ? '' : t.passwordsDoNotMatch);
+    return isValid;
+  };
+
+  // 验证验证码
+  const validateVerificationCode = (code: string): boolean => {
+    const isValid = code.length > 0;
+    setVerificationCodeError(isValid ? '' : t.verificationCodeRequired);
     return isValid;
   };
 
@@ -84,7 +102,51 @@ export default function RegisterPage() {
       isValid = false;
     }
 
+    if (!verificationCode) {
+      setVerificationCodeError(t.verificationCodeRequired);
+      isValid = false;
+    } else if (!validateVerificationCode(verificationCode)) {
+      isValid = false;
+    }
+
     return isValid;
+  };
+
+  // 处理获取验证码
+  const handleGetCode = async () => {
+    if (!email) {
+      setEmailError(t.emailRequired);
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      return;
+    }
+
+    setCodeLoading(true);
+    setError('');
+
+    try {
+      await authService.getVerificationCode(email, 'register');
+      setCodeSent(true);
+      setSuccess(t.codeSent);
+
+      // 设置倒计时
+      setCodeCountdown(60);
+      const timer = setInterval(() => {
+        setCodeCountdown(prev => {
+          if (prev <= 1) {
+            clearInterval(timer);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    } catch (err: any) {
+      setError(err.message || t.codeSendError);
+    } finally {
+      setCodeLoading(false);
+    }
   };
 
   // 处理注册
@@ -100,9 +162,8 @@ export default function RegisterPage() {
     setSuccess('');
 
     try {
-      // 这里应该调用实际的注册API
-      // 模拟API调用
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // 调用注册API
+      await authService.register(email, password, verificationCode);
 
       setSuccess(t.success);
 
@@ -110,6 +171,8 @@ export default function RegisterPage() {
       setEmail('');
       setPassword('');
       setConfirmPassword('');
+      setVerificationCode('');
+      setCodeSent(false);
 
       // 注册成功后，延迟一段时间后重定向到登录页面
       setTimeout(() => {
@@ -246,6 +309,43 @@ export default function RegisterPage() {
             </div>
 
             <div>
+              <label htmlFor="verificationCode" className="block text-sm font-medium text-gray-200">
+                {t.verificationCode}
+              </label>
+              <div className="mt-1 flex">
+                <div className="flex-grow mr-2">
+                  <input
+                    id="verificationCode"
+                    name="verificationCode"
+                    type="text"
+                    required
+                    value={verificationCode}
+                    onChange={(e) => {
+                      setVerificationCode(e.target.value);
+                      if (e.target.value) validateVerificationCode(e.target.value);
+                    }}
+                    className={`appearance-none block w-full px-3 py-2 border ${
+                      verificationCodeError ? 'border-red-300' : 'border-gray-600'
+                    } rounded-md shadow-sm placeholder-gray-500 bg-gray-700 text-white focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
+                  />
+                  {verificationCodeError ? (
+                    <p className="mt-2 text-sm text-red-600">{verificationCodeError}</p>
+                  ) : null}
+                </div>
+                <button
+                  type="button"
+                  onClick={handleGetCode}
+                  disabled={codeLoading || codeCountdown > 0}
+                  className={`px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${
+                    (codeLoading || codeCountdown > 0) ? 'opacity-70 cursor-not-allowed' : ''
+                  }`}
+                >
+                  {codeLoading ? 'Sending...' : codeCountdown > 0 ? `${codeCountdown}s` : t.getCode}
+                </button>
+              </div>
+            </div>
+
+            <div>
               <button
                 type="submit"
                 disabled={loading}
@@ -265,7 +365,7 @@ export default function RegisterPage() {
               </div>
               <div className="relative flex justify-center text-sm">
                 <span className="px-2 bg-gray-800 text-gray-300">
-                  {t.haveAccount}
+                  Already have an account?
                 </span>
               </div>
             </div>
