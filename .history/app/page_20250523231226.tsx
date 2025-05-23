@@ -104,54 +104,12 @@ export default function Home() {
 
             {/* Login and Download buttons */}
             <div className="hidden md:flex items-center space-x-4">
-              {isLoggedIn && user ? (
-                <div className="relative user-menu-container">
-                  <button
-                    onClick={() => setShowUserMenu(!showUserMenu)}
-                    className="text-gray-300 hover:text-blue-400 flex items-center"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                    </svg>
-                    <span className="max-w-[120px] truncate">{user.email}</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </button>
-
-                  {showUserMenu && (
-                    <div className="absolute right-0 mt-2 w-48 bg-gray-700 rounded-md shadow-lg py-1 z-10">
-                      <Link
-                        href="/profile"
-                        className="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-600"
-                        onClick={() => setShowUserMenu(false)}
-                      >
-                        Profile
-                      </Link>
-                      <Link
-                        href="/settings"
-                        className="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-600"
-                        onClick={() => setShowUserMenu(false)}
-                      >
-                        Settings
-                      </Link>
-                      <button
-                        onClick={handleLogout}
-                        className="block w-full text-left px-4 py-2 text-sm text-gray-200 hover:bg-gray-600"
-                      >
-                        Logout
-                      </button>
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <Link
-                  href="/login"
-                  className="text-gray-300 hover:text-blue-400"
-                >
-                  Login
-                </Link>
-              )}
+              <Link
+                href="/login"
+                className="text-gray-300 hover:text-blue-400"
+              >
+                Login
+              </Link>
               <Link
                 href="#download"
                 className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
@@ -170,28 +128,7 @@ export default function Home() {
                 <Link href="/pricing" className="text-gray-300 hover:text-blue-400">Pricing</Link>
                 <Link href="/terms" className="text-gray-300 hover:text-blue-400">Terms</Link>
                 <Link href="/privacy" className="text-gray-300 hover:text-blue-400">Privacy</Link>
-
-                {isLoggedIn && user ? (
-                  <>
-                    <div className="text-gray-300 flex items-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                      </svg>
-                      <span className="max-w-[200px] truncate">{user.email}</span>
-                    </div>
-                    <Link href="/profile" className="text-gray-300 hover:text-blue-400 pl-6">Profile</Link>
-                    <Link href="/settings" className="text-gray-300 hover:text-blue-400 pl-6">Settings</Link>
-                    <button
-                      onClick={handleLogout}
-                      className="text-gray-300 hover:text-blue-400 text-left pl-6"
-                    >
-                      Logout
-                    </button>
-                  </>
-                ) : (
-                  <Link href="/login" className="text-gray-300 hover:text-blue-400">Login</Link>
-                )}
-
+                <Link href="/login" className="text-gray-300 hover:text-blue-400">Login</Link>
                 <Link
                   href="#download"
                   className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition inline-block w-fit"

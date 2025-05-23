@@ -170,28 +170,7 @@ export default function Home() {
                 <Link href="/pricing" className="text-gray-300 hover:text-blue-400">Pricing</Link>
                 <Link href="/terms" className="text-gray-300 hover:text-blue-400">Terms</Link>
                 <Link href="/privacy" className="text-gray-300 hover:text-blue-400">Privacy</Link>
-
-                {isLoggedIn && user ? (
-                  <>
-                    <div className="text-gray-300 flex items-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                      </svg>
-                      <span className="max-w-[200px] truncate">{user.email}</span>
-                    </div>
-                    <Link href="/profile" className="text-gray-300 hover:text-blue-400 pl-6">Profile</Link>
-                    <Link href="/settings" className="text-gray-300 hover:text-blue-400 pl-6">Settings</Link>
-                    <button
-                      onClick={handleLogout}
-                      className="text-gray-300 hover:text-blue-400 text-left pl-6"
-                    >
-                      Logout
-                    </button>
-                  </>
-                ) : (
-                  <Link href="/login" className="text-gray-300 hover:text-blue-400">Login</Link>
-                )}
-
+                <Link href="/login" className="text-gray-300 hover:text-blue-400">Login</Link>
                 <Link
                   href="#download"
                   className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition inline-block w-fit"

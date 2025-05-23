@@ -250,21 +250,7 @@ class AuthService {
    * @returns 是否已登录
    */
   isLoggedIn(): boolean {
-    const hasToken = !!this.getToken();
-    const hasUser = !!this.getUser();
-    const isLoggedIn = hasToken && hasUser;
-
-    // 仅在开发环境或调试模式下记录详细日志
-    if (process.env.NODE_ENV !== 'production') {
-      console.log('Auth status check:', {
-        hasToken,
-        hasUser,
-        isLoggedIn,
-        tokenPrefix: this.getToken()?.substring(0, 5) || 'none'
-      });
-    }
-
-    return isLoggedIn;
+    return !!this.getToken() && !!this.getUser();
   }
 
   /**

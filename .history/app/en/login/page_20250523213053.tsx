@@ -3,8 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import authService from '../../src/services/authService';
-import { enTranslations } from '../../src/translations';
+import authService from '../../../src/services/authService';
+import { enTranslations } from '../../../src/translations';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -82,9 +82,9 @@ export default function LoginPage() {
 
       // 如果是桌面应用登录，重定向回应用
       if (isDesktopLogin && redirectUri) {
-        // 使用完整的登录token作为授权码
-        // 桌面应用将使用此token进行后续API调用
-        const authCode = response.token;
+        // 使用登录成功后的token作为授权码的一部分，确保安全性
+        // 在实际生产环境中，应该从后端获取专门的授权码
+        const authCode = response.token.substring(0, 10) + Math.random().toString(36).substring(2, 7);
 
         // 构建重定向URL，包含所有必要参数
         let redirectUrl = `${redirectUri}?code=${authCode}`;
@@ -102,13 +102,13 @@ export default function LoginPage() {
 
         // 在页面上显示重定向URL（仅用于调试）
         const debugElement = document.createElement('div');
-        debugElement.className = 'mt-4 p-3 bg-gray-700 rounded text-xs overflow-auto text-gray-200';
+        debugElement.className = 'mt-4 p-3 bg-gray-100 rounded text-xs overflow-auto';
         debugElement.style.maxWidth = '100%';
         debugElement.style.wordBreak = 'break-all';
         debugElement.innerHTML = `<strong>Redirect URL:</strong> ${redirectUrl}`;
 
         // 将调试信息添加到页面
-        const successElement = document.querySelector('.bg-green-900');
+        const successElement = document.querySelector('.bg-green-50');
         if (successElement && successElement.parentNode) {
           successElement.parentNode.insertBefore(debugElement, successElement.nextSibling);
         }
@@ -116,14 +116,9 @@ export default function LoginPage() {
         // 添加一个按钮，让用户可以手动点击重定向
         const redirectButton = document.createElement('button');
         redirectButton.className = 'mt-4 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500';
-        redirectButton.innerHTML = 'Click to connect to desktop app';
+        redirectButton.innerHTML = 'Click to redirect to desktop app';
         redirectButton.onclick = function() {
-          // 在新标签页中打开桌面应用重定向链接
-          window.open(redirectUrl, '_blank');
-          // 同时在当前页面重定向到首页
-          setTimeout(() => {
-            router.push('/');
-          }, 500);
+          window.location.href = redirectUrl;
         };
 
         if (successElement && successElement.parentNode) {
@@ -139,54 +134,16 @@ export default function LoginPage() {
           responseType
         });
 
-        // 确保登录状态已保存
-        // 1. 再次确认token和用户信息已保存到localStorage
-        authService.saveToken(response.token);
-        authService.saveUser(response.user);
-
-        // 2. 触发一个自定义事件，通知其他页面登录状态已更改
-        if (typeof window !== 'undefined') {
-          try {
-            const loginEvent = new Event('loginStateChanged');
-            window.dispatchEvent(loginEvent);
-
-            // 记录当前登录状态，用于调试
-            console.log('Login state before redirect:', {
-              isLoggedIn: authService.isLoggedIn(),
-              hasToken: !!authService.getToken(),
-              hasUser: !!authService.getUser(),
-              token: authService.getToken()?.substring(0, 10) + '...'
-            });
-          } catch (e) {
-            console.error('Error dispatching login event:', e);
-          }
-        }
-
-        // 在新标签页中打开桌面应用重定向链接
+        // 延迟1秒后重定向，让用户有时间看到成功消息
         setTimeout(() => {
-          console.log('Opening desktop app redirect in new tab...');
-          // 再次检查登录状态
-          console.log('Final login state check:', {
-            isLoggedIn: authService.isLoggedIn(),
-            hasToken: !!authService.getToken(),
-            hasUser: !!authService.getUser()
-          });
-
-          // 在新标签页中打开桌面应用重定向链接
-          window.open(redirectUrl, '_blank');
-          console.log('Desktop app redirect opened in new tab');
-
-          // 同时在当前页面重定向到首页
-          setTimeout(() => {
-            console.log('Redirecting current page to home...');
-            router.push('/');
-            console.log('Current page redirected to home');
-          }, 500);
-        }, 2000);
+          console.log('Executing redirect now...');
+          window.location.href = redirectUrl;
+          console.log('Redirect executed');
+        }, 1000);
       } else {
         // 普通Web登录，重定向到首页
         setTimeout(() => {
-          router.push('/');
+          router.push('/en');
         }, 1000);
       }
     } catch (err: any) {
@@ -202,23 +159,14 @@ export default function LoginPage() {
   // 在组件挂载后设置状态
   useEffect(() => {
     setMounted(true);
-
-    // 在控制台打印URL参数，用于调试
-    console.log('Login page loaded with params:', {
-      redirectUri,
-      clientId,
-      state,
-      responseType,
-      isDesktopLogin
-    });
-  }, [redirectUri, clientId, state, responseType, isDesktopLogin]);
+  }, []);
 
   // 如果组件尚未挂载，返回一个简单的加载状态
   if (!mounted) {
     return (
-      <div className="min-h-screen bg-gray-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-white">
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             {t.title}
           </h2>
         </div>
@@ -227,35 +175,35 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-white">
+        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
           {t.title}
         </h2>
         {isDesktopLogin ? (
-          <p className="mt-2 text-center text-sm text-gray-300">
+          <p className="mt-2 text-center text-sm text-gray-600">
             Login to connect to MeetingGPT desktop application
           </p>
         ) : null}
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-gray-800 py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
           {error ? (
-            <div className="mb-4 bg-red-900 border border-red-700 text-red-200 px-4 py-3 rounded">
+            <div className="mb-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
               {error}
             </div>
           ) : null}
 
           {success ? (
-            <div className="mb-4 bg-green-900 border border-green-700 text-green-200 px-4 py-3 rounded">
+            <div className="mb-4 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded">
               {success}
             </div>
           ) : null}
 
           <form className="space-y-6" onSubmit={handleLogin}>
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-200">
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                 {t.email}
               </label>
               <div className="mt-1">
@@ -271,8 +219,8 @@ export default function LoginPage() {
                     if (e.target.value) validateEmail(e.target.value);
                   }}
                   className={`appearance-none block w-full px-3 py-2 border ${
-                    emailError ? 'border-red-300' : 'border-gray-600'
-                  } rounded-md shadow-sm placeholder-gray-500 bg-gray-700 text-white focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
+                    emailError ? 'border-red-300' : 'border-gray-300'
+                  } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
                 />
                 {emailError ? (
                   <p className="mt-2 text-sm text-red-600">{emailError}</p>
@@ -281,7 +229,7 @@ export default function LoginPage() {
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-200">
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                 {t.password}
               </label>
               <div className="mt-1">
@@ -297,8 +245,8 @@ export default function LoginPage() {
                     if (passwordError) setPasswordError('');
                   }}
                   className={`appearance-none block w-full px-3 py-2 border ${
-                    passwordError ? 'border-red-300' : 'border-gray-600'
-                  } rounded-md shadow-sm placeholder-gray-500 bg-gray-700 text-white focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
+                    passwordError ? 'border-red-300' : 'border-gray-300'
+                  } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
                 />
                 {passwordError ? (
                   <p className="mt-2 text-sm text-red-600">{passwordError}</p>
@@ -307,7 +255,7 @@ export default function LoginPage() {
             </div>
 
             <div className="flex items-center justify-between">
-              <Link href="/reset-password" className="text-sm font-medium text-blue-400 hover:text-blue-300">
+              <Link href="/en/reset-password" className="text-sm font-medium text-blue-600 hover:text-blue-500">
                 {t.forgotPassword}
               </Link>
             </div>
@@ -328,10 +276,10 @@ export default function LoginPage() {
           <div className="mt-6">
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-600"></div>
+                <div className="w-full border-t border-gray-300"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-gray-800 text-gray-300">
+                <span className="px-2 bg-white text-gray-500">
                   {t.noAccount}
                 </span>
               </div>
@@ -340,8 +288,8 @@ export default function LoginPage() {
 
           <div className="mt-6">
             <Link
-              href="/register"
-              className="w-full flex justify-center py-2 px-4 border border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-200 bg-gray-700 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              href="/en/register"
+              className="w-full flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >
               {t.register}
             </Link>

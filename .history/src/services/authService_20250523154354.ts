@@ -168,18 +168,7 @@ class AuthService {
    */
   saveToken(token: string): void {
     if (typeof window !== 'undefined') {
-      try {
-        localStorage.setItem('auth_token', token);
-        console.log('Token saved to localStorage');
-
-        // 验证token是否正确保存
-        const savedToken = localStorage.getItem('auth_token');
-        if (savedToken !== token) {
-          console.warn('Token verification failed: saved token does not match original token');
-        }
-      } catch (e) {
-        console.error('Error saving token to localStorage:', e);
-      }
+      localStorage.setItem('auth_token', token);
     }
   }
 
@@ -189,19 +178,7 @@ class AuthService {
    */
   saveUser(user: User): void {
     if (typeof window !== 'undefined') {
-      try {
-        const userStr = JSON.stringify(user);
-        localStorage.setItem('auth_user', userStr);
-        console.log('User info saved to localStorage');
-
-        // 验证用户信息是否正确保存
-        const savedUserStr = localStorage.getItem('auth_user');
-        if (savedUserStr !== userStr) {
-          console.warn('User verification failed: saved user does not match original user');
-        }
-      } catch (e) {
-        console.error('Error saving user to localStorage:', e);
-      }
+      localStorage.setItem('auth_user', JSON.stringify(user));
     }
   }
 
@@ -250,21 +227,7 @@ class AuthService {
    * @returns 是否已登录
    */
   isLoggedIn(): boolean {
-    const hasToken = !!this.getToken();
-    const hasUser = !!this.getUser();
-    const isLoggedIn = hasToken && hasUser;
-
-    // 仅在开发环境或调试模式下记录详细日志
-    if (process.env.NODE_ENV !== 'production') {
-      console.log('Auth status check:', {
-        hasToken,
-        hasUser,
-        isLoggedIn,
-        tokenPrefix: this.getToken()?.substring(0, 5) || 'none'
-      });
-    }
-
-    return isLoggedIn;
+    return !!this.getToken() && !!this.getUser();
   }
 
   /**

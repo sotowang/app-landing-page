@@ -116,14 +116,9 @@ export default function LoginPage() {
         // 添加一个按钮，让用户可以手动点击重定向
         const redirectButton = document.createElement('button');
         redirectButton.className = 'mt-4 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500';
-        redirectButton.innerHTML = 'Click to connect to desktop app';
+        redirectButton.innerHTML = 'Click to redirect to desktop app';
         redirectButton.onclick = function() {
-          // 在新标签页中打开桌面应用重定向链接
-          window.open(redirectUrl, '_blank');
-          // 同时在当前页面重定向到首页
-          setTimeout(() => {
-            router.push('/');
-          }, 500);
+          window.location.href = redirectUrl;
         };
 
         if (successElement && successElement.parentNode) {

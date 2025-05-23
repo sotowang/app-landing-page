@@ -139,14 +139,6 @@ export default function HomePage({ translations, langPath }: HomePageProps) {
       } else {
         setUser(null);
       }
-
-      // 记录当前登录状态，用于调试
-      console.log('HomePage - Current login state:', {
-        isLoggedIn: loggedIn,
-        hasToken: !!authService.getToken(),
-        hasUser: !!authService.getUser(),
-        token: authService.getToken()?.substring(0, 10) + '...'
-      });
     };
 
     // 初始检查
@@ -154,24 +146,13 @@ export default function HomePage({ translations, langPath }: HomePageProps) {
 
     // 监听存储变化
     const handleStorageChange = () => {
-      console.log('Storage event detected');
       checkAuth();
     };
 
-    // 监听自定义登录状态变化事件
-    const handleLoginStateChanged = () => {
-      console.log('Login state change event detected');
-      checkAuth();
-    };
-
-    // 添加事件监听器
     window.addEventListener('storage', handleStorageChange);
-    window.addEventListener('loginStateChanged', handleLoginStateChanged);
 
     return () => {
-      // 移除事件监听器
       window.removeEventListener('storage', handleStorageChange);
-      window.removeEventListener('loginStateChanged', handleLoginStateChanged);
     };
   }, []);
 
@@ -200,11 +181,6 @@ export default function HomePage({ translations, langPath }: HomePageProps) {
 
     // 触发存储事件，以便其他页面也能更新
     window.dispatchEvent(new Event('storage'));
-
-    // 触发自定义登录状态变化事件
-    window.dispatchEvent(new Event('loginStateChanged'));
-
-    console.log('User logged out, login state cleared');
   };
 
   return (

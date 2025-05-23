@@ -200,11 +200,6 @@ export default function HomePage({ translations, langPath }: HomePageProps) {
 
     // 触发存储事件，以便其他页面也能更新
     window.dispatchEvent(new Event('storage'));
-
-    // 触发自定义登录状态变化事件
-    window.dispatchEvent(new Event('loginStateChanged'));
-
-    console.log('User logged out, login state cleared');
   };
 
   return (

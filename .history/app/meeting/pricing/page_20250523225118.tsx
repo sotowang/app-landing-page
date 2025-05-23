@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import appConfig from '../../../src/config/appConfig';
-import authService from '../../../src/services/authService';
 
 // 定义产品和价格类型
 interface Price {
@@ -49,88 +48,26 @@ export default function PricingPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
+  
   // 按计划类型和计费周期对产品进行分类
   const [basicMonthly, setBasicMonthly] = useState<Product | null>(null);
   const [basicAnnual, setBasicAnnual] = useState<Product | null>(null);
   const [proMonthly, setProMonthly] = useState<Product | null>(null);
   const [proAnnual, setProAnnual] = useState<Product | null>(null);
 
-  // 登录状态
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState<{ email: string } | null>(null);
-  const [showUserMenu, setShowUserMenu] = useState(false);
-
-  // 检查用户是否已登录
-  useEffect(() => {
-    const checkAuth = () => {
-      const loggedIn = authService.isLoggedIn();
-      setIsLoggedIn(loggedIn);
-
-      if (loggedIn) {
-        setUser(authService.getUser());
-      } else {
-        setUser(null);
-      }
-
-      // 记录当前登录状态，用于调试
-      console.log('Pricing page - Current login state:', {
-        isLoggedIn: loggedIn,
-        hasToken: !!authService.getToken(),
-        hasUser: !!authService.getUser(),
-        token: authService.getToken()?.substring(0, 10) + '...'
-      });
-    };
-
-    // 初始检查
-    checkAuth();
-
-    // 监听存储变化
-    const handleStorageChange = () => {
-      console.log('Storage event detected');
-      checkAuth();
-    };
-
-    // 监听自定义登录状态变化事件
-    const handleLoginStateChanged = () => {
-      console.log('Login state change event detected');
-      checkAuth();
-    };
-
-    // 添加事件监听器
-    window.addEventListener('storage', handleStorageChange);
-    window.addEventListener('loginStateChanged', handleLoginStateChanged);
-
-    return () => {
-      // 移除事件监听器
-      window.removeEventListener('storage', handleStorageChange);
-      window.removeEventListener('loginStateChanged', handleLoginStateChanged);
-    };
-  }, []);
-
-  // 处理登出
-  const handleLogout = () => {
-    authService.logout();
-    setIsLoggedIn(false);
-    setUser(null);
-    setShowUserMenu(false);
-
-    console.log('User logged out, login state cleared');
-  };
-
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
         const response = await fetch(`${appConfig.api.baseUrl}/api/v1/paddle/products?include_prices=true`);
-
+        
         if (!response.ok) {
           throw new Error('Failed to fetch products');
         }
-
+        
         const data: ApiResponse = await response.json();
         setProducts(data.data);
-
+        
         // 对产品进行分类
         categorizeProducts(data.data);
       } catch (err) {
@@ -140,18 +77,18 @@ export default function PricingPage() {
         setLoading(false);
       }
     };
-
+    
     fetchProducts();
   }, []);
-
+  
   // 对产品进行分类的函数
   const categorizeProducts = (products: Product[]) => {
     products.forEach(product => {
       if (!product.prices || product.prices.length === 0) return;
-
+      
       const planType = product.custom_data?.plan_type || '';
       const billingCycle = product.prices[0].billing_cycle.interval;
-
+      
       if (planType === 'basic') {
         if (billingCycle === 'month') {
           setBasicMonthly(product);
@@ -167,7 +104,7 @@ export default function PricingPage() {
       }
     });
   };
-
+  
   // 格式化价格显示
   const formatPrice = (amount: string, currency: string = 'USD') => {
     const numericAmount = parseInt(amount, 10) / 100;
@@ -177,7 +114,7 @@ export default function PricingPage() {
       minimumFractionDigits: 2
     }).format(numericAmount);
   };
-
+  
   // 从描述中提取功能列表
   const extractFeatures = (description: string): string[] => {
     if (!description) return [];
@@ -203,54 +140,12 @@ export default function PricingPage() {
             </nav>
 
             <div className="flex items-center space-x-4">
-              {isLoggedIn && user ? (
-                <div className="relative user-menu-container">
-                  <button
-                    onClick={() => setShowUserMenu(!showUserMenu)}
-                    className="text-gray-300 hover:text-blue-400 flex items-center"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                    </svg>
-                    <span className="max-w-[120px] truncate">{user.email}</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </button>
-
-                  {showUserMenu && (
-                    <div className="absolute right-0 mt-2 w-48 bg-gray-700 rounded-md shadow-lg py-1 z-10">
-                      <Link
-                        href="/profile"
-                        className="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-600"
-                        onClick={() => setShowUserMenu(false)}
-                      >
-                        Profile
-                      </Link>
-                      <Link
-                        href="/settings"
-                        className="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-600"
-                        onClick={() => setShowUserMenu(false)}
-                      >
-                        Settings
-                      </Link>
-                      <button
-                        onClick={handleLogout}
-                        className="block w-full text-left px-4 py-2 text-sm text-gray-200 hover:bg-gray-600"
-                      >
-                        Logout
-                      </button>
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <Link
-                  href="/login"
-                  className="text-gray-300 hover:text-blue-400"
-                >
-                  Login
-                </Link>
-              )}
+              <Link
+                href="/login"
+                className="text-gray-300 hover:text-blue-400"
+              >
+                Login
+              </Link>
               <Link
                 href="#download"
                 className="hidden md:inline-block bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
