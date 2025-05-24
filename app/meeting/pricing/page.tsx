@@ -57,6 +57,9 @@ export default function PricingPage() {
   const [proMonthly, setProMonthly] = useState<Product | null>(null);
   const [proAnnual, setProAnnual] = useState<Product | null>(null);
 
+  // 计费周期切换状态
+  const [billingCycle, setBillingCycle] = useState<'monthly' | 'annually'>('monthly');
+
   // 登录状态
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState<{ email: string } | null>(null);
@@ -147,23 +150,44 @@ export default function PricingPage() {
 
   // 对产品进行分类的函数
   const categorizeProducts = (products: Product[]) => {
+    console.log('Categorizing products:', products);
+
     products.forEach(product => {
       if (!product.prices || product.prices.length === 0) return;
 
       const planType = product.custom_data?.plan_type || '';
       const billingCycle = product.prices[0].billing_cycle.interval;
+      const productName = product.name.toLowerCase();
 
+      console.log(`Product: ${product.name}, Plan Type: ${planType}, Billing: ${billingCycle}`);
+
+      // 根据产品名称和计费周期来判断计划类型
       if (planType === 'basic') {
         if (billingCycle === 'month') {
+          console.log('Setting basicMonthly:', product.name);
           setBasicMonthly(product);
         } else if (billingCycle === 'year') {
+          console.log('Setting basicAnnual:', product.name);
           setBasicAnnual(product);
         }
       } else if (planType === 'pro') {
         if (billingCycle === 'month') {
+          console.log('Setting proMonthly:', product.name);
           setProMonthly(product);
         } else if (billingCycle === 'year') {
+          console.log('Setting proAnnual:', product.name);
           setProAnnual(product);
+        }
+      }
+
+      // 特殊处理：如果产品名称包含"annually"但plan_type是basic，可能是年度高级版
+      if (productName.includes('annually') && planType === 'basic' && billingCycle === 'year') {
+        // 根据价格判断是否为高级版年度计划
+        const price = parseInt(product.prices[0].unit_price.amount);
+        if (price > 15000) { // 如果价格超过150美元，认为是Pro年度版
+          console.log('Setting proAnnual (detected from price):', product.name);
+          setProAnnual(product);
+          setBasicAnnual(null); // 清除之前可能错误设置的basic年度版
         }
       }
     });
@@ -272,6 +296,35 @@ export default function PricingPage() {
           <p className="mt-4 max-w-2xl mx-auto text-xl text-gray-300">
             Choose the plan that's right for you
           </p>
+
+          {/* 计费周期切换 */}
+          <div className="mt-8 flex justify-center">
+            <div className="bg-gray-800 p-1 rounded-lg">
+              <button
+                onClick={() => setBillingCycle('monthly')}
+                className={`px-6 py-2 rounded-md text-sm font-medium transition-colors ${
+                  billingCycle === 'monthly'
+                    ? 'bg-blue-600 text-white'
+                    : 'text-gray-300 hover:text-white'
+                }`}
+              >
+                Monthly
+              </button>
+              <button
+                onClick={() => setBillingCycle('annually')}
+                className={`px-6 py-2 rounded-md text-sm font-medium transition-colors ${
+                  billingCycle === 'annually'
+                    ? 'bg-blue-600 text-white'
+                    : 'text-gray-300 hover:text-white'
+                }`}
+              >
+                Annually
+                <span className="ml-1 text-xs bg-green-500 text-white px-2 py-1 rounded-full">
+                  Save 20%
+                </span>
+              </button>
+            </div>
+          </div>
         </div>
 
         {loading ? (
@@ -329,29 +382,47 @@ export default function PricingPage() {
             <div className="bg-gray-800 rounded-lg shadow-lg overflow-hidden border-2 border-blue-500">
               <div className="px-6 py-8">
                 <h3 className="text-2xl font-medium text-white">Basic</h3>
-                <p className="mt-4 text-gray-300">{basicMonthly?.description?.split('\n')[0] || 'Essential features for professionals'}</p>
+                <p className="mt-4 text-gray-300">
+                  {billingCycle === 'monthly'
+                    ? (basicMonthly?.description?.split('\n')[0] || 'Essential features for professionals')
+                    : (basicAnnual?.description?.split('\n')[0] || 'Essential features for professionals')
+                  }
+                </p>
                 <p className="mt-8">
                   <span className="text-4xl font-extrabold text-white">
-                    {basicMonthly?.prices[0] ? formatPrice(basicMonthly.prices[0].unit_price.amount) : '$9.99'}
+                    {billingCycle === 'monthly'
+                      ? (basicMonthly?.prices[0] ? formatPrice(basicMonthly.prices[0].unit_price.amount) : '$9.99')
+                      : (basicAnnual?.prices[0] ? formatPrice(basicAnnual.prices[0].unit_price.amount) : '$199.99')
+                    }
                   </span>
-                  <span className="text-base font-medium text-gray-300">/mo</span>
+                  <span className="text-base font-medium text-gray-300">
+                    {billingCycle === 'monthly' ? '/mo' : '/year'}
+                  </span>
                 </p>
+                {billingCycle === 'annually' && (
+                  <p className="text-sm text-green-400 mt-2">
+                    Save 20% compared to monthly billing
+                  </p>
+                )}
                 {isLoggedIn ? (
                   <div className="mt-8">
-                    {basicMonthly?.prices && basicMonthly.prices.length > 0 ? (
-                      <SimplePaddleButton
-                        productId={basicMonthly.prices[0].id}
-                        text="Subscribe"
-                        email={authService.getUser()?.email || ''}
-                      />
-                    ) : (
-                      <button
-                        className="w-full bg-blue-600 rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-blue-700 opacity-50 cursor-not-allowed"
-                        disabled
-                      >
-                        Subscribe
-                      </button>
-                    )}
+                    {(() => {
+                      const currentPlan = billingCycle === 'monthly' ? basicMonthly : basicAnnual;
+                      return currentPlan?.prices && currentPlan.prices.length > 0 ? (
+                        <SimplePaddleButton
+                          productId={currentPlan.prices[0].id}
+                          text="Subscribe"
+                          email={authService.getUser()?.email || ''}
+                        />
+                      ) : (
+                        <button
+                          className="w-full bg-blue-600 rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-blue-700 opacity-50 cursor-not-allowed"
+                          disabled
+                        >
+                          Subscribe
+                        </button>
+                      );
+                    })()}
                   </div>
                 ) : (
                   <Link
@@ -365,8 +436,8 @@ export default function PricingPage() {
               <div className="px-6 pt-6 pb-8">
                 <h4 className="text-sm font-medium text-white tracking-wide">What's included:</h4>
                 <ul className="mt-6 space-y-4">
-                  {basicMonthly ? (
-                    extractFeatures(basicMonthly.description).map((feature, index) => (
+                  {(billingCycle === 'monthly' ? basicMonthly : basicAnnual) ? (
+                    extractFeatures((billingCycle === 'monthly' ? basicMonthly : basicAnnual)!.description).map((feature, index) => (
                       <li key={index} className="flex space-x-3">
                         <svg className="flex-shrink-0 h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                           <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
@@ -392,29 +463,47 @@ export default function PricingPage() {
             <div className="bg-gray-800 rounded-lg shadow-lg overflow-hidden">
               <div className="px-6 py-8">
                 <h3 className="text-2xl font-medium text-white">Pro</h3>
-                <p className="mt-4 text-gray-300">{proMonthly?.description?.split('\n')[0] || 'Advanced features for teams'}</p>
+                <p className="mt-4 text-gray-300">
+                  {billingCycle === 'monthly'
+                    ? (proMonthly?.description?.split('\n')[0] || 'Advanced features for teams')
+                    : (proAnnual?.description?.split('\n')[0] || 'Advanced features for teams')
+                  }
+                </p>
                 <p className="mt-8">
                   <span className="text-4xl font-extrabold text-white">
-                    {proMonthly?.prices[0] ? formatPrice(proMonthly.prices[0].unit_price.amount) : '$19.99'}
+                    {billingCycle === 'monthly'
+                      ? (proMonthly?.prices[0] ? formatPrice(proMonthly.prices[0].unit_price.amount) : '$19.99')
+                      : (proAnnual?.prices[0] ? formatPrice(proAnnual.prices[0].unit_price.amount) : '$399.99')
+                    }
                   </span>
-                  <span className="text-base font-medium text-gray-300">/mo</span>
+                  <span className="text-base font-medium text-gray-300">
+                    {billingCycle === 'monthly' ? '/mo' : '/year'}
+                  </span>
                 </p>
+                {billingCycle === 'annually' && (
+                  <p className="text-sm text-green-400 mt-2">
+                    Save 20% compared to monthly billing
+                  </p>
+                )}
                 {isLoggedIn ? (
                   <div className="mt-8">
-                    {proMonthly?.prices && proMonthly.prices.length > 0 ? (
-                      <SimplePaddleButton
-                        productId={proMonthly.prices[0].id}
-                        text="Subscribe"
-                        email={authService.getUser()?.email || ''}
-                      />
-                    ) : (
-                      <button
-                        className="w-full bg-blue-600 rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-blue-700 opacity-50 cursor-not-allowed"
-                        disabled
-                      >
-                        Subscribe
-                      </button>
-                    )}
+                    {(() => {
+                      const currentPlan = billingCycle === 'monthly' ? proMonthly : proAnnual;
+                      return currentPlan?.prices && currentPlan.prices.length > 0 ? (
+                        <SimplePaddleButton
+                          productId={currentPlan.prices[0].id}
+                          text="Subscribe"
+                          email={authService.getUser()?.email || ''}
+                        />
+                      ) : (
+                        <button
+                          className="w-full bg-blue-600 rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-blue-700 opacity-50 cursor-not-allowed"
+                          disabled
+                        >
+                          Subscribe
+                        </button>
+                      );
+                    })()}
                   </div>
                 ) : (
                   <Link
@@ -428,8 +517,8 @@ export default function PricingPage() {
               <div className="px-6 pt-6 pb-8">
                 <h4 className="text-sm font-medium text-white tracking-wide">What's included:</h4>
                 <ul className="mt-6 space-y-4">
-                  {proMonthly ? (
-                    extractFeatures(proMonthly.description).map((feature, index) => (
+                  {(billingCycle === 'monthly' ? proMonthly : proAnnual) ? (
+                    extractFeatures((billingCycle === 'monthly' ? proMonthly : proAnnual)!.description).map((feature, index) => (
                       <li key={index} className="flex space-x-3">
                         <svg className="flex-shrink-0 h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                           <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
