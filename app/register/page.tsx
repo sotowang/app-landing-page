@@ -23,7 +23,7 @@ export default function RegisterPage() {
     emailRequired: 'Email is required',
     emailInvalid: 'Please enter a valid email address',
     passwordRequired: 'Password is required',
-    passwordTooShort: 'Password must be at least 8 characters',
+    passwordTooShort: 'Password must be at least 6 characters',
     passwordsDoNotMatch: 'Passwords do not match',
     confirmPasswordRequired: 'Please confirm your password',
     verificationCodeRequired: 'Verification code is required',

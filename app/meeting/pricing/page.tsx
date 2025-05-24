@@ -253,7 +253,7 @@ export default function PricingPage() {
                 </Link>
               )}
               <Link
-                href="#download"
+                href="/#download"
                 className="hidden md:inline-block bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
               >
                 Download
@@ -294,7 +294,7 @@ export default function PricingPage() {
                   <span className="text-base font-medium text-gray-300">/mo</span>
                 </p>
                 <Link
-                  href="#"
+                  href="/#download"
                   className="mt-8 block w-full bg-gray-700 rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-gray-600"
                 >
                   Download

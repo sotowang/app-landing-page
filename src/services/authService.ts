@@ -63,10 +63,10 @@ class AuthService {
   /**
    * 获取验证码
    * @param email 邮箱
-   * @param type 验证码类型 (register | reset)
+   * @param type 验证码类型 (register | reset_password)
    * @returns 成功或错误响应
    */
-  async getVerificationCode(email: string, type: 'register' | 'reset'): Promise<SuccessResponse> {
+  async getVerificationCode(email: string, type: 'register' | 'reset_password'): Promise<SuccessResponse> {
     try {
       const response = await fetch(`${this.baseUrl}/api/v1/auth/verification-code`, {
         method: 'POST',
@@ -122,27 +122,19 @@ class AuthService {
    * @param email 邮箱
    * @param newPassword 新密码
    * @param verificationCode 验证码
-   * @param token 可选的认证令牌
    * @returns 成功或错误响应
    */
   async resetPassword(
     email: string,
     newPassword: string,
-    verificationCode: string,
-    token?: string
+    verificationCode: string
   ): Promise<SuccessResponse> {
     try {
-      const headers: Record<string, string> = {
-        'Content-Type': 'application/json',
-      };
-
-      if (token) {
-        headers['Authorization'] = `Bearer ${token}`;
-      }
-
-      const response = await fetch(`${this.baseUrl}/api/v1/user/change-password`, {
+      const response = await fetch(`${this.baseUrl}/api/v1/auth/change-password`, {
         method: 'PUT',
-        headers,
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({
           email,
           new_password: newPassword,

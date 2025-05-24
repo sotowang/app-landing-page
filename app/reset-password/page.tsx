@@ -23,7 +23,7 @@ export default function ResetPasswordPage() {
     emailRequired: 'Email is required',
     emailInvalid: 'Please enter a valid email address',
     passwordRequired: 'New password is required',
-    passwordTooShort: 'Password must be at least 8 characters',
+    passwordTooShort: 'Password must be at least 6 characters',
     passwordsDoNotMatch: 'Passwords do not match',
     confirmPasswordRequired: 'Please confirm your password',
     verificationCodeRequired: 'Verification code is required',
@@ -59,8 +59,8 @@ export default function ResetPasswordPage() {
 
   // 验证密码
   const validatePassword = (password: string): boolean => {
-    const isValid = password.length >= 8;
-    setPasswordError(isValid ? '' : 'Password must be at least 8 characters');
+    const isValid = password.length >= 6;
+    setPasswordError(isValid ? '' : 'Password must be at least 6 characters');
     return isValid;
   };
 
@@ -130,7 +130,7 @@ export default function ResetPasswordPage() {
     setError('');
 
     try {
-      await authService.getVerificationCode(email, 'reset');
+      await authService.getVerificationCode(email, 'reset_password');
       setCodeSent(true);
       setSuccess(t.codeSent);
       setStep(2); // 进入第二步
