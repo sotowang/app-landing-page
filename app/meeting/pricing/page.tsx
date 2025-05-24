@@ -157,11 +157,10 @@ export default function PricingPage() {
 
       const planType = product.custom_data?.plan_type || '';
       const billingCycle = product.prices[0].billing_cycle.interval;
-      const productName = product.name.toLowerCase();
 
-      console.log(`Product: ${product.name}, Plan Type: ${planType}, Billing: ${billingCycle}`);
+      console.log(`Product: ${product.name}, Plan Type: ${planType}, Billing: ${billingCycle}, Price: ${product.prices[0].unit_price.amount}`);
 
-      // 根据产品名称和计费周期来判断计划类型
+      // 严格按照API数据的plan_type和billing_cycle进行分类
       if (planType === 'basic') {
         if (billingCycle === 'month') {
           console.log('Setting basicMonthly:', product.name);
@@ -177,17 +176,6 @@ export default function PricingPage() {
         } else if (billingCycle === 'year') {
           console.log('Setting proAnnual:', product.name);
           setProAnnual(product);
-        }
-      }
-
-      // 特殊处理：如果产品名称包含"annually"但plan_type是basic，可能是年度高级版
-      if (productName.includes('annually') && planType === 'basic' && billingCycle === 'year') {
-        // 根据价格判断是否为高级版年度计划
-        const price = parseInt(product.prices[0].unit_price.amount);
-        if (price > 15000) { // 如果价格超过150美元，认为是Pro年度版
-          console.log('Setting proAnnual (detected from price):', product.name);
-          setProAnnual(product);
-          setBasicAnnual(null); // 清除之前可能错误设置的basic年度版
         }
       }
     });
@@ -392,14 +380,14 @@ export default function PricingPage() {
                   <span className="text-4xl font-extrabold text-white">
                     {billingCycle === 'monthly'
                       ? (basicMonthly?.prices[0] ? formatPrice(basicMonthly.prices[0].unit_price.amount) : '$9.99')
-                      : (basicAnnual?.prices[0] ? formatPrice(basicAnnual.prices[0].unit_price.amount) : '$199.99')
+                      : (basicAnnual?.prices[0] ? formatPrice(basicAnnual.prices[0].unit_price.amount) : 'N/A')
                     }
                   </span>
                   <span className="text-base font-medium text-gray-300">
                     {billingCycle === 'monthly' ? '/mo' : '/year'}
                   </span>
                 </p>
-                {billingCycle === 'annually' && (
+                {billingCycle === 'annually' && basicAnnual && (
                   <p className="text-sm text-green-400 mt-2">
                     Save 20% compared to monthly billing
                   </p>
@@ -473,16 +461,21 @@ export default function PricingPage() {
                   <span className="text-4xl font-extrabold text-white">
                     {billingCycle === 'monthly'
                       ? (proMonthly?.prices[0] ? formatPrice(proMonthly.prices[0].unit_price.amount) : '$19.99')
-                      : (proAnnual?.prices[0] ? formatPrice(proAnnual.prices[0].unit_price.amount) : '$399.99')
+                      : (proAnnual?.prices[0] ? formatPrice(proAnnual.prices[0].unit_price.amount) : 'N/A')
                     }
                   </span>
                   <span className="text-base font-medium text-gray-300">
                     {billingCycle === 'monthly' ? '/mo' : '/year'}
                   </span>
                 </p>
-                {billingCycle === 'annually' && (
+                {billingCycle === 'annually' && proAnnual && (
                   <p className="text-sm text-green-400 mt-2">
                     Save 20% compared to monthly billing
+                  </p>
+                )}
+                {billingCycle === 'annually' && !proAnnual && (
+                  <p className="text-sm text-gray-400 mt-2">
+                    Annual plan not available
                   </p>
                 )}
                 {isLoggedIn ? (
