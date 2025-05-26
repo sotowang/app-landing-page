@@ -68,22 +68,33 @@ class AuthService {
    */
   async getVerificationCode(email: string, type: 'register' | 'reset_password'): Promise<SuccessResponse> {
     try {
-      const response = await fetch(`${this.baseUrl}/api/v1/auth/verification-code`, {
+      const url = `${this.baseUrl}/api/v1/auth/verification-code`;
+      const payload = { email, type };
+
+      console.log('AuthService: Sending verification code request to:', url);
+      console.log('AuthService: Request payload:', payload);
+
+      const response = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, type }),
+        body: JSON.stringify(payload),
       });
 
+      console.log('AuthService: Response status:', response.status);
+
       if (!response.ok) {
-        const errorData = await response.json();
+        const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+        console.error('AuthService: Error response:', errorData);
         throw new Error(errorData.error || '获取验证码失败');
       }
 
-      return await response.json();
+      const result = await response.json();
+      console.log('AuthService: Success response:', result);
+      return result;
     } catch (error) {
-      console.error('获取验证码失败:', error);
+      console.error('AuthService: 获取验证码失败:', error);
       throw error;
     }
   }
@@ -97,22 +108,33 @@ class AuthService {
    */
   async register(email: string, password: string, verificationCode: string): Promise<SuccessResponse> {
     try {
-      const response = await fetch(`${this.baseUrl}/api/v1/auth/register`, {
+      const url = `${this.baseUrl}/api/v1/auth/register`;
+      const payload = { email, password, verification_code: verificationCode };
+
+      console.log('AuthService: Sending register request to:', url);
+      console.log('AuthService: Request payload:', { email, password: '***', verification_code: verificationCode });
+
+      const response = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password, verification_code: verificationCode }),
+        body: JSON.stringify(payload),
       });
 
+      console.log('AuthService: Register response status:', response.status);
+
       if (!response.ok) {
-        const errorData = await response.json();
+        const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+        console.error('AuthService: Register error response:', errorData);
         throw new Error(errorData.error || '注册失败');
       }
 
-      return await response.json();
+      const result = await response.json();
+      console.log('AuthService: Register success response:', result);
+      return result;
     } catch (error) {
-      console.error('注册失败:', error);
+      console.error('AuthService: 注册失败:', error);
       throw error;
     }
   }

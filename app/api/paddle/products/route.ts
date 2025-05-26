@@ -30,8 +30,7 @@ export async function GET() {
         'Expires': '0'
       },
       // 确保不使用缓存
-      cache: 'no-store',
-      next: { revalidate: 0 }
+      cache: 'no-store'
     });
 
     console.log('API响应状态:', response.status);

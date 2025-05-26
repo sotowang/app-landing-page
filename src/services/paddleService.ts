@@ -172,25 +172,35 @@ export function categorizeProducts(products: PaddleProduct[]): CategorizedProduc
   };
 
   products.forEach(product => {
+    console.log('处理产品:', product.name, 'custom_data:', product.custom_data);
+
     // 检查产品是否有价格
     if (product.prices && product.prices.length > 0) {
       // 使用第一个价格的计费周期来确定是月度还是年度
       const billingInterval = product.prices[0].billing_cycle.interval;
       const planType = product.custom_data?.plan_type || 'basic';
 
+      console.log('产品:', product.name, '计费周期:', billingInterval, '计划类型:', planType);
+
       if (billingInterval === 'month') {
         if (planType === 'basic') {
           categorized.monthly.basic.push(product);
+          console.log('添加到 monthly.basic:', product.name);
         } else if (planType === 'pro') {
           categorized.monthly.pro.push(product);
+          console.log('添加到 monthly.pro:', product.name);
         }
       } else if (billingInterval === 'year') {
         if (planType === 'basic') {
           categorized.yearly.basic.push(product);
+          console.log('添加到 yearly.basic:', product.name);
         } else if (planType === 'pro') {
           categorized.yearly.pro.push(product);
+          console.log('添加到 yearly.pro:', product.name);
         }
       }
+    } else {
+      console.log('产品没有价格:', product.name);
     }
   });
 

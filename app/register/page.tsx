@@ -58,7 +58,7 @@ export default function RegisterPage() {
 
   // 验证密码
   const validatePassword = (password: string): boolean => {
-    const isValid = password.length >= 8;
+    const isValid = password.length >= 6;
     setPasswordError(isValid ? '' : t.passwordTooShort);
     return isValid;
   };
@@ -114,6 +114,8 @@ export default function RegisterPage() {
 
   // 处理获取验证码
   const handleGetCode = async () => {
+    console.log('Get code button clicked');
+
     if (!email) {
       setEmailError(t.emailRequired);
       return;
@@ -123,11 +125,13 @@ export default function RegisterPage() {
       return;
     }
 
+    console.log('Sending verification code to:', email);
     setCodeLoading(true);
     setError('');
 
     try {
       await authService.getVerificationCode(email, 'register');
+      console.log('Verification code sent successfully');
       setCodeSent(true);
       setSuccess(t.codeSent);
 
@@ -143,6 +147,7 @@ export default function RegisterPage() {
         });
       }, 1000);
     } catch (err: any) {
+      console.error('Failed to send verification code:', err);
       setError(err.message || t.codeSendError);
     } finally {
       setCodeLoading(false);
@@ -152,19 +157,24 @@ export default function RegisterPage() {
   // 处理注册
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log('Register button clicked');
 
     if (!validateForm()) {
+      console.log('Form validation failed');
       return;
     }
 
+    console.log('Form validation passed, starting registration...');
     setLoading(true);
     setError('');
     setSuccess('');
 
     try {
+      console.log('Calling authService.register with:', { email, password: '***', verificationCode });
       // 调用注册API
       await authService.register(email, password, verificationCode);
 
+      console.log('Registration successful');
       setSuccess(t.success);
 
       // 清空表单
@@ -179,6 +189,7 @@ export default function RegisterPage() {
         router.push('/login');
       }, 3000);
     } catch (err: any) {
+      console.error('Registration failed:', err);
       setError(err.message || t.error);
     } finally {
       setLoading(false);

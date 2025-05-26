@@ -3,12 +3,12 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import SimplePaddleButton from './SimplePaddleButton';
+import PriceDisplay from './PriceDisplay';
 import {
   PaddleProduct,
   fetchPaddleProducts,
   categorizeProducts,
-  CategorizedProducts,
-  formatPrice
+  CategorizedProducts
 } from '../services/paddleService';
 
 interface PricingSectionProps {
@@ -50,23 +50,7 @@ export default function PricingSection({ translations, langPath }: PricingSectio
     return null;
   };
 
-  // 获取格式化的价格显示
-  const getFormattedPrice = (product: PaddleProduct) => {
-    const price = getFirstPrice(product);
-    if (price) {
-      return formatPrice(price.unit_price.amount, price.unit_price.currency);
-    }
-    return '$0.00';
-  };
 
-  // 获取计费周期显示
-  const getBillingPeriod = (product: PaddleProduct) => {
-    const price = getFirstPrice(product);
-    if (price) {
-      return price.billing_cycle.interval === 'month' ? '/月' : '/年';
-    }
-    return '';
-  };
 
   // 将产品描述转换为功能列表
   const getFeaturesList = (description: string): string[] => {
@@ -130,11 +114,11 @@ export default function PricingSection({ translations, langPath }: PricingSectio
           <div className="text-gray-600 dark:text-gray-300 mb-6">
             {product.custom_data.plan_type === 'basic' ? t.plans.standard.desc : t.plans.pro.desc}
           </div>
-          <div className="text-4xl font-bold mb-6 dark:text-white">
-            {getFormattedPrice(product)}
-            <span className="text-base font-normal text-gray-600 dark:text-gray-300">
-              {getBillingPeriod(product)}
-            </span>
+          <div className="mb-6">
+            <PriceDisplay
+              priceId={priceId}
+              className="mb-2"
+            />
           </div>
 
           <ul className="space-y-3 mb-8">

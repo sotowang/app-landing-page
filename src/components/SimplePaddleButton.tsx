@@ -2,18 +2,19 @@
 
 import React, { useEffect, useState } from "react";
 import { paddleConfig } from "../config/appConfig";
+import authService from "../services/authService";
 
 /**
- * 简单的Paddle按钮组件 - 使用新版本的Paddle.js (v2)
+ * Simple Paddle button component - using Paddle.js v2
  *
- * @param productId - Paddle产品ID
- * @param text - 按钮显示文本，默认为"立即购买"
- * @param email - 用户的电子邮件地址，默认为"sotowang@qq.com"，将同时通过customer对象和customData传递给Paddle以便后台获取
+ * @param productId - Paddle product ID
+ * @param text - Button display text, defaults to "Buy Now"
+ * @param email - User's email address, automatically retrieved from logged-in user if not provided
  */
 export default function SimplePaddleButton({
   productId,
-  text = "立即购买",
-  email = "sotowang@qq.com"
+  text = "Buy Now",
+  email
 }: {
   productId: string,
   text?: string,
@@ -21,31 +22,68 @@ export default function SimplePaddleButton({
 }) {
   const [isReady, setIsReady] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [userEmail, setUserEmail] = useState<string>("");
+
+  // Get user email
+  useEffect(() => {
+    const getUserEmail = () => {
+      if (email) {
+        // If email parameter is provided, use it directly
+        setUserEmail(email);
+      } else {
+        // Otherwise get from logged-in user
+        const user = authService.getUser();
+        if (user && user.email) {
+          setUserEmail(user.email);
+          console.log("Retrieved email from logged-in user:", user.email);
+        } else {
+          console.warn("User email not found, please ensure user is logged in");
+          setUserEmail(""); // Set to empty string
+        }
+      }
+    };
+
+    getUserEmail();
+
+    // Listen for login state changes
+    const handleLoginStateChanged = () => {
+      console.log("Login state changed, retrieving user email again");
+      getUserEmail();
+    };
+
+    window.addEventListener('loginStateChanged', handleLoginStateChanged);
+    window.addEventListener('storage', handleLoginStateChanged);
+
+    return () => {
+      window.removeEventListener('loginStateChanged', handleLoginStateChanged);
+      window.removeEventListener('storage', handleLoginStateChanged);
+    };
+  }, [email]);
 
   useEffect(() => {
-    // 加载Paddle.js v2版本脚本
+    // Load Paddle.js v2 script
     const paddleScript = document.createElement("script");
     paddleScript.src = "https://cdn.paddle.com/paddle/v2/paddle.js";
     paddleScript.async = true;
     paddleScript.onload = () => {
       if (typeof window !== 'undefined' && window.Paddle) {
         try {
-          // 设置环境（沙盒或生产）
+          // Set environment (sandbox or production)
           if (paddleConfig.sandbox) {
-            console.log('设置Paddle环境为沙盒');
+            console.log('Setting Paddle environment to sandbox');
             window.Paddle.Environment.set('sandbox');
           }
-          console.log('当前token:', paddleConfig.clientToken);
+          console.log('Current token:', paddleConfig.clientToken);
 
-          // 初始化Paddle
+          // Initialize Paddle
           window.Paddle.Initialize({
             token: paddleConfig.clientToken
           });
 
           setIsReady(true);
-          console.log("Paddle初始化成功");
+          console.log("Paddle initialized successfully");
         } catch (error) {
-          console.error("Paddle初始化失败:", error);
+          console.error("Paddle initialization failed:", error);
         }
       }
     };
@@ -59,9 +97,11 @@ export default function SimplePaddleButton({
     };
   }, []);
 
+  // Price display is now handled by PriceDisplay component
+
   const handleClick = () => {
     if (!isReady || !window.Paddle) {
-      console.error("Paddle尚未准备好");
+      console.error("Paddle is not ready yet");
       return;
     }
 
@@ -77,26 +117,30 @@ export default function SimplePaddleButton({
         ],
         settings: {
           displayMode: "overlay",
-          theme: "light"
+          allowedPaymentMethods:['alipay','apple_pay','card','google_pay','ideal','paypal'],
         }
       };
 
-      // 添加customer信息，使用提供的email
-      checkoutOptions.customer = {
-        email: email
-      };
+      // Add customer information using retrieved user email
+      if (userEmail) {
+        checkoutOptions.customer = {
+          email: userEmail
+        };
 
-      // 同时在customData中添加email信息，以便后台可以获取
-      checkoutOptions.customData = {
-        user_email: email
-      };
+        // Also add email information in customData for backend access
+        checkoutOptions.customData = {
+          user_email: userEmail
+        };
 
-      console.log("使用用户email:", email);
+        console.log("Using user email:", userEmail);
+      } else {
+        console.warn("User email not found, will not pass user information to Paddle");
+      }
 
       window.Paddle.Checkout.open(checkoutOptions);
-      console.log("成功打开Paddle结账");
+      console.log("Successfully opened Paddle checkout");
     } catch (error) {
-      console.error("打开结账失败:", error);
+      console.error("Failed to open checkout:", error);
     } finally {
       setLoading(false);
     }
@@ -106,9 +150,9 @@ export default function SimplePaddleButton({
     <button
       onClick={handleClick}
       disabled={!isReady || loading}
-      className="bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg disabled:opacity-50 font-medium"
+      className="bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg disabled:opacity-50 font-medium w-full"
     >
-      {loading ? "处理中..." : !isReady ? "正在加载..." : text}
+      {loading ? "Processing..." : !isReady ? "Loading..." : text}
     </button>
   );
 }

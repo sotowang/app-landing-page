@@ -121,20 +121,6 @@ export default function Home() {
 
                   {showUserMenu && (
                     <div className="absolute right-0 mt-2 w-48 bg-gray-700 rounded-md shadow-lg py-1 z-10">
-                      <Link
-                        href="/profile"
-                        className="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-600"
-                        onClick={() => setShowUserMenu(false)}
-                      >
-                        Profile
-                      </Link>
-                      <Link
-                        href="/settings"
-                        className="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-600"
-                        onClick={() => setShowUserMenu(false)}
-                      >
-                        Settings
-                      </Link>
                       <button
                         onClick={handleLogout}
                         className="block w-full text-left px-4 py-2 text-sm text-gray-200 hover:bg-gray-600"
@@ -179,8 +165,6 @@ export default function Home() {
                       </svg>
                       <span className="max-w-[200px] truncate">{user.email}</span>
                     </div>
-                    <Link href="/profile" className="text-gray-300 hover:text-blue-400 pl-6">Profile</Link>
-                    <Link href="/settings" className="text-gray-300 hover:text-blue-400 pl-6">Settings</Link>
                     <button
                       onClick={handleLogout}
                       className="text-gray-300 hover:text-blue-400 text-left pl-6"

@@ -12,14 +12,12 @@ export const zhTranslations = {
     download: "下载",
     login: "登录",
     account: "我的账户",
-    profile: "个人资料",
-    settings: "设置",
     logout: "退出登录"
   },
 
-  // 英文语言切换按钮
+  // 英文语言切换按钮（已移除英文版本）
   switchLang: "English",
-  switchLangUrl: "/en",
+  switchLangUrl: "/",
 
   // 主页横幅区域
   hero: {
@@ -209,8 +207,12 @@ export const zhTranslations = {
       emailRequired: "请输入邮箱",
       emailInvalid: "请输入有效的邮箱",
       passwordRequired: "请输入密码",
+      passwordTooShort: "密码至少需要8个字符",
       passwordMismatch: "两次输入的密码不一致",
+      passwordsDoNotMatch: "两次输入的密码不一致",
+      confirmPasswordRequired: "请确认密码",
       codeRequired: "请输入验证码",
+      verificationCodeRequired: "请输入验证码",
       codeSent: "验证码已发送",
       codeSendError: "验证码发送失败"
     },
@@ -248,8 +250,6 @@ export const enTranslations = {
     download: "Download",
     login: "Login",
     account: "My Account",
-    profile: "Profile",
-    settings: "Settings",
     logout: "Logout"
   },
 
@@ -445,8 +445,12 @@ export const enTranslations = {
       emailRequired: "Email is required",
       emailInvalid: "Please enter a valid email",
       passwordRequired: "Password is required",
+      passwordTooShort: "Password must be at least 8 characters",
       passwordMismatch: "Passwords do not match",
+      passwordsDoNotMatch: "Passwords do not match",
+      confirmPasswordRequired: "Please confirm your password",
       codeRequired: "Verification code is required",
+      verificationCodeRequired: "Verification code is required",
       codeSent: "Verification code sent",
       codeSendError: "Failed to send verification code"
     },

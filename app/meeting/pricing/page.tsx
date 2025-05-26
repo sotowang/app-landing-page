@@ -5,6 +5,7 @@ import Link from 'next/link';
 import appConfig from '../../../src/config/appConfig';
 import authService from '../../../src/services/authService';
 import SimplePaddleButton from '../../../src/components/SimplePaddleButton';
+import PriceDisplay from '../../../src/components/PriceDisplay';
 
 // 定义产品和价格类型
 interface Price {
@@ -181,15 +182,7 @@ export default function PricingPage() {
     });
   };
 
-  // 格式化价格显示
-  const formatPrice = (amount: string, currency: string = 'USD') => {
-    const numericAmount = parseInt(amount, 10) / 100;
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: currency,
-      minimumFractionDigits: 2
-    }).format(numericAmount);
-  };
+
 
   // 从描述中提取功能列表
   const extractFeatures = (description: string): string[] => {
@@ -376,17 +369,24 @@ export default function PricingPage() {
                     : (basicAnnual?.description?.split('\n')[0] || 'Essential features for professionals')
                   }
                 </p>
-                <p className="mt-8">
-                  <span className="text-4xl font-extrabold text-white">
-                    {billingCycle === 'monthly'
-                      ? (basicMonthly?.prices[0] ? formatPrice(basicMonthly.prices[0].unit_price.amount) : '$9.99')
-                      : (basicAnnual?.prices[0] ? formatPrice(basicAnnual.prices[0].unit_price.amount) : 'N/A')
-                    }
-                  </span>
-                  <span className="text-base font-medium text-gray-300">
-                    {billingCycle === 'monthly' ? '/mo' : '/year'}
-                  </span>
-                </p>
+                <div className="mt-8">
+                  {(() => {
+                    const currentPlan = billingCycle === 'monthly' ? basicMonthly : basicAnnual;
+                    return currentPlan?.prices && currentPlan.prices.length > 0 ? (
+                      <PriceDisplay
+                        priceId={currentPlan.prices[0].id}
+                        className=""
+                      />
+                    ) : (
+                      <p>
+                        <span className="text-4xl font-extrabold text-white">N/A</span>
+                        <span className="text-base font-medium text-gray-300">
+                          {billingCycle === 'monthly' ? '/mo' : '/year'}
+                        </span>
+                      </p>
+                    );
+                  })()}
+                </div>
                 {billingCycle === 'annually' && basicAnnual && (
                   <p className="text-sm text-green-400 mt-2">
                     Save 20% compared to monthly billing
@@ -396,11 +396,21 @@ export default function PricingPage() {
                   <div className="mt-8">
                     {(() => {
                       const currentPlan = billingCycle === 'monthly' ? basicMonthly : basicAnnual;
+
+                      // 添加调试信息
+                      console.log('Basic Plan Debug Info:', {
+                        billingCycle,
+                        currentPlan: currentPlan?.name,
+                        priceId: currentPlan?.prices?.[0]?.id,
+                        priceAmount: currentPlan?.prices?.[0]?.unit_price?.amount,
+                        planType: currentPlan?.custom_data?.plan_type,
+                        billingInterval: currentPlan?.prices?.[0]?.billing_cycle?.interval
+                      });
+
                       return currentPlan?.prices && currentPlan.prices.length > 0 ? (
                         <SimplePaddleButton
                           productId={currentPlan.prices[0].id}
                           text="Subscribe"
-                          email={authService.getUser()?.email || ''}
                         />
                       ) : (
                         <button
@@ -457,17 +467,24 @@ export default function PricingPage() {
                     : (proAnnual?.description?.split('\n')[0] || 'Advanced features for teams')
                   }
                 </p>
-                <p className="mt-8">
-                  <span className="text-4xl font-extrabold text-white">
-                    {billingCycle === 'monthly'
-                      ? (proMonthly?.prices[0] ? formatPrice(proMonthly.prices[0].unit_price.amount) : '$19.99')
-                      : (proAnnual?.prices[0] ? formatPrice(proAnnual.prices[0].unit_price.amount) : 'N/A')
-                    }
-                  </span>
-                  <span className="text-base font-medium text-gray-300">
-                    {billingCycle === 'monthly' ? '/mo' : '/year'}
-                  </span>
-                </p>
+                <div className="mt-8">
+                  {(() => {
+                    const currentPlan = billingCycle === 'monthly' ? proMonthly : proAnnual;
+                    return currentPlan?.prices && currentPlan.prices.length > 0 ? (
+                      <PriceDisplay
+                        priceId={currentPlan.prices[0].id}
+                        className=""
+                      />
+                    ) : (
+                      <p>
+                        <span className="text-4xl font-extrabold text-white">N/A</span>
+                        <span className="text-base font-medium text-gray-300">
+                          {billingCycle === 'monthly' ? '/mo' : '/year'}
+                        </span>
+                      </p>
+                    );
+                  })()}
+                </div>
                 {billingCycle === 'annually' && proAnnual && (
                   <p className="text-sm text-green-400 mt-2">
                     Save 20% compared to monthly billing
@@ -486,7 +503,6 @@ export default function PricingPage() {
                         <SimplePaddleButton
                           productId={currentPlan.prices[0].id}
                           text="Subscribe"
-                          email={authService.getUser()?.email || ''}
                         />
                       ) : (
                         <button

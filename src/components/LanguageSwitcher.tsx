@@ -5,16 +5,18 @@ import Link from 'next/link';
 
 export default function LanguageSwitcher() {
   const pathname = usePathname();
-  const isEnglish = pathname.startsWith('/en');
-  const targetLocale = isEnglish ? 'zh' : 'en';
-  const targetPath = isEnglish ? pathname.replace(/^\/en/, '') : pathname.replace(/^\/zh/, '');
+  const isChinese = pathname.startsWith('/zh');
+
+  // 如果当前是中文页面，切换到英文（根目录）
+  // 如果当前是英文页面（根目录），切换到中文
+  const targetPath = isChinese ? pathname.replace(/^\/zh/, '') || '/' : `/zh${pathname}`;
 
   return (
-    <Link 
-      href={`/${targetLocale}${targetPath || ''}`} 
+    <Link
+      href={targetPath}
       className="text-sm hover:text-blue-600 transition"
     >
-      {isEnglish ? '中文' : 'English'}
+      {isChinese ? 'English' : '中文'}
     </Link>
   );
-} 
+}
