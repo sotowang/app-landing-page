@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { paddleConfig } from "../config/appConfig";
+import { getPaddleConfig } from "../config/appConfig";
 
 /**
  * Price Display Component - Shows localized pricing for user's region
@@ -29,6 +29,9 @@ export default function PriceDisplay({
     paddleScript.onload = () => {
       if (typeof window !== 'undefined' && window.Paddle) {
         try {
+          // Get dynamic configuration
+          const paddleConfig = getPaddleConfig();
+
           // Set environment (sandbox or production)
           if (paddleConfig.sandbox) {
             console.log('Setting Paddle environment to sandbox');
@@ -41,7 +44,9 @@ export default function PriceDisplay({
             sandbox: paddleConfig.sandbox,
             vendorId: paddleConfig.vendorId,
             tokenLength: paddleConfig.clientToken?.length,
-            tokenPrefix: paddleConfig.clientToken?.substring(0, 10) + '...'
+            tokenPrefix: paddleConfig.clientToken?.substring(0, 10) + '...',
+            env: process.env.NEXT_PUBLIC_APP_ENV,
+            nodeEnv: process.env.NODE_ENV
           });
 
           // Initialize Paddle

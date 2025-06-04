@@ -1,9 +1,13 @@
 "use client";
 
 import React from 'react';
-import { paddleConfig, appConfig } from '../../src/config/appConfig';
+import { getPaddleConfig, getAppConfig } from '../../src/config/appConfig';
 
 export default function DebugPage() {
+  // Get dynamic configuration
+  const paddleConfig = getPaddleConfig();
+  const appConfig = getAppConfig();
+
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8">Debug Configuration</h1>
@@ -102,10 +106,17 @@ export default function DebugPage() {
           <button 
             onClick={() => {
               if (typeof window !== 'undefined') {
+                // Get fresh configuration
+                const currentPaddleConfig = getPaddleConfig();
                 console.log('Testing Paddle initialization...');
-                console.log('Token:', paddleConfig.clientToken);
-                console.log('Sandbox:', paddleConfig.sandbox);
-                
+                console.log('Token:', currentPaddleConfig.clientToken);
+                console.log('Sandbox:', currentPaddleConfig.sandbox);
+                console.log('Environment variables:', {
+                  NEXT_PUBLIC_APP_ENV: process.env.NEXT_PUBLIC_APP_ENV,
+                  NODE_ENV: process.env.NODE_ENV,
+                  NEXT_PUBLIC_PADDLE_CLIENT_TOKEN: process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN?.substring(0, 10) + '...'
+                });
+
                 // Load Paddle script
                 const script = document.createElement('script');
                 script.src = 'https://cdn.paddle.com/paddle/v2/paddle.js';
@@ -114,11 +125,11 @@ export default function DebugPage() {
                   console.log('Paddle script loaded');
                   if (window.Paddle) {
                     try {
-                      if (paddleConfig.sandbox) {
+                      if (currentPaddleConfig.sandbox) {
                         window.Paddle.Environment.set('sandbox');
                       }
                       window.Paddle.Initialize({
-                        token: paddleConfig.clientToken
+                        token: currentPaddleConfig.clientToken
                       });
                       console.log('Paddle initialized successfully');
                       alert('Paddle initialized successfully!');

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { paddleConfig } from "../config/appConfig";
+import { getPaddleConfig } from "../config/appConfig";
 import authService from "../services/authService";
 
 /**
@@ -68,6 +68,9 @@ export default function SimplePaddleButton({
     paddleScript.onload = () => {
       if (typeof window !== 'undefined' && window.Paddle) {
         try {
+          // Get dynamic configuration
+          const paddleConfig = getPaddleConfig();
+
           // Set environment (sandbox or production)
           if (paddleConfig.sandbox) {
             console.log('Setting Paddle environment to sandbox');
