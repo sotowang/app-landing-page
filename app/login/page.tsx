@@ -25,6 +25,7 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [autoRedirecting, setAutoRedirecting] = useState(false);
 
   // 表单验证状态
   const [emailError, setEmailError] = useState('');
@@ -211,7 +212,62 @@ export default function LoginPage() {
       responseType,
       isDesktopLogin
     });
-  }, [redirectUri, clientId, state, responseType, isDesktopLogin]);
+
+    // 检查用户是否已经登录
+    const checkExistingLogin = () => {
+      if (authService.isLoggedIn()) {
+        console.log('User is already logged in, checking if desktop login...');
+
+        // 如果是桌面应用登录且用户已登录，直接重定向
+        if (isDesktopLogin && redirectUri) {
+          console.log('Desktop login detected with existing login, redirecting...');
+
+          // 使用现有的token作为授权码
+          const existingToken = authService.getToken();
+          if (existingToken) {
+            setAutoRedirecting(true);
+            setSuccess('Already logged in! Redirecting to desktop application...');
+
+            // 构建重定向URL
+            let redirectUrl = `${redirectUri}?code=${existingToken}`;
+
+            // 添加原始请求中的参数
+            if (state) {
+              redirectUrl += `&state=${state}`;
+            }
+            if (responseType) {
+              redirectUrl += `&response_type=${responseType}`;
+            }
+            if (clientId) {
+              redirectUrl += `&client_id=${clientId}`;
+            }
+
+            console.log('Auto-redirecting to desktop app:', redirectUrl);
+
+            // 自动重定向到桌面应用
+            setTimeout(() => {
+              window.open(redirectUrl, '_blank');
+              // 同时重定向当前页面到首页
+              setTimeout(() => {
+                router.push('/');
+              }, 500);
+            }, 1500);
+          }
+        } else {
+          // 普通web登录且已登录，重定向到首页
+          console.log('Web login detected with existing login, redirecting to home...');
+          setAutoRedirecting(true);
+          setSuccess('Already logged in! Redirecting to home page...');
+          setTimeout(() => {
+            router.push('/');
+          }, 1000);
+        }
+      }
+    };
+
+    // 延迟检查，确保组件完全挂载
+    setTimeout(checkExistingLogin, 100);
+  }, [redirectUri, clientId, state, responseType, isDesktopLogin, router]);
 
   // 如果组件尚未挂载，返回一个简单的加载状态
   if (!mounted) {
@@ -232,9 +288,14 @@ export default function LoginPage() {
         <h2 className="mt-6 text-center text-3xl font-extrabold text-white">
           {t.title}
         </h2>
-        {isDesktopLogin ? (
+        {isDesktopLogin && !autoRedirecting ? (
           <p className="mt-2 text-center text-sm text-gray-300">
             Login to connect to MeetingGPT desktop application
+          </p>
+        ) : null}
+        {autoRedirecting ? (
+          <p className="mt-2 text-center text-sm text-gray-300">
+            {isDesktopLogin ? 'Connecting to desktop application...' : 'Redirecting to home page...'}
           </p>
         ) : null}
       </div>
@@ -253,7 +314,16 @@ export default function LoginPage() {
             </div>
           ) : null}
 
-          <form className="space-y-6" onSubmit={handleLogin}>
+          {autoRedirecting ? (
+            <div className="text-center py-8">
+              <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mb-4"></div>
+              <p className="text-gray-300">
+                {isDesktopLogin ? 'Connecting to desktop application...' : 'Redirecting...'}
+              </p>
+            </div>
+          ) : (
+            <>
+              <form className="space-y-6" onSubmit={handleLogin}>
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-200">
                 {t.email}
@@ -307,7 +377,10 @@ export default function LoginPage() {
             </div>
 
             <div className="flex items-center justify-between">
-              <Link href="/reset-password" className="text-sm font-medium text-blue-400 hover:text-blue-300">
+              <Link
+                href={`/reset-password${searchParams.toString() ? `?${searchParams.toString()}` : ''}`}
+                className="text-sm font-medium text-blue-400 hover:text-blue-300"
+              >
                 {t.forgotPassword}
               </Link>
             </div>
@@ -340,12 +413,14 @@ export default function LoginPage() {
 
           <div className="mt-6">
             <Link
-              href="/register"
+              href={`/register${searchParams.toString() ? `?${searchParams.toString()}` : ''}`}
               className="w-full flex justify-center py-2 px-4 border border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-200 bg-gray-700 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >
               {t.register}
             </Link>
           </div>
+              </>
+            )}
         </div>
       </div>
     </div>

@@ -1,13 +1,14 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { enTranslations } from '../../src/translations';
 import authService from '../../src/services/authService';
 
 export default function RegisterPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const t = enTranslations.auth.register || {
     title: 'Create an Account',
     email: 'Email address',
@@ -184,9 +185,10 @@ export default function RegisterPage() {
       setVerificationCode('');
       setCodeSent(false);
 
-      // 注册成功后，延迟一段时间后重定向到登录页面
+      // 注册成功后，延迟一段时间后重定向到登录页面，携带原始URL参数
       setTimeout(() => {
-        router.push('/login');
+        const loginUrl = `/login${searchParams.toString() ? `?${searchParams.toString()}` : ''}`;
+        router.push(loginUrl);
       }, 3000);
     } catch (err: any) {
       console.error('Registration failed:', err);
@@ -383,7 +385,10 @@ export default function RegisterPage() {
           </div>
 
           <div className="mt-6 text-center">
-            <Link href="/login" className="text-sm font-medium text-blue-400 hover:text-blue-300">
+            <Link
+              href={`/login${searchParams.toString() ? `?${searchParams.toString()}` : ''}`}
+              className="text-sm font-medium text-blue-400 hover:text-blue-300"
+            >
               {t.login}
             </Link>
           </div>
