@@ -30,8 +30,25 @@ interface AppConfig {
 function getConfig(): AppConfig {
   const env = process.env.NEXT_PUBLIC_APP_ENV || process.env.NODE_ENV || 'development';
 
+  // Debug: 输出环境信息
+  console.log('getConfig - Environment detection:', {
+    NEXT_PUBLIC_APP_ENV: process.env.NEXT_PUBLIC_APP_ENV,
+    NODE_ENV: process.env.NODE_ENV,
+    finalEnv: env,
+    isProduction: env === 'production'
+  });
+
   // 动态创建配置，确保在运行时读取环境变量
   if (env === 'production') {
+    // Debug: 输出生产环境变量
+    console.log('getConfig - Production environment variables:', {
+      NEXT_PUBLIC_PADDLE_CLIENT_TOKEN: process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN ?
+        `${process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN.substring(0, 10)}...` : 'undefined',
+      NEXT_PUBLIC_PADDLE_SANDBOX: process.env.NEXT_PUBLIC_PADDLE_SANDBOX,
+      NEXT_PUBLIC_PADDLE_VENDOR_ID: process.env.NEXT_PUBLIC_PADDLE_VENDOR_ID,
+      NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL
+    });
+
     return {
       paddle: {
         clientToken: process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN || '', // 生产环境token
@@ -46,6 +63,15 @@ function getConfig(): AppConfig {
       }
     };
   } else {
+    // Debug: 输出开发环境变量
+    console.log('getConfig - Development environment variables:', {
+      NEXT_PUBLIC_PADDLE_CLIENT_TOKEN: process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN ?
+        `${process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN.substring(0, 10)}...` : 'undefined',
+      NEXT_PUBLIC_PADDLE_SANDBOX: process.env.NEXT_PUBLIC_PADDLE_SANDBOX,
+      NEXT_PUBLIC_PADDLE_VENDOR_ID: process.env.NEXT_PUBLIC_PADDLE_VENDOR_ID,
+      NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL
+    });
+
     return {
       paddle: {
         clientToken: process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN || 'test_4e523c871a7228eca4b1c697774', // Sandbox环境token
