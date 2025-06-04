@@ -47,7 +47,7 @@ const PROD_CONFIG: AppConfig = {
     vendorId: parseInt(process.env.NEXT_PUBLIC_PADDLE_VENDOR_ID || '223419'), // 生产环境的vendorId
   },
   api: {
-    baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL || 'https://20280101.xyz', // 生产环境API基础URL
+    baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL || 'https://meeting.20280101.xyz', // 生产环境API基础URL
     endpoints: {
       paddleProducts: '/api/v1/paddle/products'
     }
