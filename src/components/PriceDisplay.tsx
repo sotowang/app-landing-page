@@ -4,10 +4,10 @@ import React, { useEffect, useState } from "react";
 import { paddleConfig } from "../config/appConfig";
 
 /**
- * 价格显示组件 - 显示用户所在地区的本地化价格
+ * Price Display Component - Shows localized pricing for user's region
  *
- * @param priceId - Paddle价格ID
- * @param className - 自定义CSS类名
+ * @param priceId - Paddle price ID
+ * @param className - Custom CSS class name
  */
 export default function PriceDisplay({
   priceId,
@@ -22,40 +22,49 @@ export default function PriceDisplay({
   const [error, setError] = useState<string>("");
 
   useEffect(() => {
-    // 加载Paddle.js v2版本脚本
+    // Load Paddle.js v2 script
     const paddleScript = document.createElement("script");
     paddleScript.src = "https://cdn.paddle.com/paddle/v2/paddle.js";
     paddleScript.async = true;
     paddleScript.onload = () => {
       if (typeof window !== 'undefined' && window.Paddle) {
         try {
-          // 设置环境（沙盒或生产）
+          // Set environment (sandbox or production)
           if (paddleConfig.sandbox) {
-            console.log('设置Paddle环境为沙盒');
+            console.log('Setting Paddle environment to sandbox');
             window.Paddle.Environment.set('sandbox');
           }
 
-          // 初始化Paddle
+          // Debug: Log configuration
+          console.log('PriceDisplay - Paddle configuration:', {
+            token: paddleConfig.clientToken,
+            sandbox: paddleConfig.sandbox,
+            vendorId: paddleConfig.vendorId,
+            tokenLength: paddleConfig.clientToken?.length,
+            tokenPrefix: paddleConfig.clientToken?.substring(0, 10) + '...'
+          });
+
+          // Initialize Paddle
           window.Paddle.Initialize({
             token: paddleConfig.clientToken
           });
 
           setIsReady(true);
-          console.log("Paddle初始化成功");
+          console.log("Paddle initialized successfully");
 
-          // 获取本地化价格
+          // Get localized price
           getLocalizedPrice();
         } catch (error) {
-          console.error("Paddle初始化失败:", error);
-          setError("初始化失败");
+          console.error("Paddle initialization failed:", error);
+          setError("Initialization failed");
           setLoading(false);
         }
       }
     };
 
     paddleScript.onerror = () => {
-      console.error("Paddle脚本加载失败");
-      setError("脚本加载失败");
+      console.error("Paddle script loading failed");
+      setError("Script loading failed");
       setLoading(false);
     };
 
@@ -68,7 +77,7 @@ export default function PriceDisplay({
     };
   }, []);
 
-  // 当priceId改变时重新获取价格
+  // Re-fetch price when priceId changes
   useEffect(() => {
     if (isReady && priceId) {
       setLoading(true);
@@ -77,7 +86,7 @@ export default function PriceDisplay({
     }
   }, [priceId, isReady]);
 
-  // 获取本地化价格
+  // Get localized price
   const getLocalizedPrice = async () => {
     if (!window.Paddle || !priceId) {
       setLoading(false);
@@ -85,7 +94,7 @@ export default function PriceDisplay({
     }
 
     try {
-      console.log("获取本地化价格，priceId:", priceId);
+      console.log("Getting localized price, priceId:", priceId);
 
       const request = {
         items: [{
@@ -95,29 +104,29 @@ export default function PriceDisplay({
       };
 
       const result = await window.Paddle.PricePreview(request);
-      console.log("价格预览结果:", result);
+      console.log("Price preview result:", result);
 
       if (result && result.data && result.data.details && result.data.details.lineItems && result.data.details.lineItems.length > 0) {
         const lineItem = result.data.details.lineItems[0];
 
-        // 优先使用含税的总价格，如果没有则使用不含税价格
+        // Prioritize total price with tax, fallback to price without tax
         const formattedPrice = lineItem.formattedTotals?.total ||
                               lineItem.formattedUnitTotals?.total ||
                               lineItem.formattedTotals?.subtotal ||
                               lineItem.formattedUnitTotals?.subtotal;
 
-        // 尝试从不同位置获取货币代码
+        // Try to get currency code from different locations
         const currencyCode = result.data.details.currencyCode ||
                            result.data.currencyCode ||
                            lineItem.price?.currency ||
                            "USD";
 
-        // 尝试获取国家代码
+        // Try to get country code
         const detectedCountry = result.data.details.address?.countryCode ||
                               result.data.address?.countryCode ||
                               "";
 
-        console.log("PriceDisplay - 价格信息:", {
+        console.log("PriceDisplay - Price info:", {
           formattedPrice,
           subtotal: lineItem.formattedTotals?.subtotal,
           total: lineItem.formattedTotals?.total,
@@ -129,16 +138,16 @@ export default function PriceDisplay({
 
         if (formattedPrice) {
           setLocalizedPrice(formattedPrice);
-          console.log("PriceDisplay - 设置本地化价格（含税）:", formattedPrice, "货币:", currencyCode, "国家:", detectedCountry);
+          console.log("PriceDisplay - Set localized price (with tax):", formattedPrice, "Currency:", currencyCode, "Country:", detectedCountry);
         } else {
-          setError("无法获取价格信息");
+          setError("Unable to get price information");
         }
       } else {
-        setError("价格数据格式错误");
+        setError("Price data format error");
       }
     } catch (error) {
-      console.error("获取本地化价格失败:", error);
-      setError("获取价格失败");
+      console.error("Failed to get localized price:", error);
+      setError("Failed to get price");
     } finally {
       setLoading(false);
     }
@@ -157,7 +166,7 @@ export default function PriceDisplay({
   if (error) {
     return (
       <div className={`text-center text-red-500 ${className}`}>
-        <div className="text-lg font-semibold">价格加载失败</div>
+        <div className="text-lg font-semibold">Price Loading Failed</div>
         <div className="text-sm">{error}</div>
       </div>
     );
@@ -166,7 +175,7 @@ export default function PriceDisplay({
   if (!localizedPrice) {
     return (
       <div className={`text-center text-gray-500 ${className}`}>
-        <div className="text-lg font-semibold">价格不可用</div>
+        <div className="text-lg font-semibold">Price Unavailable</div>
       </div>
     );
   }
