@@ -53,7 +53,7 @@ function getConfig(): AppConfig {
       paddle: {
         clientToken: process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN || '', // 生产环境token
         sandbox: process.env.NEXT_PUBLIC_PADDLE_SANDBOX === 'true', // 默认为false
-        vendorId: parseInt(process.env.NEXT_PUBLIC_PADDLE_VENDOR_ID || '223419'), // 生产环境的vendorId
+        vendorId: parseInt(process.env.NEXT_PUBLIC_PADDLE_VENDOR_ID || '-1'), // 生产环境的vendorId
       },
       api: {
         baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL || 'https://meeting.20280101.xyz', // 生产环境API基础URL
