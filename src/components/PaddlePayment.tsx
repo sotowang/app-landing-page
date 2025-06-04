@@ -96,10 +96,8 @@ export default function PaddlePayment({
       // 添加到容器
       buttonContainer.appendChild(buttonElement);
 
-      // 注册Paddle按钮
-      if (window.Paddle.Buttons) {
-        window.Paddle.Buttons.initialize();
-      }
+      // Paddle v2 不需要手动初始化按钮
+      // 按钮会自动渲染
     }
   };
 
