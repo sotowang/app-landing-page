@@ -8,6 +8,9 @@ export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://127.
 // Paddle产品API URL
 export const PADDLE_PRODUCTS_API_URL = `${API_BASE_URL}/api/v1/paddle/products?include_prices=true`;
 
+// 版本信息API URL
+export const VERSION_API_URL = `${API_BASE_URL}/api/v1/version/latest`;
+
 // Paddle配置
 export const PADDLE_CONFIG = {
   clientToken: process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN || 'test_4e523c871a7228eca4b1c697774',

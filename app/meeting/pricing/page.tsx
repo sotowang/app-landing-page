@@ -202,10 +202,14 @@ export default function PricingPage() {
 
             <nav className="hidden md:flex space-x-6">
               <Link href="/" className="text-gray-300 hover:text-blue-400">Home</Link>
-              <Link href="/#features" className="text-gray-300 hover:text-blue-400">Features</Link>
               <Link href="/meeting/pricing" className="text-blue-400 font-semibold">Pricing</Link>
-              <Link href="/terms" className="text-gray-300 hover:text-blue-400">Terms</Link>
-              <Link href="/privacy" className="text-gray-300 hover:text-blue-400">Privacy Policy</Link>
+              <div className="relative group">
+                <span className="text-gray-300 hover:text-blue-400 cursor-pointer">About</span>
+                <div className="absolute left-0 mt-2 w-48 bg-gray-700 rounded-md shadow-lg py-1 z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                  <Link href="/terms" className="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-600">Terms</Link>
+                  <Link href="/privacy" className="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-600">Privacy Policy</Link>
+                </div>
+              </div>
             </nav>
 
             <div className="flex items-center space-x-4">

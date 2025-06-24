@@ -3,12 +3,15 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import authService from '../src/services/authService';
+import { fetchVersionInfo } from '../src/services/versionService';
+import { VersionInfo } from '../src/types/version';
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState<{ email: string } | null>(null);
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const [versionInfo, setVersionInfo] = useState<VersionInfo | null>(null);
 
   // 检查用户是否已登录
   useEffect(() => {
@@ -34,6 +37,9 @@ export default function Home() {
     // 初始检查
     checkAuth();
 
+    // 获取版本信息
+    loadVersionInfo();
+
     // 监听存储变化
     const handleStorageChange = () => {
       console.log('Storage event detected');
@@ -56,6 +62,39 @@ export default function Home() {
       window.removeEventListener('loginStateChanged', handleLoginStateChanged);
     };
   }, []);
+
+  // 加载版本信息
+  const loadVersionInfo = async () => {
+    try {
+      const info = await fetchVersionInfo();
+      setVersionInfo(info);
+    } catch (error) {
+      console.error('获取版本信息失败:', error);
+    }
+  };
+
+  // 处理下载
+  const handleDownload = (platform: 'macos' | 'windows') => {
+    const downloadUrl = versionInfo?.download_urls[platform];
+    if (downloadUrl && downloadUrl.trim() !== '') {
+      window.open(downloadUrl, '_blank');
+    }
+  };
+
+  // 格式化日期为本机时间
+  const formatDate = (dateString: string) => {
+    try {
+      return new Date(dateString).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    } catch {
+      return dateString;
+    }
+  };
 
   // 处理登出
   const handleLogout = () => {
@@ -80,10 +119,14 @@ export default function Home() {
             {/* Desktop Navigation */}
             <nav className="hidden md:flex space-x-6">
               <Link href="/" className="text-gray-300 hover:text-blue-400">Home</Link>
-              <Link href="#features" className="text-gray-300 hover:text-blue-400">Features</Link>
               <Link href="/pricing" className="text-gray-300 hover:text-blue-400">Pricing</Link>
-              <Link href="/terms" className="text-gray-300 hover:text-blue-400">Terms</Link>
-              <Link href="/privacy" className="text-gray-300 hover:text-blue-400">Privacy</Link>
+              <div className="relative group">
+                <span className="text-gray-300 hover:text-blue-400 cursor-pointer">About</span>
+                <div className="absolute left-0 mt-2 w-48 bg-gray-700 rounded-md shadow-lg py-1 z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                  <Link href="/terms" className="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-600">Terms</Link>
+                  <Link href="/privacy" className="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-600">Privacy Policy</Link>
+                </div>
+              </div>
             </nav>
 
             {/* Mobile menu button */}
@@ -152,10 +195,10 @@ export default function Home() {
             <div className="md:hidden mt-4 pb-4">
               <nav className="flex flex-col space-y-3">
                 <Link href="/" className="text-gray-300 hover:text-blue-400">Home</Link>
-                <Link href="#features" className="text-gray-300 hover:text-blue-400">Features</Link>
                 <Link href="/pricing" className="text-gray-300 hover:text-blue-400">Pricing</Link>
-                <Link href="/terms" className="text-gray-300 hover:text-blue-400">Terms</Link>
-                <Link href="/privacy" className="text-gray-300 hover:text-blue-400">Privacy</Link>
+                <span className="text-gray-400 text-sm font-medium">About</span>
+                <Link href="/terms" className="text-gray-300 hover:text-blue-400 pl-4">Terms</Link>
+                <Link href="/privacy" className="text-gray-300 hover:text-blue-400 pl-4">Privacy Policy</Link>
 
                 {isLoggedIn && user ? (
                   <>
@@ -321,25 +364,46 @@ export default function Home() {
             <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
               Download MeetingGPT now and start experiencing the intelligent meeting assistant!
             </p>
+
+            {/* 版本信息 */}
+            {versionInfo && (
+              <div className="mb-8 p-4 bg-gray-800 rounded-lg max-w-2xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                  <div>
+                    <span className="text-gray-400">Version:</span>
+                    <span className="ml-2 text-white font-medium">{versionInfo.version}</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-400">Released:</span>
+                    <span className="ml-2 text-white font-medium">{formatDate(versionInfo.release_date)}</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-400">Update Log:</span>
+                    <span className="ml-2 text-white font-medium">{versionInfo.update_log}</span>
+                  </div>
+                </div>
+              </div>
+            )}
+
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Link
-                href="#"
+              <button
+                onClick={() => handleDownload('windows')}
                 className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
               >
                 <svg className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
                 Download for Windows
-              </Link>
-              <Link
-                href="#"
+              </button>
+              <button
+                onClick={() => handleDownload('macos')}
                 className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
               >
                 <svg className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
                 Download for macOS
-              </Link>
+              </button>
             </div>
           </div>
         </div>
@@ -361,11 +425,6 @@ export default function Home() {
                 <li>
                   <Link href="/" className="text-gray-400 hover:text-white transition">
                     Home
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#features" className="text-gray-400 hover:text-white transition">
-                    Features
                   </Link>
                 </li>
                 <li>

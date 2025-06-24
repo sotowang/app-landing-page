@@ -15,6 +15,7 @@ interface ApiConfig {
   baseUrl: string;
   endpoints: {
     paddleProducts: string;
+    version: string;
   };
 }
 
@@ -58,7 +59,8 @@ function getConfig(): AppConfig {
       api: {
         baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL || 'https://meeting.20280101.xyz', // 生产环境API基础URL
         endpoints: {
-          paddleProducts: '/api/v1/paddle/products'
+          paddleProducts: '/api/v1/paddle/products',
+          version: '/api/v1/version/latest'
         }
       }
     };
@@ -81,7 +83,8 @@ function getConfig(): AppConfig {
       api: {
         baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL || 'http://127.0.0.1:8082',
         endpoints: {
-          paddleProducts: '/api/v1/paddle/products'
+          paddleProducts: '/api/v1/paddle/products',
+          version: '/api/v1/version/latest'
         }
       }
     };
@@ -113,6 +116,11 @@ export function getApiUrl(endpoint: keyof AppConfig['api']['endpoints']): string
 // 辅助函数：获取Paddle产品API URL
 export function getPaddleProductsApiUrl(includePrice: boolean = true): string {
   return `${getApiUrl('paddleProducts')}${includePrice ? '?include_prices=true' : ''}`;
+}
+
+// 辅助函数：获取版本信息API URL
+export function getVersionApiUrl(): string {
+  return getApiUrl('version');
 }
 
 export default appConfig;
